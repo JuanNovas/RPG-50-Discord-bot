@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 
 from  cogs.commands.pong import ping
-
+from cogs.commands.create_character import create
 # Cargar variables de entorno desde el archivo .env
 load_dotenv()
 
@@ -26,6 +26,7 @@ async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
 
 bot.add_command(ping)
+bot.add_command(create)
 
 # Iniciar el bot
 bot.run(TOKEN)
