@@ -32,6 +32,7 @@ async def load(folder):
 # Evento de inicio del bot
 @bot.event
 async def on_ready():
+    await load_extensions()
     print(f'{bot.user.name} has connected to Discord!')
 
 # Iniciar el bot
