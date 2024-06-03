@@ -7,7 +7,6 @@ class Create(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-# test
     @commands.command(name="create")
     async def create(self, ctx):
         
