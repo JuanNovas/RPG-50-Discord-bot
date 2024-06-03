@@ -34,8 +34,6 @@ async def load(folder):
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
 
-bot.add_command(ping)
-
 # Iniciar el bot
 bot.run(TOKEN)
 
