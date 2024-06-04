@@ -39,7 +39,7 @@ class Combat(commands.Cog):
         await message.edit(embed=self.create_combat_embed(user, enemy, description=combat_description))
 
         if not enemy.is_alive():
-            combat_description += f"`\n{user.name} wins!`"
+            combat_description += f"`{user.name} wins!`\n"
 
         message = enemy.do_attack(user)
         combat_description += f"`{message}`\n"
