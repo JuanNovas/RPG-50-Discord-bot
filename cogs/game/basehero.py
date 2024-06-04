@@ -24,7 +24,7 @@ class BaseHero():
         crit = False
         
         damage = round((((self.attack**1.5) * power) / (self.attack + enemy.defense + 10)) * random.uniform(0.8, 1))
-        if random.random() >= CRIT_CHANCE:
+        if random.random() <= CRIT_CHANCE:
             damage *= 2
             crit = True
         enemy.hp -= damage

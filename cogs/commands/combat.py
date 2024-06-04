@@ -23,25 +23,29 @@ class Combat(commands.Cog):
     async def perform_action(self, ctx, user, enemy, action_name):
         functions = {
             "Attack" : user.do_attack,
+            "Weapon attack" : user.weapon_attack,
             "Heal" : user.heal
             # add functions here
         }
 
         action_function = functions.get(action_name)
         combat_description = f"`{user.name} used {action_name}!`\n"
-        if action_function(enemy):
-            combat_description += f"`{user.name} succesfully performed {action_name}!`\n"
+        if message := action_function(enemy):
+            combat_description += f"`{message}`\n"
         else: 
             combat_description += f"`{user.name} attempted to perform {action_name} but failed!`\n"
 
         message = await ctx.channel.fetch_message(self.message.id)
         await message.edit(embed=self.create_combat_embed(user, enemy, description=combat_description))
 
-        enemy_damage = enemy.do_attack(user)
-        combat_description += f"`{enemy.name} attacked {user.name} and dealt {enemy_damage} damage!`\n"
+        if not enemy.is_alive():
+            combat_description += f"`\n{user.name} wins!`"
+
+        message = enemy.do_attack(user)
+        combat_description += f"`{message}`\n"
 
         if not user.is_alive():
-            combat_description += f"\n{enemy.name} wins!"
+            combat_description += f"`\n{enemy.name} wins!`"
 
         message = await ctx.channel.fetch_message(self.message.id)
         await message.edit(embed=self.create_combat_embed(user, enemy, description=combat_description))
@@ -61,7 +65,7 @@ class Combat(commands.Cog):
             await interaction.response.defer()
             await self.perform_action(self.message, user, enemy, action_name)
 
-        actions = ["Attack", "Heal"]
+        actions = ["Attack", "Weapon attack", "Heal"]
 
         for action in actions:
             button = Button(label=action, style=ButtonStyle.primary)
