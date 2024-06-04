@@ -28,10 +28,33 @@ class BaseHero():
             damage *= 2
             crit = True
         enemy.hp -= damage
-        return damage, crit
+        
+        if crit:
+            message = f"{self.name} dealt a critical hit dealing {damage} damage to {enemy.name}"
+        else:
+            message = f"{self.name} dealt {damage} damage to {enemy.name}"
+        return message
     
     def is_alive(self):
         return self.hp > 0
     
-    def equip(self, weapon):
+    def weapon_attack(self):
         pass
+    
+    def equip(self, weapon):
+        self.attack += weapon.plain["attack"]
+        self.magic += weapon.plain["magic"]
+        self.defense += weapon.plain["defense"]
+        self.magic_resistance += weapon.plain["magic_resistance"]
+        self.max_mana += weapon.plain["max_mana"]
+        
+        
+        self.attack *= (1 + weapon.multi["attack"])
+        self.magic *= (1 + weapon.multi["magic"])
+        self.defense *= (1 + weapon.multi["defense"])
+        self.magic_resistance *= (1 + weapon.multi["magic_resistance"])
+        self.max_mana *= (1 + weapon.multi["max_mana"])
+        
+        self.mana = self.max_mana
+        
+        self.weapon_attack = weapon.custom_attack

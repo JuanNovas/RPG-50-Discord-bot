@@ -5,6 +5,7 @@ from discord import ButtonStyle
 import asyncio
 from cogs.game.characters import UserDummy
 from cogs.game.enemies import EnemyDummy
+from cogs.game.weapons import WeaponKnife
 
 class Combat(commands.Cog):
     def __init__(self, bot):
@@ -14,6 +15,7 @@ class Combat(commands.Cog):
     async def fight(self, ctx):
         user = UserDummy()
         enemy = EnemyDummy()
+        user.equip(WeaponKnife())
 
         def create_combat_embed(description="Choose your action:"):
             embed = Embed(title="COMBAT!", description=description, color=0xADD8E6)
@@ -54,12 +56,11 @@ class Combat(commands.Cog):
             await interaction.edit_original_response(embed=embed, view=view)
 
         # Healing option
-
         async def heal_callback(interaction):
             if interaction.user != ctx.author:
                 return
 
-            if user.heal():
+            if user.heal(enemy):
                 combat_description = f"`{user.name} healed for 10 HP!`\n"
             else:
                 combat_description = f"`{user.name} tried to heal but didn't have enough mana!`\n"

@@ -13,7 +13,7 @@ class UserDummy(BaseHero):
         self.max_mana = 100
         self.mana = self.max_mana
         
-    def heal(self):
+    def heal(self, *args):
         COST = 10
         HP_HEAL = 10
         if self.mana >= COST:
@@ -22,6 +22,8 @@ class UserDummy(BaseHero):
             if self.hp > self.max_hp:
                 self.hp = self.max_hp
                 
-            return True
+            message = f"{self.name} healed up to {self.hp} HP"
         else:
             return False
+        
+        return message
