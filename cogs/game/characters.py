@@ -16,7 +16,7 @@ class UserDummy(BaseHero):
     def heal(self):
         COST = 10
         HP_HEAL = 10
-        if self.mana > COST:
+        if self.mana >= COST:
             self.mana -= COST
             self.hp += HP_HEAL
             if self.hp > self.max_hp:
