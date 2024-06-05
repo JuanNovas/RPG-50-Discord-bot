@@ -28,19 +28,20 @@ class Create(commands.Cog):
 
         for class_name, image_url in class_images.items():
             button = Button(label=class_name, style=ButtonStyle.primary)
-            async def button_callback(interaction):
-                if interaction.user != ctx.author:
-                    return  # assure that the user is the same that started the command
+            
+            async def create_callback(class_name, image_url):
+                async def button_callback(interaction):
+                    if interaction.user != ctx.author:
+                        return  # assure that the user is the same that started the command
 
-                embed = Embed(title=f"{interaction.user}'s class", description="Character created _successfully_!", color=0xADD8E6)
-                embed.add_field(name="Class:", value=class_name)
-                embed.set_image(url=image_url)
-                await interaction.response.send_message(embed=embed)
-                await original_message.delete()  # delete original message
-                button.callback = button_callback
-                view.add_item(button)
+                    embed = Embed(title=f"{interaction.user}'s class", description="Character created _successfully_!", color=0xADD8E6)
+                    embed.add_field(name="Class:", value=class_name)
+                    embed.set_image(url=image_url)
+                    await interaction.response.send_message(embed=embed)
+                    await original_message.delete()  # delete original message
+                return button_callback
 
-            button.callback = button_callback
+            button.callback = await create_callback(class_name, image_url)
             view.add_item(button)
 
         await original_message.edit(view=view)
