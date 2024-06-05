@@ -24,7 +24,7 @@ class BaseHero():
         crit = False
         
         damage = round((((self.attack**1.5) * power) / (self.attack + enemy.defense + 10)) * random.uniform(0.8, 1))
-        if random.random() >= CRIT_CHANCE:
+        if random.random() <= CRIT_CHANCE:
             damage *= 2
             crit = True
         enemy.hp -= damage
@@ -38,8 +38,8 @@ class BaseHero():
     def is_alive(self):
         return self.hp > 0
     
-    def weapon_attack(self):
-        pass
+    def weapon_attack(self, enemy):
+        self.weapon.custom_attack(self, enemy)
     
     def equip(self, weapon):
         self.attack += weapon.plain["attack"]
@@ -57,4 +57,4 @@ class BaseHero():
         
         self.mana = self.max_mana
         
-        self.weapon_attack = weapon.custom_attack
+        self.weapon = weapon

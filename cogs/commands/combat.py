@@ -60,7 +60,7 @@ class Combat(commands.Cog):
             if interaction.user != ctx.author:
                 return
 
-            if user.heal(enemy):
+            if user.weapon_attack(enemy):
                 combat_description = f"`{user.name} healed for 10 HP!`\n"
             else:
                 combat_description = f"`{user.name} tried to heal but didn't have enough mana!`\n"
@@ -70,7 +70,7 @@ class Combat(commands.Cog):
 
             # Enemy's attack after healing
             enemy_damage = enemy.do_attack(user)
-            combat_description += f"`{enemy.name} attacked {user.name} for {enemy_damage:.2f} damage!`"
+            combat_description = f"`{enemy.name} attacked {user.name} for {enemy_damage:.2f} damage!`"
 
             if not user.is_alive():
                 embed = create_combat_embed(description=combat_description + f"\n{enemy.name} wins!")
