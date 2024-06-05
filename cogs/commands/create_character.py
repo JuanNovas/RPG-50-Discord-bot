@@ -34,7 +34,7 @@ class Create(commands.Cog):
                     if interaction.user != ctx.author:
                         return  # assure that the user is the same that started the command
 
-                    embed = Embed(title=f"{interaction.user}'s class", description="Character created _successfully_!", color=0xADD8E6)
+                    embed = Embed(title=f"{interaction.user}'s class", description="Character created _successfully_!", color=0x1E90FF)
                     embed.add_field(name="Class:", value=class_name)
                     embed.set_image(url=image_url)
                     await interaction.response.send_message(embed=embed)
