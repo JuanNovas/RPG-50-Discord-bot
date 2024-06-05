@@ -2,7 +2,6 @@ from discord.ext import commands
 from discord import Embed
 from discord.ui import Button, View
 from discord import ButtonStyle
-import asyncio
 from cogs.game.characters import UserDummy
 from cogs.game.enemies import EnemyDummy
 from cogs.game.weapons import WeaponKnife
@@ -14,11 +13,16 @@ class Combat(commands.Cog):
     
     def create_combat_embed(self, user, enemy, description="Choose your action:"):
         embed = Embed(title="COMBAT!", description=description, color=0xADD8E6)
+        # First line: user's HP and Mana
         embed.add_field(name=f"{user.name} HP", value=user.hp, inline=True)
-        embed.add_field(name=f"{enemy.name} HP", value=enemy.hp, inline=True)
         embed.add_field(name=f"{user.name} Mana", value=user.mana, inline=True)
+        embed.add_field(name="\u200b", value="\u200b", inline=True)  # empty field to align correctly
+        # Second line: enemy's HP and Mana
+        embed.add_field(name=f"{enemy.name} HP", value=enemy.hp, inline=True)
         embed.add_field(name=f"{enemy.name} Mana", value=enemy.mana, inline=True)
+        embed.add_field(name="\u200b", value="\u200b", inline=True)  # empty field to align correctly
         return embed
+    
 
     async def perform_action(self, ctx, user, enemy, action_name):
         functions = {
@@ -40,13 +44,19 @@ class Combat(commands.Cog):
 
         if not enemy.is_alive():
             combat_description += f"`{user.name} wins!`\n"
+            message = await ctx.channel.fetch_message(self.message.id)
+            await message.edit(embed=self.create_combat_embed(user, enemy, description=combat_description), view=None)
+            return
 
         message = enemy.do_attack(user)
         combat_description += f"`{message}`\n"
 
         if not user.is_alive():
             combat_description += f"`\n{enemy.name} wins!`"
-
+            message = await ctx.channel.fetch_message(self.message.id)
+            await message.edit(embed=self.create_combat_embed(user, enemy, description=combat_description), view=None)
+            return
+        
         message = await ctx.channel.fetch_message(self.message.id)
         await message.edit(embed=self.create_combat_embed(user, enemy, description=combat_description))
 
