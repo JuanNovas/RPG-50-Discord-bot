@@ -72,6 +72,7 @@ class Combat(commands.Cog):
 
         if not enemy.is_alive():
             combat_description += f"`{self.username} wins!`\n"
+            combat_description += f"`{enemy.name} {enemy.loot.drop()}`"
             message = await ctx.channel.fetch_message(self.message.id)
             await message.edit(embed=self.create_combat_embed(user, enemy, description=combat_description), view=None)
             return
