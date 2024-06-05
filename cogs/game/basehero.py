@@ -9,7 +9,8 @@ class BaseHero():
         self.base_defense = defense
         self.base_magic_resistance = magic_resistance
         self.base_mana = mana
-        
+        self.weapon = None
+        self.armor = None
         
         self.hp = self.base_hp
         self.attack = self.base_attack
@@ -30,16 +31,40 @@ class BaseHero():
         enemy.hp -= damage
         
         if crit:
-            message = f"{self.name} dealt a critical hit dealing {damage} damage to {enemy.name}"
+            message = f"dealt a critical hit dealing {damage} damage to {enemy.name}"
         else:
-            message = f"{self.name} dealt {damage} damage to {enemy.name}"
+            message = f"dealt {damage} damage to {enemy.name}"
+        return message
+    
+    def do_magic(self, enemy, power):
+        damage = round((((self.magic**1.5) * power) / (self.magic + enemy.magic_resistance + 10)) * random.uniform(0.8, 1))
+        enemy.hp -= damage
+        
+        message = f"dealt {damage} damage to {enemy.name}"
         return message
     
     def is_alive(self):
         return self.hp > 0
     
+    def use_mana(self, amount):
+        if self.mana >= amount:
+            self.mana -= amount
+            return True
+        else:
+            return False
+            
+    def use_health(self, amount):
+        if self.hp > amount:
+            self.hp -= amount
+            return True
+        else:
+            return False
+    
     def weapon_attack(self, enemy):
-        self.weapon.custom_attack(self, enemy)
+        if self.weapon:
+            return self.weapon.custom_attack(self, enemy)
+        else:
+            return False
     
     def equip(self, weapon):
         self.attack += weapon.plain["attack"]

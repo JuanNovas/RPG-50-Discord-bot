@@ -10,5 +10,5 @@ class WeaponKnife(BaseWeapon):
         damage = 10
         enemy.hp -= damage
         
-        message = f"{user.name} dealt {damage} damage to {enemy.name}"
+        message = f"dealt {damage} damage to {enemy.name}"
         return message
