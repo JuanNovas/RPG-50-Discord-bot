@@ -12,15 +12,20 @@ class Combat(commands.Cog):
         self.message = None
     
     def create_combat_embed(self, user, enemy, description="Choose your action:"):
-        embed = Embed(title="COMBAT!", description=description, color=0xADD8E6)
+        embed = Embed(title="⚔️ COMBAT! ⚔️", description=description, color=0xFFA500)
+        embed.set_thumbnail(url="https://i.imgur.com/vpA37vR.png")  # Example thumbnail
+        embed.set_image(url="https://i.imgur.com/aZ3qkZJ.jpg")  # Example background
+
         # First line: user's HP and Mana
-        embed.add_field(name=f"{user.name} HP", value=user.hp, inline=True)
-        embed.add_field(name=f"{user.name} Mana", value=user.mana, inline=True)
+        embed.add_field(name=f"{user.name} HP", value=f"❤️ {user.hp}", inline=True)
+        embed.add_field(name=f"{user.name} Mana", value=f"🔮 {user.mana}", inline=True)
         embed.add_field(name="\u200b", value="\u200b", inline=True)  # empty field to align correctly
+
         # Second line: enemy's HP and Mana
-        embed.add_field(name=f"{enemy.name} HP", value=enemy.hp, inline=True)
-        embed.add_field(name=f"{enemy.name} Mana", value=enemy.mana, inline=True)
+        embed.add_field(name=f"👹 {enemy.name} HP", value=f"❤️ {enemy.hp}", inline=True)
+        embed.add_field(name=f"👹 {enemy.name} Mana", value=f"🔮 {enemy.mana}", inline=True)
         embed.add_field(name="\u200b", value="\u200b", inline=True)  # empty field to align correctly
+
         return embed
     
 
