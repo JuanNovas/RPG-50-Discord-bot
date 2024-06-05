@@ -1,4 +1,4 @@
-class BaseWeapon():
+class BaseArmor():
     def __init__(self):
         self.plain = {
             "attack" : 0,
@@ -16,7 +16,4 @@ class BaseWeapon():
             "max_mana" : 0
         }
         
-        self.type = "weapon"
-        
-    def custom_attack(self):
-        pass
+        self.type = "armor"

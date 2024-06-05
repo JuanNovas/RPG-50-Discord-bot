@@ -68,22 +68,24 @@ class BaseHero():
         else:
             return False
     
-    def equip(self, weapon):
-        self.attack += weapon.plain["attack"]
-        self.magic += weapon.plain["magic"]
-        self.defense += weapon.plain["defense"]
-        self.magic_resistance += weapon.plain["magic_resistance"]
-        self.max_mana += weapon.plain["max_mana"]
+    def equip(self, equipment):
+        self.attack += equipment.plain["attack"]
+        self.magic += equipment.plain["magic"]
+        self.defense += equipment.plain["defense"]
+        self.magic_resistance += equipment.plain["magic_resistance"]
+        self.max_mana += equipment.plain["max_mana"]
         
         
-        self.attack *= (1 + weapon.multi["attack"])
-        self.magic *= (1 + weapon.multi["magic"])
-        self.defense *= (1 + weapon.multi["defense"])
-        self.magic_resistance *= (1 + weapon.multi["magic_resistance"])
-        self.max_mana *= (1 + weapon.multi["max_mana"])
+        self.attack *= (1 + equipment.multi["attack"])
+        self.magic *= (1 + equipment.multi["magic"])
+        self.defense *= (1 + equipment.multi["defense"])
+        self.magic_resistance *= (1 + equipment.multi["magic_resistance"])
+        self.max_mana *= (1 + equipment.multi["max_mana"])
         
         self.mana = self.max_mana
         
-        self.weapon = weapon
-        
-        self.abilities["Weapon Attack"] = self.weapon_attack
+        if equipment.type == "weapon":
+            self.weapon = equipment
+            self.abilities["Weapon Attack"] = self.weapon_attack
+        elif equipment.type == "armor":
+            self.armor = equipment

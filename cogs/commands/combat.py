@@ -5,6 +5,7 @@ from discord import ButtonStyle
 from cogs.game.characters import UserDummy, MagicDummy, AssasinDummy
 from cogs.game.enemies import EnemyDummy
 from cogs.game.weapons import WeaponKnife
+from cogs.game.armors import ArmorIron
 
 class Combat(commands.Cog):
     def __init__(self, bot):
@@ -15,7 +16,8 @@ class Combat(commands.Cog):
     async def fight(self, ctx):
         user = AssasinDummy()
         enemy = EnemyDummy()
-        user.equip(WeaponKnife())
+        #user.equip(WeaponKnife())
+        #user.equip(ArmorIron())
         self.username = ctx.message.author.name
 
         view = View()

@@ -4,7 +4,7 @@ class EnemyDummy(BaseHero):
     def __init__(self):
         self.name = "Dummy"
         self.level = 1
-        self.max_hp = 20
+        self.max_hp = 40
         self.hp = self.max_hp
         self.attack = 2
         self.magic = 1
