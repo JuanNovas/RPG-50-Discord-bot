@@ -38,8 +38,8 @@ class BaseHero():
     def is_alive(self):
         return self.hp > 0
     
-    def weapon_attack(self):
-        pass
+    def weapon_attack(self, enemy):
+        self.weapon.custom_attack(self, enemy)
     
     def equip(self, weapon):
         self.attack += weapon.plain["attack"]
@@ -57,4 +57,4 @@ class BaseHero():
         
         self.mana = self.max_mana
         
-        self.weapon_attack = weapon.custom_attack
+        self.weapon = weapon
