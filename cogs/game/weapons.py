@@ -4,7 +4,8 @@ class WeaponKnife(BaseWeapon):
     def __init__(self):
         super().__init__()
         
-        self.plain["attack"] = 4
+        self.baseplain["attack"] = 4
+        self.update_level()
         
     def custom_attack(self, user, enemy):
         damage = 10

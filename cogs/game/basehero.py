@@ -3,6 +3,7 @@ import random
 class BaseHero():
     def __init__(self,level=1,hp=0,attack=0,magic=0,defense=0,magic_resistance=0,mana=0):
         self.level = level
+        self.xp = 0
         self.base_hp = hp
         self.base_attack = attack
         self.base_magic = magic

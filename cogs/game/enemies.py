@@ -1,11 +1,12 @@
 from cogs.game.basehero import BaseHero
 
 class Loot():
-    def __init__(self, gold=0, wood=0, iron=0, runes=0):
+    def __init__(self, gold=0, wood=0, iron=0, runes=0, xp=0):
         self.gold = gold
         self.wood = wood
         self.iron = iron
         self.runes = runes
+        self.xp = xp
         
     def drop(self):
         message = "Dropped"
@@ -17,7 +18,7 @@ class Loot():
             message = message + f" {self.iron} iron"
         if self.runes > 0:
             message = message + f" {self.runes} runes"
-            
+        message = message + f"\nAnd User gained {self.xp} XP"
         return message
 
 class EnemyDummy(BaseHero):
@@ -35,6 +36,7 @@ class EnemyDummy(BaseHero):
         
         self.loot = Loot(
             gold=10,
-            wood=2
+            wood=2,
+            xp=2
         )
         

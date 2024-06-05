@@ -1,4 +1,5 @@
 import discord
+import sqlite3
 from discord.ext import commands
 import os
 from dotenv import load_dotenv
@@ -14,9 +15,14 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.guilds = True
 
+# Database
+connection = sqlite3.connect("test.db")
+cursor = connection.cursor()
+
 # Configuración del bot
 prefix = "!"  # Puedes cambiar el prefijo del bot aquí si lo deseas
 bot = commands.Bot(command_prefix=prefix, intents=intents)
+bot.cursor = cursor
 
 # Cargar la extensión
 async def load_extensions():
