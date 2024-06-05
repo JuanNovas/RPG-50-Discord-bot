@@ -38,15 +38,21 @@ class Combat(commands.Cog):
         self.message = await ctx.send(embed=self.create_combat_embed(user, enemy), view=view)
     
     def create_combat_embed(self, user, enemy, description="Choose your action:"):
-        embed = Embed(title="COMBAT!", description=description, color=0xADD8E6)
+        
+        embed = Embed(title="⚔️ COMBAT! ⚔️", description=description, color=0xFFA500)
+        embed.set_thumbnail(url="https://i.imgur.com/vpA37vR.png")  # Example thumbnail
+        embed.set_image(url="https://i.imgur.com/aZ3qkZJ.jpg")  # Example background
+
         # First line: user's HP and Mana
-        embed.add_field(name=f"{self.username} HP", value=user.hp, inline=True)
-        embed.add_field(name=f"{self.username} Mana", value=user.mana, inline=True)
+        embed.add_field(name=f"{self.username} HP", value=f"❤️ {user.hp}", inline=True)
+        embed.add_field(name=f"{self.username} Mana", value=f"🔮 {user.mana}", inline=True)
         embed.add_field(name="\u200b", value="\u200b", inline=True)  # empty field to align correctly
+
         # Second line: enemy's HP and Mana
-        embed.add_field(name=f"{enemy.name} HP", value=enemy.hp, inline=True)
-        embed.add_field(name=f"{enemy.name} Mana", value=enemy.mana, inline=True)
+        embed.add_field(name=f"👹 {enemy.name} HP", value=f"❤️ {enemy.hp}", inline=True)
+        embed.add_field(name=f"👹 {enemy.name} Mana", value=f"🔮 {enemy.mana}", inline=True)
         embed.add_field(name="\u200b", value="\u200b", inline=True)  # empty field to align correctly
+
         return embed
     
 
@@ -55,7 +61,7 @@ class Combat(commands.Cog):
         action_function = user.abilities[action_name]
         combat_description = f"`{self.username} used {action_name}!`\n"
         if message := action_function(enemy):
-            combat_description += f"`{message}`\n"
+            combat_description += f"`{self.username} {message}`\n"
         else: 
             combat_description += f"`{self.username} attempted to perform {action_name} but failed!`\n"
 
