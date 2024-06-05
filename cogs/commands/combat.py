@@ -12,13 +12,14 @@ class Combat(commands.Cog):
         self.message = None
     
     def create_combat_embed(self, user, enemy, description="Choose your action:"):
+        
         embed = Embed(title="⚔️ COMBAT! ⚔️", description=description, color=0xFFA500)
         embed.set_thumbnail(url="https://i.imgur.com/vpA37vR.png")  # Example thumbnail
         embed.set_image(url="https://i.imgur.com/aZ3qkZJ.jpg")  # Example background
 
         # First line: user's HP and Mana
-        embed.add_field(name=f"{user.name} HP", value=f"❤️ {user.hp}", inline=True)
-        embed.add_field(name=f"{user.name} Mana", value=f"🔮 {user.mana}", inline=True)
+        embed.add_field(name=f"{self.username} HP", value=f"❤️ {user.hp}", inline=True)
+        embed.add_field(name=f"{self.username} Mana", value=f"🔮 {user.mana}", inline=True)
         embed.add_field(name="\u200b", value="\u200b", inline=True)  # empty field to align correctly
 
         # Second line: enemy's HP and Mana
@@ -38,17 +39,17 @@ class Combat(commands.Cog):
         }
 
         action_function = functions.get(action_name)
-        combat_description = f"`{user.name} used {action_name}!`\n"
+        combat_description = f"`{self.username} used {action_name}!`\n"
         if message := action_function(enemy):
-            combat_description += f"`{message}`\n"
+            combat_description += f"`{self.username} {message}`\n"
         else: 
-            combat_description += f"`{user.name} attempted to perform {action_name} but failed!`\n"
+            combat_description += f"`{self.username} attempted to perform {action_name} but failed!`\n"
 
         message = await ctx.channel.fetch_message(self.message.id)
         await message.edit(embed=self.create_combat_embed(user, enemy, description=combat_description))
 
         if not enemy.is_alive():
-            combat_description += f"`{user.name} wins!`\n"
+            combat_description += f"`{self.username} wins!`\n"
             message = await ctx.channel.fetch_message(self.message.id)
             await message.edit(embed=self.create_combat_embed(user, enemy, description=combat_description), view=None)
             return
@@ -71,6 +72,7 @@ class Combat(commands.Cog):
         user = UserDummy()
         enemy = EnemyDummy()
         user.equip(WeaponKnife())
+        self.username = ctx.message.author.name
 
         view = View()
 

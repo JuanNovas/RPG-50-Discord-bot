@@ -39,7 +39,8 @@ class BaseHero():
         return self.hp > 0
     
     def weapon_attack(self, enemy):
-        self.weapon.custom_attack(self, enemy)
+        return self.weapon.custom_attack(self, enemy)
+        
     
     def equip(self, weapon):
         self.attack += weapon.plain["attack"]
