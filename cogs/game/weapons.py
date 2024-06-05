@@ -6,9 +6,9 @@ class WeaponKnife(BaseWeapon):
         
         self.plain["attack"] = 4
         
-    def custom_attack(self, enemy):
+    def custom_attack(self, user, enemy):
         damage = 10
         enemy.hp -= damage
         
-        message = f"{self.name} dealt {damage} damage to {enemy.name}"
+        message = f"{user.name} dealt {damage} damage to {enemy.name}"
         return message
