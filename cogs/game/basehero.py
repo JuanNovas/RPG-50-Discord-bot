@@ -20,6 +20,8 @@ class BaseHero():
         self.max_mana = self.base_mana
         self.mana = self.base_mana
         
+        self.abilities = {"Hit" : self.do_attack}
+        
     def do_attack(self, enemy, power=10):
         CRIT_CHANCE = 0.05
         crit = False
@@ -83,3 +85,5 @@ class BaseHero():
         self.mana = self.max_mana
         
         self.weapon = weapon
+        
+        self.abilities["Weapon Attack"] = self.weapon_attack

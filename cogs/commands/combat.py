@@ -2,7 +2,7 @@ from discord.ext import commands
 from discord import Embed
 from discord.ui import Button, View
 from discord import ButtonStyle
-from cogs.game.characters import UserDummy
+from cogs.game.characters import UserDummy, MagicDummy, AssasinDummy
 from cogs.game.enemies import EnemyDummy
 from cogs.game.weapons import WeaponKnife
 
@@ -11,11 +11,37 @@ class Combat(commands.Cog):
         self.bot = bot
         self.message = None
     
+    @commands.command(name="combat")
+    async def fight(self, ctx):
+        user = AssasinDummy()
+        enemy = EnemyDummy()
+        user.equip(WeaponKnife())
+        self.username = ctx.message.author.name
+
+        view = View()
+
+        async def action_callback(interaction, action_name):
+            if interaction.user != ctx.author:
+                return
+            await interaction.response.defer()
+            await self.perform_action(self.message, user, enemy, action_name)
+
+        actions = []
+        for ability in user.abilities:
+            actions.append(ability)
+
+        for action in actions:
+            button = Button(label=action, style=ButtonStyle.primary)
+            button.callback = lambda i, name=action: action_callback(i, name)
+            view.add_item(button)
+            
+        self.message = await ctx.send(embed=self.create_combat_embed(user, enemy), view=view)
+    
     def create_combat_embed(self, user, enemy, description="Choose your action:"):
         embed = Embed(title="COMBAT!", description=description, color=0xADD8E6)
         # First line: user's HP and Mana
-        embed.add_field(name=f"{user.name} HP", value=user.hp, inline=True)
-        embed.add_field(name=f"{user.name} Mana", value=user.mana, inline=True)
+        embed.add_field(name=f"{self.username} HP", value=user.hp, inline=True)
+        embed.add_field(name=f"{self.username} Mana", value=user.mana, inline=True)
         embed.add_field(name="\u200b", value="\u200b", inline=True)  # empty field to align correctly
         # Second line: enemy's HP and Mana
         embed.add_field(name=f"{enemy.name} HP", value=enemy.hp, inline=True)
@@ -25,25 +51,19 @@ class Combat(commands.Cog):
     
 
     async def perform_action(self, ctx, user, enemy, action_name):
-        functions = {
-            "Attack" : user.do_attack,
-            "Weapon attack" : user.weapon_attack,
-            "Heal" : user.heal
-            # add functions here
-        }
 
-        action_function = functions.get(action_name)
-        combat_description = f"`{user.name} used {action_name}!`\n"
+        action_function = user.abilities[action_name]
+        combat_description = f"`{self.username} used {action_name}!`\n"
         if message := action_function(enemy):
             combat_description += f"`{message}`\n"
         else: 
-            combat_description += f"`{user.name} attempted to perform {action_name} but failed!`\n"
+            combat_description += f"`{self.username} attempted to perform {action_name} but failed!`\n"
 
         message = await ctx.channel.fetch_message(self.message.id)
         await message.edit(embed=self.create_combat_embed(user, enemy, description=combat_description))
 
         if not enemy.is_alive():
-            combat_description += f"`{user.name} wins!`\n"
+            combat_description += f"`{self.username} wins!`\n"
             message = await ctx.channel.fetch_message(self.message.id)
             await message.edit(embed=self.create_combat_embed(user, enemy, description=combat_description), view=None)
             return
@@ -60,29 +80,6 @@ class Combat(commands.Cog):
         message = await ctx.channel.fetch_message(self.message.id)
         await message.edit(embed=self.create_combat_embed(user, enemy, description=combat_description))
 
-
-    @commands.command(name="combat")
-    async def fight(self, ctx):
-        user = UserDummy()
-        enemy = EnemyDummy()
-        user.equip(WeaponKnife())
-
-        view = View()
-
-        async def action_callback(interaction, action_name):
-            if interaction.user != ctx.author:
-                return
-            await interaction.response.defer()
-            await self.perform_action(self.message, user, enemy, action_name)
-
-        actions = ["Attack", "Weapon attack", "Heal"]
-
-        for action in actions:
-            button = Button(label=action, style=ButtonStyle.primary)
-            button.callback = lambda i, name=action: action_callback(i, name)
-            view.add_item(button)
-            
-        self.message = await ctx.send(embed=self.create_combat_embed(user, enemy), view=view)
 
 async def setup(bot):
     await bot.add_cog(Combat(bot))

@@ -41,10 +41,12 @@ class MagicDummy(BaseHero):
             magic_resistance=4,
             mana=20
         )
+        self.name = "User"
+        self.abilities["Magic flame"] = self.magic_flame
         
-    @mana_ability(cost=10)
+    @mana_ability(cost=15)
     def magic_flame(self, enemy):
-        return self.do_magic(self, enemy, 15)
+        return self.do_magic(enemy, 15)
     
 class AssasinDummy(BaseHero):
     def __init__(self):
@@ -56,11 +58,14 @@ class AssasinDummy(BaseHero):
             magic_resistance=5,
             mana=10
         )
+        self.name = "User"
+        self.abilities["Super hit"] = self.super_hit
+        self.abilities["Sacrifice"] = self.sacrifice
         
     @mana_ability(cost=5)
     def super_hit(self, enemy):
-        return self.do_attack(self, enemy, 20)
+        return self.do_attack(enemy, 20)
     
     @health_ability(cost=10)
     def sacrifice(self, enemy):
-        return self.do_attack(self, enemy, 35)
+        return self.do_attack(enemy, 35)
