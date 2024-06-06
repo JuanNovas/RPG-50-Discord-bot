@@ -30,7 +30,7 @@ class Dungeon(commands.Cog):
             await ctx.send("Dungeon completed!")
 
     async def combat_completed(self, ctx, user):
-        await ctx.send(f"`Combat _{self.current_step}_ completed!`")
+        await ctx.send(f"Combat {self.current_step} completed!")
         await self.next_combat(ctx)
 
 
