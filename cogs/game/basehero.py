@@ -2,23 +2,19 @@ import random
 
 class BaseHero():
     def __init__(self,level=1,hp=0,attack=0,magic=0,defense=0,magic_resistance=0,mana=0):
-        self.level = level
-        self.base_hp = hp
-        self.base_attack = attack
-        self.base_magic = magic
-        self.base_defense = defense
-        self.base_magic_resistance = magic_resistance
-        self.base_mana = mana
         self.weapon = None
         self.armor = None
         
-        self.hp = self.base_hp
-        self.attack = self.base_attack
-        self.magic = self.base_magic
-        self.defense = self.base_defense
-        self.magic_resistance = self.base_magic_resistance
-        self.max_mana = self.base_mana
-        self.mana = self.base_mana
+        self.level = level 
+        level = level - 1
+        self.max_hp = hp * (1.15 ** level)
+        self.hp = self.max_hp
+        self.attack = attack * (1.15 ** level)
+        self.magic = magic * (1.15 ** level)
+        self.defense = defense * (1.15 ** level)
+        self.magic_resistance = magic_resistance * (1.15 ** level)
+        self.max_mana = mana * (1.15 ** level)
+        self.mana = self.max_mana
         
         self.abilities = {"Hit" : self.do_attack}
         
@@ -68,22 +64,24 @@ class BaseHero():
         else:
             return False
     
-    def equip(self, weapon):
-        self.attack += weapon.plain["attack"]
-        self.magic += weapon.plain["magic"]
-        self.defense += weapon.plain["defense"]
-        self.magic_resistance += weapon.plain["magic_resistance"]
-        self.max_mana += weapon.plain["max_mana"]
+    def equip(self, equipment):
+        self.attack += equipment.plain["attack"]
+        self.magic += equipment.plain["magic"]
+        self.defense += equipment.plain["defense"]
+        self.magic_resistance += equipment.plain["magic_resistance"]
+        self.max_mana += equipment.plain["max_mana"]
         
         
-        self.attack *= (1 + weapon.multi["attack"])
-        self.magic *= (1 + weapon.multi["magic"])
-        self.defense *= (1 + weapon.multi["defense"])
-        self.magic_resistance *= (1 + weapon.multi["magic_resistance"])
-        self.max_mana *= (1 + weapon.multi["max_mana"])
+        self.attack *= (1 + equipment.multi["attack"])
+        self.magic *= (1 + equipment.multi["magic"])
+        self.defense *= (1 + equipment.multi["defense"])
+        self.magic_resistance *= (1 + equipment.multi["magic_resistance"])
+        self.max_mana *= (1 + equipment.multi["max_mana"])
         
         self.mana = self.max_mana
         
-        self.weapon = weapon
-        
-        self.abilities["Weapon Attack"] = self.weapon_attack
+        if equipment.type == "weapon":
+            self.weapon = equipment
+            self.abilities["Weapon Attack"] = self.weapon_attack
+        elif equipment.type == "armor":
+            self.armor = equipment
