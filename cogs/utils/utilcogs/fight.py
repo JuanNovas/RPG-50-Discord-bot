@@ -5,29 +5,30 @@ from discord import ButtonStyle
 from cogs.game.characters import UserDummy, MagicDummy, AssasinDummy
 from cogs.game.enemies import EnemyDummy
 from cogs.game.weapons import WeaponKnife
-from cogs.game.armors import ArmorIron
 from cogs.utils.lock_manager import LockManager  # Import LockManager
 
 lock_manager = LockManager()  # Instantiate LockManager
 
-class Combat(commands.Cog):
+class Fight(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.message = None
+        self.combat_callback = None  # Callback to continue after combat
 
-    @commands.command(name="combat")
-    async def fight(self, ctx):
+    @commands.command(name="fight")
+    async def fight(self, ctx, enemy, combat_callback):  # Accept enemy and combat_callback as arguments
         if lock_manager.is_locked(ctx.author.id):
-            await ctx.send("`You are already in a combat.`")
+            await ctx.send("You are already in a combat.")
             return
         
         lock_manager.lock(ctx.author.id)
 
         user = AssasinDummy()
-        enemy = EnemyDummy()
-        #user.equip(WeaponKnife())
-        #user.equip(ArmorIron())
+        if enemy is None:
+            enemy = EnemyDummy()
+        user.equip(WeaponKnife())
         self.username = ctx.message.author.name
+        self.combat_callback = combat_callback
 
         view = View()
 
@@ -78,10 +79,11 @@ class Combat(commands.Cog):
 
         if not enemy.is_alive():
             combat_description += f"`{self.username} wins!`\n"
-            combat_description += f"`{enemy.name} {enemy.loot.drop()}`"
             message = await ctx.channel.fetch_message(self.message.id)
             await message.edit(embed=self.create_combat_embed(user, enemy, description=combat_description), view=None)
             lock_manager.unlock(ctx.author.id)  # Unlock after combat ends
+            if self.combat_callback:
+                await self.combat_callback(ctx, user)  # Continue to the next combat
             return
 
         message = enemy.do_attack(user)
@@ -97,6 +99,5 @@ class Combat(commands.Cog):
         message = await ctx.channel.fetch_message(self.message.id)
         await message.edit(embed=self.create_combat_embed(user, enemy, description=combat_description))
 
-
 async def setup(bot):
-    await bot.add_cog(Combat(bot))
+    await bot.add_cog(Fight(bot))
