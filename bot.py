@@ -39,7 +39,7 @@ async def on_command_completion(ctx):
 # Cargar la extensión
 async def load_extensions():
         await load("cogs/commands")
-        await load("cogs/utils/utilcogs")
+        #await load("cogs/utils/utilcogs")
 
 async def load(folder):
     for filename in os.listdir(folder):

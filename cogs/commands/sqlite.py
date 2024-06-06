@@ -28,12 +28,12 @@ class Sqlite(commands.Cog):
         await ctx.send("Databae reseted")
         
     @commands.command(name="stats")
-    async def stats(self, ctx, level=1):
+    async def stats(self, ctx, id=1):
         with sqlite3.connect("test.db") as conn:
             cursor = conn.cursor()
             cursor.execute('''
             SELECT * FROM hero WHERE id = (?)
-            ''', (level,))
+            ''', (id,))
             
             data = cursor.fetchall()[0]
             data2 = calculate_stats(data[1], data[2])

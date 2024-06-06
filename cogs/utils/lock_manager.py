@@ -1,3 +1,5 @@
+from discord.ext.commands import command
+
 class LockManager:
     def __init__(self):
         self.locked_users = set()
@@ -10,3 +12,5 @@ class LockManager:
 
     def unlock(self, user_id):
         self.locked_users.remove(user_id)
+
+lock_manager = LockManager()
