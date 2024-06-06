@@ -5,7 +5,7 @@ from discord import ButtonStyle
 from cogs.game.characters import UserDummy, MagicDummy, AssasinDummy
 from cogs.game.enemies import EnemyDummy
 from cogs.game.weapons import WeaponKnife
-from utils.lock_manager import LockManager  # Import LockManager
+from cogs.utils.lock_manager import LockManager  # Import LockManager
 
 lock_manager = LockManager()  # Instantiate LockManager
 
@@ -15,7 +15,7 @@ class Fight(commands.Cog):
         self.message = None
         self.combat_callback = None  # Callback to continue after combat
 
-    @commands.command(name="combat")
+    @commands.command(name="fight")
     async def fight(self, ctx, enemy, combat_callback):  # Accept enemy and combat_callback as arguments
         if lock_manager.is_locked(ctx.author.id):
             await ctx.send("You are already in a combat.")
