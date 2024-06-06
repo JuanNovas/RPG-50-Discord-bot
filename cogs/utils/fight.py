@@ -15,7 +15,7 @@ class Fight(commands.Cog):
         self.message = None
         self.combat_callback = None  # Callback to continue after combat
 
-    @commands.command(name="combat")
+    @commands.command(name="fight")
     async def fight(self, ctx, enemy, combat_callback):  # Accept enemy and combat_callback as arguments
         if lock_manager.is_locked(ctx.author.id):
             await ctx.send("You are already in a combat.")
