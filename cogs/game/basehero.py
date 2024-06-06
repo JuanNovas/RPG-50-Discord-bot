@@ -2,24 +2,19 @@ import random
 
 class BaseHero():
     def __init__(self,level=1,hp=0,attack=0,magic=0,defense=0,magic_resistance=0,mana=0):
-        self.level = level
-        self.xp = 0
-        self.base_hp = hp
-        self.base_attack = attack
-        self.base_magic = magic
-        self.base_defense = defense
-        self.base_magic_resistance = magic_resistance
-        self.base_mana = mana
         self.weapon = None
         self.armor = None
         
-        self.hp = self.base_hp
-        self.attack = self.base_attack
-        self.magic = self.base_magic
-        self.defense = self.base_defense
-        self.magic_resistance = self.base_magic_resistance
-        self.max_mana = self.base_mana
-        self.mana = self.base_mana
+        self.level = level 
+        level = level - 1
+        self.max_hp = hp * (1.15 ** level)
+        self.hp = self.max_hp
+        self.attack = attack * (1.15 ** level)
+        self.magic = magic * (1.15 ** level)
+        self.defense = defense * (1.15 ** level)
+        self.magic_resistance = magic_resistance * (1.15 ** level)
+        self.max_mana = mana * (1.15 ** level)
+        self.mana = self.max_mana
         
         self.abilities = {"Hit" : self.do_attack}
         

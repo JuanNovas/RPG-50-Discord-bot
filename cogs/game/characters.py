@@ -30,10 +30,11 @@ class UserDummy(BaseHero):
         
         return message
     
-    
+# ID 1
 class MagicDummy(BaseHero):
-    def __init__(self):
+    def __init__(self, level=1):
         super().__init__(
+            level=level,
             hp=20,
             attack=3,
             magic=7,
@@ -48,9 +49,11 @@ class MagicDummy(BaseHero):
     def magic_flame(self, enemy):
         return self.do_magic(enemy, 15)
     
+# ID 2
 class AssasinDummy(BaseHero):
-    def __init__(self):
+    def __init__(self, level=1):
         super().__init__(
+            level=level,
             hp=30,
             attack=5,
             magic=2,

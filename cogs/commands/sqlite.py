@@ -1,6 +1,5 @@
 from discord.ext import commands
 from cogs.utils.stast_calculator import calculate_stats
-from cogs.game.characters import AssasinDummy
 import sqlite3
         
 class Sqlite(commands.Cog):
@@ -12,9 +11,9 @@ class Sqlite(commands.Cog):
     async def reset(self, ctx):
         with sqlite3.connect("test.db") as conn:
             cursor = conn.cursor()
-            cursor.execute('''DROP TABLE heroe''')
+            cursor.execute('''DROP TABLE hero''')
             cursor.execute('''
-            CREATE TABLE heroe (
+            CREATE TABLE hero (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 class INTEGER NOT NULL,
                 level INTEGER NOT NULL DEFAULT 1,
@@ -25,27 +24,35 @@ class Sqlite(commands.Cog):
                 runes INTEGER NOT NULL DEFAULT 0
             );
             ''')
-            cursor.execute('''
-            INSERT INTO heroe (class) VALUES (1)
-            ''')
             conn.commit()
         await ctx.send("Databae reseted")
         
     @commands.command(name="stats")
-    async def stats(self, ctx):
+    async def stats(self, ctx, level=1):
         with sqlite3.connect("test.db") as conn:
             cursor = conn.cursor()
             cursor.execute('''
-            SELECT * FROM heroe WHERE id = 1
-            ''')
+            SELECT * FROM hero WHERE id = (?)
+            ''', (level,))
             
             data = cursor.fetchall()[0]
-            data2 = calculate_stats(AssasinDummy, data[1])
+            data2 = calculate_stats(data[1], data[2])
             
-            stats_1 = f"Class: {data[0]}\nLevel: {data[1]}\nXP: {data[2]}\nGold: {data[3]}\nWood: {data[4]}\nIron: {data[5]}\nRunes: {data[6]}\n"
+            stats_1 = f"Class: {data[1]}\nLevel: {data[2]}\nXP: {data[3]}\nGold: {data[4]}\nWood: {data[5]}\nIron: {data[6]}\nRunes: {data[7]}\n"
             stats_2 = f"Hp: {data2['hp']}\nAttack: {data2['attack']}\nMagic: {data2['magic']}\nDefense: {data2['defense']}\nMagic Resistance: {data2['magic_resistance']}\nMana: {data2['mana']}"
-            await ctx.send(stats_1 + stats_2)
             conn.commit()
+            await ctx.send(stats_1 + stats_2)
+            
+    @commands.command(name="new")
+    async def new(self, ctx, class_id=1, level=1):
+        with sqlite3.connect("test.db") as conn:
+            cursor = conn.cursor()
+            cursor.execute('''
+            INSERT INTO hero (class, level) VALUES (?,?)             
+            ''', (class_id, level))
+            
+            conn.commit()
+        await ctx.send("Heroe created")
 
 async def setup(bot):
     await bot.add_cog(Sqlite(bot))
