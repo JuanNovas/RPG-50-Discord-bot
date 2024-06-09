@@ -16,6 +16,7 @@ class Sqlite(commands.Cog):
             cursor.execute('''
             CREATE TABLE hero (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL UNIQUE,
                 class INTEGER NOT NULL,
                 level INTEGER NOT NULL DEFAULT 1,
                 xp INTEGER NOT NULL DEFAULT 0,
@@ -40,7 +41,7 @@ class Sqlite(commands.Cog):
             data = cursor.fetchall()[0]
             data2 = calculate_stats(data[1], data[2])
             
-            stats_1 = f"Class: {data[1]}\nLevel: {data[2]}\nXP: {data[3]}\nGold: {data[4]}\nWood: {data[5]}\nIron: {data[6]}\nRunes: {data[7]}\n"
+            stats_1 = f"Class: {data[2]}\nLevel: {data[3]}\nXP: {data[4]}\nGold: {data[5]}\nWood: {data[6]}\nIron: {data[7]}\nRunes: {data[8]}\n"
             stats_2 = f"Hp: {data2['hp']}\nAttack: {data2['attack']}\nMagic: {data2['magic']}\nDefense: {data2['defense']}\nMagic Resistance: {data2['magic_resistance']}\nMana: {data2['mana']}"
             conn.commit()
             await ctx.send(stats_1 + stats_2)

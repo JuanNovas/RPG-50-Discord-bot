@@ -2,6 +2,7 @@ from discord.ext import commands
 from discord import Embed, app_commands
 from discord.ui import Button, View
 from discord import ButtonStyle  
+from cogs.utils.database import execute
 
 class Create(commands.Cog):
     def __init__(self, bot):
@@ -9,6 +10,20 @@ class Create(commands.Cog):
 
     @app_commands.command(name="create", description="Hero creation")
     async def create(self, inte):
+        
+        async def callback(interaction, class_name, id):
+            if interaction.user != inte.user:
+                return  # assure that the user is the same that started the command
+
+            execute('''
+            INSERT INTO hero (user_id, class) VALUES (?,?)
+            ''', (interaction.user.id, id))
+
+            embed = Embed(title=f"{interaction.user}'s class", description="Character created _successfully_!", color=0x1E90FF)
+            embed.add_field(name="Class:", value=class_name)
+            embed.set_image(url=class_images[class_name])
+            original_message = await inte.original_response() # inte not interaction to get the last message
+            await original_message.edit(embed=embed, view=None)
         
         # Each class with their picture 
         class_images = {
@@ -23,29 +38,14 @@ class Create(commands.Cog):
         
         #creates buttons 
         view = View()
-        
-        await inte.response.send_message(embed=embed)
-        original_message = await inte.original_response()
-
-        for class_name, image_url in class_images.items():
+            
+        for index, class_name in enumerate(class_images):
             button = Button(label=class_name, style=ButtonStyle.primary)
             
-            async def create_callback(class_name, image_url):
-                async def button_callback(interaction):
-                    if interaction.user != inte.user:
-                        return  # assure that the user is the same that started the command
-
-                    embed = Embed(title=f"{interaction.user}'s class", description="Character created _successfully_!", color=0x1E90FF)
-                    embed.add_field(name="Class:", value=class_name)
-                    embed.set_image(url=image_url)
-                    await interaction.response.send_message(embed=embed)
-                    await original_message.delete()  # delete original message
-                return button_callback
-
-            button.callback = await create_callback(class_name, image_url)
+            button.callback = lambda i, class_name=class_name, id=index+1 : callback(i, class_name, id)
             view.add_item(button)
 
-        await original_message.edit(view=view)
+        await inte.response.send_message(embed=embed, view=view, ephemeral=True)
 
 async def setup(bot):
     await bot.add_cog(Create(bot))

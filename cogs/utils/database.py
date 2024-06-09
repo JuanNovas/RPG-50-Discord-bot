@@ -1,10 +1,10 @@
 import sqlite3
 
 
-def execute(command, *args):
+def execute(command : str, arguments : tuple = tuple()) -> tuple:
     with sqlite3.connect("test.db") as conn:
         cursor = conn.cursor()
-        cursor.execute(command, (*args,))
+        cursor.execute(command, arguments)
         
         data = cursor.fetchall()
         
