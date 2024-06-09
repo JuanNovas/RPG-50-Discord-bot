@@ -1,5 +1,15 @@
 from cogs.game.characters import *
+from cogs.utils.database import execute
 
+def load_hero(hero_id : int) -> object:
+    data = execute('''
+    SELECT * FROM hero WHERE id=(?)
+    ''', hero_id)
+    
+    hero_class = get_class_by_id(data[0][1])
+    hero = hero_class(level=data[0][2])
+    return hero
+    
 def calculate_stats(class_id : int, level : int) -> dict:
     stats_dic = dict()
     stats = ["hp", "attack", "magic", "defense", "magic_resistance", "mana"]

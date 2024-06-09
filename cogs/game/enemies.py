@@ -33,6 +33,7 @@ class EnemyDummy(BaseHero):
         self.magic_resistance = 3
         self.max_mana = 100
         self.mana = self.max_mana
+        self.image = "https://cdn.discordapp.com/attachments/474702643625984021/1248370223644672050/tplImg448cf06ed22b4c25bee83fed318624bd.jpg?ex=6665651e&is=6664139e&hm=9c4481d293279c988d33a3aa998d8559d3f02635059da297b03a37b86353155f&"
         
         self.loot = Loot(
             gold=10,

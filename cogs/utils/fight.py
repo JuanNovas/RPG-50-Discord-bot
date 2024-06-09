@@ -1,30 +1,24 @@
-from discord.ext import commands
 from discord import Embed
 from discord.ui import Button, View
 from discord import ButtonStyle
-from cogs.game.characters import UserDummy, MagicDummy, AssasinDummy
-from cogs.game.enemies import EnemyDummy
-from cogs.game.weapons import WeaponKnife
-from cogs.utils.lock_manager import LockManager  # Import LockManager
 
 
 class NewFight():
-    def __init__(self, ctx):
-        self.ctx = ctx
-        self.username = ctx.message.author.name
+    def __init__(self, inte):
+        self.inte = inte
+        self.username = inte.user.name
         self.view = View()
         
     async def fight(self, user, enemy, end=None):
         async def action_callback(interaction, user_action_name):
-            if interaction.user != self.ctx.author:
+            if interaction.user != self.inte.user:
                 return
             await interaction.response.defer()
             await simulate_turn(user_action_name)
         
         def create_combat_embed(description="Choose your action:"):
             embed = Embed(title="⚔️ COMBAT! ⚔️", description=description, color=0x3498db)  # Blue color
-            embed.set_thumbnail(url="https://i.imgur.com/vpA37vR.png")  # Example thumbnail
-            embed.set_image(url="https://i.imgur.com/aZ3qkZJ.jpg")  # Example background
+            embed.set_image(url=enemy.image)  # Example background
 
             # First line: user's HP and Mana
             embed.add_field(name=f"{self.username} HP", value=f"❤️ {user.hp}", inline=True)
@@ -91,5 +85,6 @@ class NewFight():
             button.callback = lambda i, name=ability: action_callback(i, name)
             self.view.add_item(button)
             
-        self.message = await self.ctx.send(embed=create_combat_embed(), view=self.view)
-
+        await self.inte.response.send_message(embed=create_combat_embed(), view=self.view)
+        self.message = await self.inte.original_response()
+        

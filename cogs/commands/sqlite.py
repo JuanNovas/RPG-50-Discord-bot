@@ -1,5 +1,6 @@
 from discord.ext import commands
 from cogs.utils.stast_calculator import calculate_stats
+from cogs.utils.database import execute
 import sqlite3
         
 class Sqlite(commands.Cog):
@@ -27,6 +28,7 @@ class Sqlite(commands.Cog):
             conn.commit()
         await ctx.send("Databae reseted")
         
+        
     @commands.command(name="stats")
     async def stats(self, ctx, id=1):
         with sqlite3.connect("test.db") as conn:
@@ -43,16 +45,25 @@ class Sqlite(commands.Cog):
             conn.commit()
             await ctx.send(stats_1 + stats_2)
             
+            
     @commands.command(name="new")
     async def new(self, ctx, class_id=1, level=1):
         with sqlite3.connect("test.db") as conn:
             cursor = conn.cursor()
             cursor.execute('''
-            INSERT INTO hero (class, level) VALUES (?,?)             
+            INSERT INTO hero (class, level) VALUES (?,?)
             ''', (class_id, level))
             
             conn.commit()
         await ctx.send("Heroe created")
+        
+    
+    @commands.command(name="all_data")
+    async def all_data(self, ctx):
+        data = execute('''
+        SELECT * FROM hero
+        ''')
+        await ctx.send(data)
 
 async def setup(bot):
     await bot.add_cog(Sqlite(bot))
