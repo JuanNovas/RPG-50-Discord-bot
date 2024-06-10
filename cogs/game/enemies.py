@@ -25,7 +25,7 @@ class Loot():
         execute('''
         UPDATE hero SET
         level = level + (?),
-        xp = xp + (?),
+        xp = (?),
         gold = gold + (?),
         wood = wood + (?),
         iron = iron + (?),

@@ -1,19 +1,27 @@
 import random
+from cogs.game.weapons import weapon_dict
+from cogs.game.armors import armor_dict
 
 class BaseHero():
-    def __init__(self,level=1,hp=0,attack=0,magic=0,defense=0,magic_resistance=0,mana=0):
-        self.weapon = None
-        self.armor = None
+    def __init__(self,level=1,hp=0,attack=0,magic=0,defense=0,magic_resistance=0,mana=0,weapon_id=None,armor_id=None):
+        if weapon_id:
+            self.equip(weapon_dict[weapon_id])
+        else:
+            self.weapon = None
+        if armor_id:
+            self.equip(armor_dict[armor_id])
+        else:
+            self.armor = None
         
         self.level = level 
         level = level - 1
-        self.max_hp = hp * (1.15 ** level)
+        self.max_hp = round(hp * (1.15 ** level))
         self.hp = self.max_hp
-        self.attack = attack * (1.15 ** level)
-        self.magic = magic * (1.15 ** level)
-        self.defense = defense * (1.15 ** level)
-        self.magic_resistance = magic_resistance * (1.15 ** level)
-        self.max_mana = mana * (1.15 ** level)
+        self.attack = round(attack * (1.15 ** level))
+        self.magic = round(magic * (1.15 ** level))
+        self.defense = round(defense * (1.15 ** level))
+        self.magic_resistance = round(magic_resistance * (1.15 ** level))
+        self.max_mana = round(mana * (1.15 ** level))
         self.mana = self.max_mana
         
         self.abilities = {"Hit" : self.do_attack}

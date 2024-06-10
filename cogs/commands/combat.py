@@ -1,4 +1,3 @@
-import discord
 from discord.ext import commands
 from discord import app_commands
 from cogs.utils.lock_manager import lock_manager

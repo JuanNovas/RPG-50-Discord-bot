@@ -27,8 +27,8 @@ class Create(commands.Cog):
         
         # Each class with their picture 
         class_images = {
-            "🧙‍♂️ Magician": "https://cdn.pixabay.com/photo/2023/08/18/15/02/dog-8198719_640.jpg",
-            "🔪 Assasin": "https://cdn.pixabay.com/photo/2023/08/18/15/02/dog-8198719_640.jpg"
+            "🧙‍♂️ Magician": "https://cdn.discordapp.com/attachments/474702643625984021/1249850968577933393/magicdummy2.jpeg?ex=6668cdec&is=66677c6c&hm=0d946dc04407fcc92df9ac02dada07f8090ef839b0a29b70958bd065a6b105e8&",
+            "🔪 Assasin": "https://cdn.discordapp.com/attachments/474702643625984021/1249850320217964704/assasindummy2.jpeg?ex=6668cd51&is=66677bd1&hm=bdd64f0f8281af7d9bf29c6dd5c8ec879809a5296a5d122a0ee7d26972ed8e7e&"
         }
 
         # sends a message and waits for an answer via buttons.
