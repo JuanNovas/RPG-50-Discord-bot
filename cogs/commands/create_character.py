@@ -27,9 +27,8 @@ class Create(commands.Cog):
         
         # Each class with their picture 
         class_images = {
-            "Warrior": "https://cdn.pixabay.com/photo/2023/08/18/15/02/dog-8198719_640.jpg",
             "🧙‍♂️ Magician": "https://cdn.pixabay.com/photo/2023/08/18/15/02/dog-8198719_640.jpg",
-            "Thief": "https://cdn.pixabay.com/photo/2023/08/18/15/02/dog-8198719_640.jpg"
+            "🔪 Assasin": "https://cdn.pixabay.com/photo/2023/08/18/15/02/dog-8198719_640.jpg"
         }
 
         # sends a message and waits for an answer via buttons.

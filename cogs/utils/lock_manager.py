@@ -12,5 +12,11 @@ class LockManager:
 
     def unlock(self, user_id):
         self.locked_users.remove(user_id)
+        
+    def command_lock(self, user_id):
+        if self.is_locked(user_id):
+            return False
+        self.lock(user_id)
+        return True
 
 lock_manager = LockManager()

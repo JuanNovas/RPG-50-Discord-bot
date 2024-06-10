@@ -26,6 +26,9 @@ class Sqlite(commands.Cog):
                 runes INTEGER NOT NULL DEFAULT 0
             );
             ''')
+            cursor.execute('''
+            CREATE UNIQUE INDEX user_id_index ON hero(user_id);
+            ''')
             conn.commit()
         await ctx.send("Databae reseted")
         
@@ -65,6 +68,14 @@ class Sqlite(commands.Cog):
         SELECT * FROM hero
         ''')
         await ctx.send(data)
+        
+        
+    @commands.command(name="set_level")
+    async def set_level(self, ctx, level:int):
+        execute('''
+        UPDATE hero SET level=(?) WHERE user_id=(?)
+        ''', (level, ctx.author.id))
+        await ctx.send("Level updated")
 
 async def setup(bot):
     await bot.add_cog(Sqlite(bot))

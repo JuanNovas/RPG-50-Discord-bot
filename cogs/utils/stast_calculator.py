@@ -1,13 +1,13 @@
 from cogs.game.characters import *
 from cogs.utils.database import execute
 
-def load_hero(hero_id : int) -> object:
+def load_hero(user_id : int) -> object:
     data = execute('''
-    SELECT * FROM hero WHERE id=(?)
-    ''', hero_id)
+    SELECT * FROM hero WHERE user_id=(?)
+    ''', (user_id,))
     
-    hero_class = get_class_by_id(data[0][1])
-    hero = hero_class(level=data[0][2])
+    hero_class = get_class_by_id(data[0][2])
+    hero = hero_class(level=data[0][3])
     return hero
     
 def calculate_stats(class_id : int, level : int) -> dict:
@@ -30,7 +30,6 @@ def calculate_stats(class_id : int, level : int) -> dict:
 
 def get_class_by_id(class_id : int) -> object:
     return class_dict[class_id]
-
 
 class_dict = {
     1 : MagicDummy,

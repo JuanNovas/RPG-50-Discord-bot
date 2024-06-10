@@ -1,4 +1,5 @@
 from cogs.game.basehero import BaseHero
+from cogs.utils.database import execute
 
 class Loot():
     def __init__(self, gold=0, wood=0, iron=0, runes=0, xp=0):
@@ -7,8 +8,31 @@ class Loot():
         self.iron = iron
         self.runes = runes
         self.xp = xp
+    
+    def drop(self, user_id):
+        data = execute('''
+        SELECT level, xp FROM hero WHERE user_id=(?)
+        ''', (user_id,))
         
-    def drop(self):
+        xp_needed = round(6.5 * (1.5 ** data[0][0]))
+        if xp_needed <= data[0][1] + self.xp:
+            final_xp = data[0][1] + self.xp - xp_needed
+            level_up = 1
+        else:
+            final_xp = data[0][1] + self.xp
+            level_up = 0
+        
+        execute('''
+        UPDATE hero SET
+        level = level + (?),
+        xp = xp + (?),
+        gold = gold + (?),
+        wood = wood + (?),
+        iron = iron + (?),
+        runes = runes + (?)
+        WHERE user_id = (?)
+        ''', (level_up, int(final_xp), self.gold, self.wood, self.iron, self.runes, user_id))
+        
         message = "Dropped"
         if self.gold > 0:
             message = message + f" {self.gold} gold"
@@ -19,7 +43,11 @@ class Loot():
         if self.runes > 0:
             message = message + f" {self.runes} runes"
         message = message + f"\nAnd User gained {self.xp} XP"
+        if level_up:
+            message += "\n User level up"
         return message
+        
+        
 
 class EnemyDummy(BaseHero):
     def __init__(self):
@@ -38,6 +66,6 @@ class EnemyDummy(BaseHero):
         self.loot = Loot(
             gold=10,
             wood=2,
-            xp=2
+            xp=10
         )
         

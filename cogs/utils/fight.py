@@ -74,6 +74,10 @@ class NewFight():
                 return True
             if not enemy.is_alive():
                 combat_description = f"`{self.username} wins!`\n"
+                
+                combat_description += enemy.loot.drop(self.inte.user.id)
+                
+                
                 await self.message.edit(embed=create_combat_embed(description=combat_description), view=None)
                 return True
             return False
