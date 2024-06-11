@@ -5,6 +5,7 @@ from cogs.game.characters import UserDummy, MagicDummy, AssasinDummy
 from cogs.game.enemies import EnemyDummy
 from cogs.utils.fight import NewFight
 from cogs.utils.stast_calculator import load_hero
+from cogs.game.weapons import WeaponKnife
 
 class Combat(commands.Cog):
     def __init__(self, bot):
