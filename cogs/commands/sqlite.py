@@ -13,6 +13,7 @@ class Sqlite(commands.Cog):
         with sqlite3.connect("test.db") as conn:
             cursor = conn.cursor()
             cursor.execute('''DROP TABLE hero''')
+            cursor.execute('''DROP TABLE inventory''')
             cursor.execute('''
             CREATE TABLE hero (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,7 +26,18 @@ class Sqlite(commands.Cog):
                 iron INTEGER NOT NULL DEFAULT 0,
                 runes INTEGER NOT NULL DEFAULT 0,
                 weapon_id INTEGER DEFAULT NULL,
-                armor_id INTEGER DEFAUUT NULL
+                armor_id INTEGER DEFAULT NULL,
+                FOREIGN KEY (weapon_id) REFERENCES inventory(id),
+                FOREIGN KEY (armor_id) REFERENCES inventory(id)
+            );''')
+            cursor.execute('''
+            CREATE TABLE inventory (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                hero_id INTEGER NOT NULL,
+                type INTEGER NOT NULL,
+                item_id INTEGER NOT NULL,
+                level INTEGER NOT NULL DEFAULT 1,
+                FOREIGN KEY (hero_id) REFERENCES hero(id)
             );
             ''')
             cursor.execute('''
@@ -49,6 +61,15 @@ class Sqlite(commands.Cog):
         UPDATE hero SET level=(?) WHERE user_id=(?)
         ''', (level, ctx.author.id))
         await ctx.send("Level updated")
+    
+    
+    @commands.command(name="add_item")
+    async def add_item(self, ctx, type_id : int, item_id : int):
+        execute('''
+        INSERT INTO inventory (hero_id, type, item_id)
+        VALUES ((SELECT id FROM hero WHERE user_id=(?)),?,?)
+        ''', (ctx.author.id, type_id, item_id))
+        await ctx.send("Item added to inventory")
 
 async def setup(bot):
     await bot.add_cog(Sqlite(bot))

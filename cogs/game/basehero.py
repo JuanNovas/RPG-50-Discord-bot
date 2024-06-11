@@ -3,7 +3,7 @@ from cogs.game.weapons import weapon_dict
 from cogs.game.armors import armor_dict
 
 class BaseHero():
-    def __init__(self,level=1,hp=0,attack=0,magic=0,defense=0,magic_resistance=0,mana=0,weapon_id=None,armor_id=None):
+    def __init__(self,level=1,hp=0,attack=0,magic=0,defense=0,magic_resistance=0,mana=0,weapon_id=None,weapon_level=1,armor_id=None,armor_level=1):
         if weapon_id:
             self.equip(weapon_dict[weapon_id])
         else:
