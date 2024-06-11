@@ -16,12 +16,17 @@ class Stats(commands.Cog):
         
         hero_class = get_class_by_id(data[0][2])
         hero = hero_class(level=data[0][3])
-        
-        
+
+        xp_needed = round(6.5 * (1.5 ** hero.level))
+        progress = data[0][4] / xp_needed
+        filled_length = int(20 * progress)
+        bar = '█' * filled_length + '-' * (30 - filled_length)
+        bar = f'[{bar}] {data[0][4]}/{xp_needed} XP'
+
         embed = Embed(title=f"{inte.user.name}'s stats", color=discord.Color.blue())
         embed.add_field(name="Class 🏹", value=hero.classname, inline=True)
         embed.add_field(name="Level 📈", value=hero.level, inline=True)
-        embed.add_field(name="XP 🧪", value=data[0][4], inline=True)
+        embed.add_field(name="XP 🧪", value=bar, inline=False)
         embed.add_field(name="Gold 💰", value=data[0][5], inline=True)
         embed.add_field(name="Wood 🌲", value=data[0][6], inline=True)
         embed.add_field(name="Iron ⛏️", value=data[0][7], inline=True)
@@ -44,3 +49,4 @@ class Stats(commands.Cog):
         
 async def setup(bot):
     await bot.add_cog(Stats(bot))
+
