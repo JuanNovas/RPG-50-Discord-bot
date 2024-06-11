@@ -32,8 +32,10 @@ class UserDummy(BaseHero):
     
 # ID 1
 class MagicDummy(BaseHero):
-    def __init__(self, level=1, weapon_id=None, armor_id=None):
+    def __init__(self, level=1, weapon_id=None, weapon_level=1, armor_id=None, armor_level=1):
         super().__init__(
+            weapon_level=weapon_level,
+            armor_level=armor_level,
             weapon_id=weapon_id,
             armor_id=armor_id,
             level=level,
@@ -55,8 +57,10 @@ class MagicDummy(BaseHero):
     
 # ID 2
 class AssasinDummy(BaseHero):
-    def __init__(self, level=1, weapon_id=None, armor_id=None):
+    def __init__(self, level=1, weapon_id=None, weapon_level=1, armor_id=None, armor_level=1):
         super().__init__(
+            weapon_level=weapon_level,
+            armor_level=armor_level,
             weapon_id=weapon_id,
             armor_id=armor_id,
             level=level,
