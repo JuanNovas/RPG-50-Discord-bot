@@ -1,5 +1,6 @@
 from cogs.game.baseweapon import BaseWeapon
 
+# ID 1
 class WeaponKnife(BaseWeapon):
     def __init__(self):
         super().__init__()
@@ -13,3 +14,8 @@ class WeaponKnife(BaseWeapon):
         
         message = f"dealt {damage} damage to {enemy.name}"
         return message
+    
+
+weapon_dict = {
+    1 : WeaponKnife
+}
