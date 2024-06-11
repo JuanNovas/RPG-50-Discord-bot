@@ -7,7 +7,7 @@ def load_hero(user_id : int) -> object:
     ''', (user_id,))
     
     hero_class = get_class_by_id(data[0][2])
-    hero = hero_class(level=data[0][3])
+    hero = hero_class(level=data[0][3]) # agregar armas
     return hero
     
 def calculate_stats(class_id : int, level : int) -> dict:

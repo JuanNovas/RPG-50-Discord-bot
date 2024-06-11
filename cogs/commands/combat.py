@@ -10,19 +10,6 @@ class Combat(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
-    #@lock_command
-    # @app_commands.command(name="test_combat", description="Simulates a combat")
-    # async def test_combat(self, inte):
-    #     if not lock_manager.command_lock(inte.user.id):
-    #         await inte.response.send_message("User using a command")
-    #         return
-
-    #     user = AssasinDummy()
-    #     enemy = EnemyDummy()
-        
-    #     await NewFight(inte).fight(user,enemy,end=lambda user_id=inte.user.id : lock_manager.unlock(user_id))
-        
-        
     @app_commands.command(name="combat", description="Simulats a combat with the user hero")
     async def combat(self, inte):
         if not lock_manager.command_lock(inte.user.id):

@@ -35,7 +35,7 @@ class Create(commands.Cog):
         embed = Embed(title=f"{inte.user.name}, CHOOSE YOUR CLASS!", color=0xADD8E6, description="Click a button to choose your class")
         embed.set_image(url="https://cdn.discordapp.com/attachments/474702643625984021/1247263771811119224/72fcadcd-905e-4db7-9065-ea523ca7638d.jpg?ex=665f6468&is=665e12e8&hm=5fc58203fe3fcffae54347b6726480f49e84e1ff4828bc0b16c22b7be4328013&")
         
-        #creates buttons 
+        #creates buttons
         view = View()
             
         for index, class_name in enumerate(class_images):

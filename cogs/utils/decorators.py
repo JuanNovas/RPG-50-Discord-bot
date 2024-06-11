@@ -30,15 +30,3 @@ def health_ability(cost):
         return wrapper
     return decorator
 
-
-def lock_command(func):
-    async def wrapper(*args, **kwargs):
-        if lock_manager.is_locked(args[1].user.id):
-            await args[1].response.send_message("You are already in a combat.")
-            return
-        lock_manager.lock(args[1].user.id)
-        try:
-            return await func(*args, **kwargs)
-        except:
-            lock_manager.unlock(args[1].user.id)
-    return wrapper
