@@ -1,6 +1,6 @@
 from discord.ext import commands
 from cogs.utils.stast_calculator import calculate_stats
-from cogs.utils.database import execute
+from cogs.utils.database import execute, execute_dict
 import sqlite3
         
 class Sqlite(commands.Cog):
@@ -70,6 +70,30 @@ class Sqlite(commands.Cog):
         VALUES ((SELECT id FROM hero WHERE user_id=(?)),?,?)
         ''', (ctx.author.id, type_id, item_id))
         await ctx.send("Item added to inventory")
+        
+    @commands.command(name="equip")
+    async def equip(self, ctx, item_id : int):
+        data = execute_dict('''
+        SELECT * FROM inventory
+        WHERE hero_id = (
+            SELECT id FROM hero WHERE user_id=(?)
+        ) AND item_id = (?)
+        ''', (ctx.author.id, item_id))[0]
+        
+        
+        if data["type"] == 1:
+            equipment_type = "weapon_id"
+        elif data["type"] == 2:
+            equipment_type = "armor_id"
+        else:
+            return
+        
+        execute_dict(f'''
+        UPDATE hero SET {equipment_type} = (?)
+        WHERE id = (?)
+        ''', (data["item_id"], data["hero_id"]))
+        
+        await ctx.send("Item equipped")
 
 async def setup(bot):
     await bot.add_cog(Sqlite(bot))

@@ -1,9 +1,27 @@
 CREATE TABLE hero (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    level INTEGER NOT NULL,
-    xp INTEGER NOT NULL,
-    gold INTEGER NOT NULL,
-    wood INTEGER NOT NULL,
-    iron INTEGER NOT NULL,
-    runes INTEGER NOT NULL
+    user_id INTEGER NOT NULL UNIQUE,
+    class INTEGER NOT NULL,
+    level INTEGER NOT NULL DEFAULT 1,
+    xp INTEGER NOT NULL DEFAULT 0,
+    gold INTEGER NOT NULL DEFAULT 0,
+    wood INTEGER NOT NULL DEFAULT 0,
+    iron INTEGER NOT NULL DEFAULT 0,
+    runes INTEGER NOT NULL DEFAULT 0,
+    weapon_id INTEGER DEFAULT NULL,
+    armor_id INTEGER DEFAULT NULL,
+    FOREIGN KEY (weapon_id) REFERENCES inventory(id),
+    FOREIGN KEY (armor_id) REFERENCES inventory(id)
 );
+
+CREATE TABLE inventory (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    hero_id INTEGER NOT NULL,
+    type INTEGER NOT NULL,
+    item_id INTEGER NOT NULL,
+    level INTEGER NOT NULL DEFAULT 1,
+    FOREIGN KEY (hero_id) REFERENCES hero(id)
+);
+
+
+CREATE UNIQUE INDEX user_id_index ON hero(user_id);

@@ -34,6 +34,7 @@ class BaseEquipment:
 
         self.level = 1
         self.xp = 0
+        self.name = "Base name"
 
     def update_level(self):
         PROGRESS = 1.2

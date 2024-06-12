@@ -7,6 +7,7 @@ class WeaponKnife(BaseWeapon):
         
         self.baseplain["attack"] = 4
         self.update_level()
+        self.name = "Knife"
         
     def custom_attack(self, user, enemy):
         damage = 10

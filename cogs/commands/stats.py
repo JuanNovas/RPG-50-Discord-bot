@@ -2,7 +2,7 @@ import discord
 from discord import app_commands, Embed
 from discord.ext import commands
 from cogs.utils.database import execute
-from cogs.utils.stast_calculator import get_class_by_id
+from cogs.utils.stast_calculator import get_class_by_id, load_hero
 
 class Stats(commands.Cog):
     def __init__(self, bot):
@@ -14,8 +14,7 @@ class Stats(commands.Cog):
         SELECT * FROM hero WHERE user_id=(?)
         ''', (inte.user.id,))
         
-        hero_class = get_class_by_id(data[0][2])
-        hero = hero_class(level=data[0][3])
+        hero = load_hero(inte.user.id)
 
         xp_needed = round(6.5 * (1.5 ** hero.level))
         progress = data[0][4] / xp_needed
@@ -37,8 +36,8 @@ class Stats(commands.Cog):
         embed.add_field(name="Defense 🛡️", value=hero.defense, inline=True)
         embed.add_field(name="Magic Resistance ✨", value=hero.magic_resistance, inline=True)
         embed.add_field(name="Mana 🔵", value=hero.mana, inline=True)
-        embed.add_field(name="Weapon 🗡️", value=hero.weapon, inline=True)
-        embed.add_field(name="Armor 🛡️", value=hero.armor, inline=True)
+        embed.add_field(name="Weapon 🗡️", value=hero.weapon.name, inline=True)
+        embed.add_field(name="Armor 🛡️", value=hero.armor.name, inline=True)
         
         embed.set_image(url=hero.image)
         

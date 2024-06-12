@@ -4,14 +4,7 @@ from cogs.game.armors import armor_dict
 
 class BaseHero():
     def __init__(self,level=1,hp=0,attack=0,magic=0,defense=0,magic_resistance=0,mana=0,weapon_id=None,weapon_level=1,armor_id=None,armor_level=1):
-        if weapon_id:
-            self.equip(weapon_dict[weapon_id])
-        else:
-            self.weapon = None
-        if armor_id:
-            self.equip(armor_dict[armor_id])
-        else:
-            self.armor = None
+        
         
         self.level = level 
         level = level - 1
@@ -25,6 +18,17 @@ class BaseHero():
         self.mana = self.max_mana
         
         self.abilities = {"Hit" : self.do_attack}
+        
+        # Equip last, needs before definitions to work
+        if weapon_id:
+            self.equip(weapon_dict[weapon_id]())
+        else:
+            self.weapon = None
+        if armor_id:
+            self.equip(armor_dict[armor_id]())
+        else:
+            self.armor = None
+        
         
     def do_attack(self, enemy, power=10):
         CRIT_CHANCE = 0.05
