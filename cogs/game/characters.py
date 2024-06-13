@@ -32,19 +32,15 @@ class UserDummy(BaseHero):
     
 # ID 1
 class MagicDummy(BaseHero):
-    def __init__(self, level=1, weapon_id=None, weapon_level=1, armor_id=None, armor_level=1):
+    def __init__(self, **kwargs):
         super().__init__(
-            weapon_level=weapon_level,
-            armor_level=armor_level,
-            weapon_id=weapon_id,
-            armor_id=armor_id,
-            level=level,
             hp=20,
             attack=3,
             magic=7,
             defense=3,
             magic_resistance=4,
-            mana=20
+            mana=20,
+            **kwargs
         )
         self.name = "User"
         self.classname = "MagicDummy"
@@ -57,19 +53,15 @@ class MagicDummy(BaseHero):
     
 # ID 2
 class AssasinDummy(BaseHero):
-    def __init__(self, level=1, weapon_id=None, weapon_level=1, armor_id=None, armor_level=1):
+    def __init__(self, **kwargs):
         super().__init__(
-            weapon_level=weapon_level,
-            armor_level=armor_level,
-            weapon_id=weapon_id,
-            armor_id=armor_id,
-            level=level,
             hp=30,
             attack=5,
             magic=2,
             defense=4,
             magic_resistance=5,
-            mana=10
+            mana=10,
+            **kwargs
         )
         self.name = "User"
         self.classname = "AssasinDummy"

@@ -36,8 +36,8 @@ class Stats(commands.Cog):
         embed.add_field(name="Defense 🛡️", value=hero.defense, inline=True)
         embed.add_field(name="Magic Resistance ✨", value=hero.magic_resistance, inline=True)
         embed.add_field(name="Mana 🔵", value=hero.mana, inline=True)
-        embed.add_field(name="Weapon 🗡️", value=hero.weapon.name, inline=True)
-        embed.add_field(name="Armor 🛡️", value=hero.armor.name, inline=True)
+        embed.add_field(name="Weapon 🗡️", value=hero.weapon.name if hero.weapon else "None", inline=True)
+        embed.add_field(name="Armor 🛡️", value=hero.armor.name if hero.armor else "None", inline=True)
         
         embed.set_image(url=hero.image)
         

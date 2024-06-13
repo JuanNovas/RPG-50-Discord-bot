@@ -2,10 +2,10 @@ from cogs.game.baseweapon import BaseWeapon
 
 # ID 1
 class WeaponKnife(BaseWeapon):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         
-        self.baseplain["attack"] = 4
+        self.plain["attack"] = 4
         self.update_level()
         self.name = "Knife"
         

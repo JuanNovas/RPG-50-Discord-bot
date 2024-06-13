@@ -1,5 +1,5 @@
 class BaseEquipment:
-    def __init__(self):
+    def __init__(self, **kwargs):
         self.plain = {
             "attack": 0,
             "magic": 0,
@@ -15,24 +15,7 @@ class BaseEquipment:
             "magic_resistance": 0,
             "max_mana": 0
         }
-
-        self.baseplain = {
-            "attack": 0,
-            "magic": 0,
-            "defense": 0,
-            "magic_resistance": 0,
-            "max_mana": 0
-        }
-
-        self.basemulti = {
-            "attack": 0,
-            "magic": 0,
-            "defense": 0,
-            "magic_resistance": 0,
-            "max_mana": 0
-        }
-
-        self.level = 1
+        self.level = kwargs.get("level", 1)
         self.xp = 0
         self.name = "Base name"
 
@@ -41,5 +24,5 @@ class BaseEquipment:
         level = self.level - 1
 
         for stat in self.plain:
-            self.plain[stat] = round(self.baseplain[stat] * PROGRESS ** level)
-            self.multi[stat] = round(self.basemulti[stat] * PROGRESS ** level)
+            self.plain[stat] = round(self.plain[stat] * PROGRESS ** level)
+            self.multi[stat] = round(self.multi[stat] * PROGRESS ** level)
