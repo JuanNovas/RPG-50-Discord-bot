@@ -39,3 +39,20 @@ CREATE UNIQUE INDEX user_id_index ON hero(user_id);
 -- Types
 INSERT INTO item_types (type) VALUES ('weapon');
 INSERT INTO item_types (type) VALUES ('armor');
+
+-- Views
+DROP VIEW IF EXISTS clean_inventory;
+
+CREATE VIEW clean_inventory AS
+SELECT 
+    inventory.hero_id,
+    hero.user_id,
+    item_types.type,
+    inventory.item_id,
+    inventory.level
+FROM 
+    inventory
+JOIN 
+    hero ON inventory.hero_id = hero.id
+JOIN 
+    item_types ON inventory.type = item_types.id;
