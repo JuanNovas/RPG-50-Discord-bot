@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS hero;
+DROP TABLE IF EXISTS inventory;
+DROP TABLE IF EXISTS item_types;
+
 CREATE TABLE hero (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL UNIQUE,
@@ -20,8 +24,18 @@ CREATE TABLE inventory (
     type INTEGER NOT NULL,
     item_id INTEGER NOT NULL,
     level INTEGER NOT NULL DEFAULT 1,
-    FOREIGN KEY (hero_id) REFERENCES hero(id)
+    FOREIGN KEY (hero_id) REFERENCES hero(id),
+    FOREIGN KEY (type) REFERENCES item_types(id)
+);
+
+CREATE TABLE item_types (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type TEXT NOT NULL
 );
 
 
 CREATE UNIQUE INDEX user_id_index ON hero(user_id);
+
+-- Types
+INSERT INTO item_types (type) VALUES ('weapon');
+INSERT INTO item_types (type) VALUES ('armor');

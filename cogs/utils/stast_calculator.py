@@ -34,3 +34,36 @@ class_dict = {
     1 : MagicDummy,
     2 : AssasinDummy
 }
+
+
+def add_if_new(user_id : int, item : object) -> bool:
+    if not has_item(user_id, item):
+        add_item(user_id, item)
+        return True
+    else:
+        return False
+
+
+def has_item(user_id : int, item : object) -> bool:
+    data = execute('''
+    SELECT * FROM inventory
+    WHERE hero_id = (
+        SELECT id FROM hero WHERE user_id = (?)
+    )
+    AND item_id = (?)
+    AND type = (
+        SELECT id FROM item_types WHERE type = (?)
+    )
+    ''', (user_id, item.id, item.type))
+    return data != []
+
+
+def add_item(user_id : int, item : object) -> None:
+    execute('''
+    INSERT INTO inventory
+    (hero_id, type, item_id)
+    VALUES
+    ((SELECT id FROM hero WHERE user_id = (?)), (SELECT id FROM item_types WHERE type = (?)), (?))
+    ''', (user_id, item.type, item.id))
+    
+    

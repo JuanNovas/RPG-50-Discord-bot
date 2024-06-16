@@ -16,8 +16,8 @@ class BaseEquipment:
             "max_mana": 0
         }
         self.level = kwargs.get("level", 1)
-        self.xp = 0
         self.name = "Base name"
+        self.id = None
 
     def update_level(self):
         PROGRESS = 1.2
