@@ -9,6 +9,3 @@ class ArmorIron(BaseArmor):
         self.plain["magic resistance"] = 3
         
         
-armor_dict = {
-    1 : ArmorIron
-}
