@@ -18,6 +18,8 @@ class BaseEquipment:
         self.level = kwargs.get("level", 1)
         self.name = "Base name"
         self.id = None
+        
+        self.update_level()
 
     def update_level(self):
         PROGRESS = 1.2

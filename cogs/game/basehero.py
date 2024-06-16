@@ -21,11 +21,11 @@ class BaseHero():
         
         # Equip last, needs before definitions to work
         if kwargs.get('weapon_id', None):
-            self.equip(weapon_dict[kwargs.get('weapon_id', None)]())
+            self.equip(weapon_dict[kwargs.get('weapon_id', None)](level=kwargs.get('weapon_level', None)))
         else:
             self.weapon = None
         if kwargs.get('armor_id', None):
-            self.equip(armor_dict[kwargs.get('armor_id', None)]())
+            self.equip(armor_dict[kwargs.get('armor_id', None)](level=kwargs.get('armor_level', None)))
         else:
             self.armor = None
         

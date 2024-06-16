@@ -42,6 +42,8 @@ INSERT INTO item_types (type) VALUES ('armor');
 
 -- Views
 DROP VIEW IF EXISTS clean_inventory;
+DROP VIEW IF EXISTS clean_hero;
+
 
 CREATE VIEW clean_inventory AS
 SELECT 
@@ -56,3 +58,24 @@ JOIN
     hero ON inventory.hero_id = hero.id
 JOIN 
     item_types ON inventory.type = item_types.id;
+
+
+CREATE VIEW clean_hero AS
+SELECT
+    hero.id,
+    hero.user_id,
+    hero.class,
+    hero.level,
+    hero.xp,
+    hero.gold,
+    hero.wood,
+    hero.iron,
+    hero.runes,
+    hero.weapon_id,
+    weapon_inventory.level AS weapon_level,
+    hero.armor_id,
+    armor_inventory.level AS armor_level
+FROM
+    hero
+LEFT JOIN inventory AS weapon_inventory ON hero.weapon_id = weapon_inventory.id
+LEFT JOIN inventory AS armor_inventory ON hero.armor_id = armor_inventory.id;
