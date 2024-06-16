@@ -1,4 +1,4 @@
-from cogs.game.basearmor import BaseArmor
+from cogs.game.items.basearmor import BaseArmor 
 
 
 class ArmorIron(BaseArmor):

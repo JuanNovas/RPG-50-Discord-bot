@@ -1,6 +1,6 @@
 import random
-from cogs.game.weapons import weapon_dict
-from cogs.game.armors import armor_dict
+from cogs.game.items.weapons import weapon_dict
+from cogs.game.items.armors import armor_dict
 
 class BaseHero():
     def __init__(self,hp=0,attack=0,magic=0,defense=0,magic_resistance=0,mana=0, **kwargs):

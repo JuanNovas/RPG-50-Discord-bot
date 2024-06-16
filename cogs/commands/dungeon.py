@@ -1,5 +1,5 @@
 from discord.ext import commands
-from cogs.game.enemies import EnemyDummy
+from cogs.game.characters.enemies import EnemyDummy
 from cogs.utils.lock_manager import LockManager
 
 lock_manager = LockManager()

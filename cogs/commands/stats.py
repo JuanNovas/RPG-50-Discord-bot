@@ -2,7 +2,7 @@ import discord
 from discord import app_commands, Embed
 from discord.ext import commands
 from cogs.utils.database import execute
-from cogs.utils.stast_calculator import get_class_by_id, load_hero
+from cogs.utils.hero_actions import get_class_by_id, load_hero
 
 class Stats(commands.Cog):
     def __init__(self, bot):

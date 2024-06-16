@@ -2,8 +2,8 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 from cogs.utils.database import execute_dict
-from cogs.game.weapons import weapon_dict
-from cogs.game.armors import armor_dict
+from cogs.game.items.weapons import weapon_dict
+from cogs.game.items.armors import armor_dict
 from discord import Embed
 
 class Inventory(commands.Cog):

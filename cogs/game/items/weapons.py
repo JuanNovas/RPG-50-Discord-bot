@@ -1,4 +1,4 @@
-from cogs.game.baseweapon import BaseWeapon
+from cogs.game.items.baseweapon import BaseWeapon
 
 class WeaponKnife(BaseWeapon):
     def __init__(self, **kwargs):

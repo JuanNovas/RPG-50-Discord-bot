@@ -1,5 +1,4 @@
 from discord.ext import commands
-from cogs.utils.stast_calculator import calculate_stats
 from cogs.utils.database import execute, execute_dict
 import sqlite3
 import os

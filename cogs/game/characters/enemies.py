@@ -1,7 +1,7 @@
-from cogs.game.basehero import BaseHero
-from cogs.game.weapons import WeaponKnife
+from cogs.game.characters.basehero import BaseHero
+from cogs.game.items.weapons import WeaponKnife
 from cogs.utils.database import execute
-from cogs.utils.stast_calculator import add_if_new
+from cogs.utils.hero_actions import add_if_new
 
 class Loot():
     def __init__(self, gold=0, wood=0, iron=0, runes=0, xp=0, equipment=None, drop_rate=0.1):

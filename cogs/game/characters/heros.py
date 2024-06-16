@@ -1,4 +1,4 @@
-from cogs.game.basehero import BaseHero
+from cogs.game.characters.basehero import BaseHero
 from cogs.utils.decorators import mana_ability, health_ability
 
 class UserDummy(BaseHero):
