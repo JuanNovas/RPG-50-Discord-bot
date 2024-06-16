@@ -1,11 +1,11 @@
 from discord.ext import commands
 from discord import app_commands
 from cogs.utils.lock_manager import lock_manager
-from cogs.game.characters import UserDummy, MagicDummy, AssasinDummy
-from cogs.game.enemies import EnemyDummy
-from cogs.utils.fight import NewFight
-from cogs.utils.stast_calculator import load_hero
-from cogs.game.weapons import WeaponKnife
+from cogs.game.characters.heros import UserDummy, MagicDummy, AssasinDummy
+from cogs.game.characters.enemies import EnemyDummy
+from cogs.utils.game_loop.fight import NewFight
+from cogs.utils.hero_actions import load_hero
+from cogs.game.items.weapons import WeaponKnife
 
 class Combat(commands.Cog):
     def __init__(self, bot):

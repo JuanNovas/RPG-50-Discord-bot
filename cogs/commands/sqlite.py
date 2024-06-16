@@ -1,7 +1,7 @@
 from discord.ext import commands
-from cogs.utils.stast_calculator import calculate_stats
-from cogs.utils.database import execute
+from cogs.utils.database import execute, execute_dict
 import sqlite3
+import os
         
 class Sqlite(commands.Cog):
     def __init__(self, bot):
@@ -10,40 +10,20 @@ class Sqlite(commands.Cog):
         
     @commands.command(name="reset")
     async def reset(self, ctx):
+        sql_file_path = "data/schema.sql"
+        
+        if not os.path.isfile(sql_file_path):
+            await ctx.send(f"The file {sql_file_path} does not exist.")
+            return
+        
+        with open(sql_file_path, 'r') as sql_file:
+            sql_script = sql_file.read()
+
         with sqlite3.connect("test.db") as conn:
             cursor = conn.cursor()
-            cursor.execute('''DROP TABLE hero''')
-            cursor.execute('''DROP TABLE inventory''')
-            cursor.execute('''
-            CREATE TABLE hero (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                user_id INTEGER NOT NULL UNIQUE,
-                class INTEGER NOT NULL,
-                level INTEGER NOT NULL DEFAULT 1,
-                xp INTEGER NOT NULL DEFAULT 0,
-                gold INTEGER NOT NULL DEFAULT 0,
-                wood INTEGER NOT NULL DEFAULT 0,
-                iron INTEGER NOT NULL DEFAULT 0,
-                runes INTEGER NOT NULL DEFAULT 0,
-                weapon_id INTEGER DEFAULT NULL,
-                armor_id INTEGER DEFAULT NULL,
-                FOREIGN KEY (weapon_id) REFERENCES inventory(id),
-                FOREIGN KEY (armor_id) REFERENCES inventory(id)
-            );''')
-            cursor.execute('''
-            CREATE TABLE inventory (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                hero_id INTEGER NOT NULL,
-                type INTEGER NOT NULL,
-                item_id INTEGER NOT NULL,
-                level INTEGER NOT NULL DEFAULT 1,
-                FOREIGN KEY (hero_id) REFERENCES hero(id)
-            );
-            ''')
-            cursor.execute('''
-            CREATE UNIQUE INDEX user_id_index ON hero(user_id);
-            ''')
+            cursor.executescript(sql_script)
             conn.commit()
+
         await ctx.send("Databae reseted")
         
     
@@ -70,6 +50,30 @@ class Sqlite(commands.Cog):
         VALUES ((SELECT id FROM hero WHERE user_id=(?)),?,?)
         ''', (ctx.author.id, type_id, item_id))
         await ctx.send("Item added to inventory")
+        
+    @commands.command(name="equip")
+    async def equip(self, ctx, item_id : int):
+        data = execute_dict('''
+        SELECT * FROM inventory
+        WHERE hero_id = (
+            SELECT id FROM hero WHERE user_id=(?)
+        ) AND item_id = (?)
+        ''', (ctx.author.id, item_id))[0]
+        
+        
+        if data["type"] == 1:
+            equipment_type = "weapon_id"
+        elif data["type"] == 2:
+            equipment_type = "armor_id"
+        else:
+            return
+        
+        execute_dict(f'''
+        UPDATE hero SET {equipment_type} = (?)
+        WHERE id = (?)
+        ''', (data["item_id"], data["hero_id"]))
+        
+        await ctx.send("Item equipped")
 
 async def setup(bot):
     await bot.add_cog(Sqlite(bot))

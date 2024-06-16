@@ -1,20 +1,13 @@
 import random
-from cogs.game.weapons import weapon_dict
-from cogs.game.armors import armor_dict
+from cogs.game.items.weapons import weapon_dict
+from cogs.game.items.armors import armor_dict
 
 class BaseHero():
-    def __init__(self,level=1,hp=0,attack=0,magic=0,defense=0,magic_resistance=0,mana=0,weapon_id=None,weapon_level=1,armor_id=None,armor_level=1):
-        if weapon_id:
-            self.equip(weapon_dict[weapon_id])
-        else:
-            self.weapon = None
-        if armor_id:
-            self.equip(armor_dict[armor_id])
-        else:
-            self.armor = None
+    def __init__(self,hp=0,attack=0,magic=0,defense=0,magic_resistance=0,mana=0, **kwargs):
         
-        self.level = level 
-        level = level - 1
+        
+        self.level = kwargs.get('level', 1)
+        level = self.level - 1
         self.max_hp = round(hp * (1.15 ** level))
         self.hp = self.max_hp
         self.attack = round(attack * (1.15 ** level))
@@ -25,6 +18,17 @@ class BaseHero():
         self.mana = self.max_mana
         
         self.abilities = {"Hit" : self.do_attack}
+        
+        # Equip last, needs before definitions to work
+        if kwargs.get('weapon_id', None):
+            self.equip(weapon_dict[kwargs.get('weapon_id', None)](level=kwargs.get('weapon_level', None)))
+        else:
+            self.weapon = None
+        if kwargs.get('armor_id', None):
+            self.equip(armor_dict[kwargs.get('armor_id', None)](level=kwargs.get('armor_level', None)))
+        else:
+            self.armor = None
+        
         
     def do_attack(self, enemy, power=10):
         CRIT_CHANCE = 0.05
