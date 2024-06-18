@@ -3,12 +3,12 @@ from cogs.utils.hero_actions import add_if_new
 
 
 class Loot():
-    def __init__(self, gold=0, wood=0, iron=0, runes=0, xp=0, equipment=None, drop_rate=0.1):
-        self.gold = gold
+    def __init__(self, gold=0, wood=0, iron=0, runes=0, xp=0, equipment=None, drop_rate=0.1, level=1):
+        self.gold = gold 
         self.wood = wood
         self.iron = iron
         self.runes = runes
-        self.xp = xp
+        self.xp = round(xp * (1.07 ** level))
         self.equipment = equipment
         self.drop_rate = drop_rate
     

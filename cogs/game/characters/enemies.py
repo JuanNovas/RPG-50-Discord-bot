@@ -22,7 +22,8 @@ class EnemyDummy(BaseHero):
             gold=10,
             wood=2,
             xp=10,
-            equipment = WeaponKnife
+            equipment = WeaponKnife,
+            level=kwargs.get('level', 1)
         )
         
         
@@ -47,7 +48,8 @@ class EnemySlime(BaseHero):
            iron=0,
            runes=0,
            xp=4,
-           equipment=None
+           equipment=None,
+           level=kwargs.get('level', 1)
         )
         
         
