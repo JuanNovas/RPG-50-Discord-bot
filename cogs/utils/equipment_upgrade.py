@@ -2,7 +2,7 @@ from cogs.utils.database import execute, execute_dict
 
 def equipment_upgrade_cost(level : int, rarity : int) -> tuple:
     if not (0 <= level <= 49 and level < rarity * 10):
-        raise ValueError
+        return False
     
     # Gold
     gold_cost = level * (100 * ((level // 10) + 1))
@@ -11,7 +11,7 @@ def equipment_upgrade_cost(level : int, rarity : int) -> tuple:
     wood_cost = 10 + level ** 2 * 2
     
     # Iron
-    iron_cost = level + 5 ** (0.1 * level)
+    iron_cost = round(level + 5 ** (0.1 * level))
     
     # Runes
     if rarity >= 4:
@@ -41,9 +41,9 @@ def make_upgrade(user_id : int, item : object) -> bool:
     SELECT hero_id, level FROM clean_inventory WHERE
     user_id = (?)
     AND item_id = (?)
-    AND class_type = (?)
+    AND type = (?)
     ''', (user_id, item.id, item.type))[0]
-    
+
     cost = equipment_upgrade_cost(data[1], item.rarity)
     
     hero_id = data[0]
@@ -51,25 +51,25 @@ def make_upgrade(user_id : int, item : object) -> bool:
     data = execute_dict('''
     SELECT gold, wood, iron, runes FROM hero WHERE
     id = (?)
-    ''', (hero_id,))
+    ''', (hero_id,))[0]
     
     if data["gold"] >= cost[0] and data["wood"] >= cost[1] and data["iron"] >= cost[2] and data["runes"] >= cost[3]:
         execute('''
-        UPDATE hero ON
-        gold = gold - (?)
-        AND wood = wood - (?)
-        AND iron = iron - (?)
-        AND runes = runes - (?)
+        UPDATE hero SET
+        gold = gold - (?),
+        wood = wood - (?),
+        iron = iron - (?),
+        runes = runes - (?)
         WHERE id = (?)
         ''', (cost[0], cost[1], cost[2], cost[3], hero_id))
         
         execute('''
-        UPDATE inventory ON
+        UPDATE inventory SET
         level = level + 1
         WHERE
         hero_id = (?)
         AND item_id = (?)
-        AND class_type = (
+        AND type = (
             SELECT id FROM item_types WHERE type = (?)
         )
         ''', (hero_id, item.id, item.type))

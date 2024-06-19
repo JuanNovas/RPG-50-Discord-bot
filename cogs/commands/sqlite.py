@@ -100,6 +100,19 @@ class Sqlite(commands.Cog):
             
             
         await ctx.send("All items added to inventory")
+        
+        
+    @commands.command(name="add_resources")
+    async def add_resources(self, ctx):
+        execute('''
+        UPDATE hero SET 
+        gold = 999999,
+        wood = 999999,
+        iron = 999999,
+        runes = 999999
+        WHERE user_id=(?)
+        ''', (ctx.author.id,))
+        await ctx.send("Resources added")
 
 async def setup(bot):
     await bot.add_cog(Sqlite(bot))
