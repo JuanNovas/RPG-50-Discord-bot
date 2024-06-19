@@ -1,26 +1,20 @@
 from discord.ext import commands
 from discord import app_commands, Interaction, ButtonStyle, Embed
 from discord.ui import View, Button
-from cogs.utils.database import execute_dict
-from cogs.game.items.weapons import weapon_dict
-from cogs.game.items.armors import armor_dict
 
-
-class Forge(commands.Cog):
+class Paginator(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.page = 0
+        self.message = None
 
-    @app_commands.command(name='forge', description="Equipment Upgrades")
-    async def forge(self, inte):
+    @app_commands.command(name='paginator', description="Muestra 5 objetos por página y permite cambiar de página")
+    async def paginator(self, inte: Interaction):
 
         def create_embed(page):
             embed = Embed(title="Forge", description="Select an item to Upgrade", color=0x3498db)
-            for i, item in enumerate(page):
-                if item['type'] == "armor":
-                    dict = armor_dict
-                elif item["type"] == "weapon":
-                    dict = weapon_dict
-                embed.add_field(name=f"{i+1} {dict[item['item_id']].__name__}", value=f"Level: {item['level']}")
+            for item in page:
+                embed.add_field(name=item, value="Level X")
             return embed
 
         async def back(interaction):
@@ -42,10 +36,10 @@ class Forge(commands.Cog):
             button_back = Button(label="<<", style=ButtonStyle.primary)
             button_back.callback = back
             view.add_item(button_back)
-            
+
             # Create item buttons
-            for i in range(len(page)):
-                button = Button(label=f"{i+1}", style=ButtonStyle.primary)
+            for item in page:
+                button = Button(label=f"item:{item}", style=ButtonStyle.primary)
                 view.add_item(button)
                 
             button_forward = Button(label=">>", style=ButtonStyle.primary)
@@ -59,15 +53,10 @@ class Forge(commands.Cog):
                 self.message = await inte.original_response()
 
         PER_PAGE = 5
-        self.page = 0
-        self.message = None
-        data = execute_dict('''
-        SELECT type, level, item_id FROM clean_inventory
-        WHERE user_id = (?)
-        ''', (inte.user.id,))
-        self.pages = [data[i:i + PER_PAGE] for i in range(0, len(data), PER_PAGE)]
+        items = range(56)
+        self.pages = [items[i:i + PER_PAGE] for i in range(0, len(items), PER_PAGE)]
 
         await create_message(self.pages[0])
 
 async def setup(bot):
-    await bot.add_cog(Forge(bot))
+    await bot.add_cog(Paginator(bot))
