@@ -9,6 +9,7 @@ class ArmorIron(BaseArmor):
         self.plain["magic resistance"] = 3
         
         self.id = 1
+        self.rarity = 1
 
 
 armor_dict =  {

@@ -9,6 +9,7 @@ class WeaponKnife(BaseWeapon):
         self.name = "Knife"
         
         self.id = 1
+        self.rarity = 1
         
     def custom_attack(self, user, enemy):
         damage = 10
