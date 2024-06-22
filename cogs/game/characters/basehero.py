@@ -14,7 +14,7 @@ class BaseHero():
         self.magic = round(magic * (1.15 ** level))
         self.defense = round(defense * (1.15 ** level))
         self.magic_resistance = round(magic_resistance * (1.15 ** level))
-        self.max_mana = round(mana * (1.15 ** level))
+        self.max_mana = mana
         self.mana = self.max_mana
         
         self.abilities = {"Hit" : self.do_attack}
