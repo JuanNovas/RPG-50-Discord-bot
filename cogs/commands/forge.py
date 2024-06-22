@@ -1,7 +1,7 @@
 from discord.ext import commands
-from discord import app_commands, Interaction, ButtonStyle, Embed
+from discord import app_commands, ButtonStyle, Embed
 from discord.ui import View, Button
-from cogs.utils.database import execute_dict, execute
+from cogs.utils.database import execute_dict
 from cogs.game.items.weapons import weapon_dict
 from cogs.game.items.armors import armor_dict
 from cogs.utils.equipment_upgrade import equipment_upgrade_cost, make_upgrade

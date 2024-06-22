@@ -92,3 +92,119 @@ class NewFight():
         await self.inte.response.send_message(embed=create_combat_embed(), view=self.view)
         self.message = await self.inte.original_response()
         
+
+
+
+    async def multi_fight(self, users_data : tuple, enemy : object, end=None):
+        async def action_callback(interaction, user_action_name, user_id):
+            if interaction.user.id != user_id:
+                return
+            await interaction.response.defer()
+            await simulate_turn(interaction, user_action_name)
+        
+        def use_attack(enemy : object, action, action_name : str) -> str:
+            if message := action(enemy):
+                return f"`{self.username} {message}`\n"
+            else:
+                return f"`{self.username} attempted to perform {action_name} but failed!`\n"
+        
+        async def simulate_turn(interaction, user_action_name):
+            
+            if self.turn < len(users_data):
+                user = users_data[self.turn][1]
+                
+                action_function = user.abilities[user_action_name]
+                combat_description =  f"`{interaction.user.name} used {user_action_name}!`\n"
+                
+                # Users attack
+                combat_description += use_attack(enemy, action_function, user_action_name)
+
+                # Message update
+                await self.message.edit(embed=create_combat_embed(user, description=combat_description))
+            
+                # Check win
+                if enemy.hp <= 0:
+                    if end:
+                        end()
+                    await self.message.edit(embed=create_combat_embed(user, description=combat_description), view=None)
+                    return 
+                
+                self.turn += 1
+                
+                if self.turn >= len(users_data):
+                    await self.message.edit(embed=create_combat_embed(users_data[0][1], description=combat_description), view=None)
+                    await simulate_turn(interaction, user_action_name)
+                else:
+                    view = View()
+                    for ability in buttons[self.turn]:
+                        view.add_item(ability)
+                    
+                    await self.message.edit(embed=create_combat_embed(users_data[self.turn][1], description=combat_description), view=view)
+                
+            else:
+                
+                user = users_data[0][1]
+            
+                # Enemy attack
+                combat_description = use_attack(user, enemy.do_attack, "Hit")
+                
+                # Message update
+                await self.message.edit(embed=create_combat_embed(user, description=combat_description))
+            
+                # Check win
+                if enemy.hp <= 0:
+                    if end:
+                        end()
+                    return 
+                
+                self.turn = 0
+                
+                
+                view = View()
+                for ability in buttons[self.turn]:
+                    view.add_item(ability)
+                    
+                await self.message.edit(embed=create_combat_embed(users_data[self.turn][1], description=combat_description), view=view)
+            
+            
+            
+        def create_combat_embed(user, description="Choose your action:"):
+            embed = Embed(title="⚔️ COMBAT! ⚔️", description=description, color=0x3498db)  # Blue color
+            embed.set_image(url=enemy.image)
+
+            # First line: user's HP and Mana
+            embed.add_field(name=f"{self.username} HP", value=f"❤️ {user.hp}", inline=True)
+            embed.add_field(name=f"{self.username} Mana", value=f"🔮 {user.mana}", inline=True)
+            embed.add_field(name="\u200b", value="\u200b", inline=True)  # empty field to align correctly
+
+            # Second line: enemy's HP and Mana
+            embed.add_field(name=f"👹 {enemy.name} HP", value=f"❤️ {enemy.hp}", inline=True)
+            embed.add_field(name=f"👹 {enemy.name} Mana", value=f"🔮 {enemy.mana}", inline=True)
+            embed.add_field(name="\u200b", value="\u200b", inline=True)  # empty field to align correctly
+
+            return embed
+        
+        
+        
+        buttons = []
+        
+        for user in users_data:
+            temp = []
+            for ability in user[1].abilities:
+                button = Button(label=ability, style=ButtonStyle.primary)
+                button.callback = lambda i, name=ability, user_id=user[0]: action_callback(i, name, user_id)
+                temp.append(button)
+                
+            buttons.append(temp.copy())
+            
+            
+        self.turn = 0
+        
+        view = View()
+        for ability in buttons[self.turn]:
+            view.add_item(ability)
+        
+        await self.inte.response.send_message(embed=create_combat_embed(users_data[0][1]), view=view)
+        self.message = await self.inte.original_response()
+        
+        
