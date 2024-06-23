@@ -126,6 +126,11 @@ class NewFight():
                 if enemy.hp <= 0:
                     if end:
                         end()
+                        
+                    combat_description = f"`{self.username} wins!`\n"
+                    for user_data in users_data:
+                        combat_description += enemy.loot.drop(user_data[0])
+                    
                     await self.message.edit(embed=create_combat_embed(user, description=combat_description), view=None)
                     return 
                 
