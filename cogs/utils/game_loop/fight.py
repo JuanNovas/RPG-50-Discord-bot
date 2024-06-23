@@ -95,10 +95,12 @@ class NewFight():
 
 
 
-    async def multi_fight(self, users_data : tuple, enemy : object, end=None):
+    async def multi_fight(self, users_data : list, enemy : object, end=None):
         async def action_callback(interaction, user_action_name, user_id):
             if interaction.user.id != user_id:
                 return
+            if self.button_message:
+                await self.button_message.delete()
             await interaction.response.defer()
             await simulate_turn(interaction, user_action_name)
         
@@ -126,6 +128,11 @@ class NewFight():
                 if enemy.hp <= 0:
                     if end:
                         end()
+                        
+                    combat_description = f"`{self.username} wins!`\n"
+                    for user_data in users_data:
+                        combat_description += enemy.loot.drop(user_data[0])
+                    
                     await self.message.edit(embed=create_combat_embed(user, description=combat_description), view=None)
                     return 
                 
@@ -135,11 +142,9 @@ class NewFight():
                     await self.message.edit(embed=create_combat_embed(users_data[0][1], description=combat_description), view=None)
                     await simulate_turn(interaction, user_action_name)
                 else:
-                    view = View()
-                    for ability in buttons[self.turn]:
-                        view.add_item(ability)
-                    
-                    await self.message.edit(embed=create_combat_embed(users_data[self.turn][1], description=combat_description), view=view)
+
+                    await self.message.edit(embed=create_combat_embed(users_data[self.turn][1], description=combat_description))
+                    await send_turn_message()
                 
             else:
                 
@@ -152,19 +157,25 @@ class NewFight():
                 await self.message.edit(embed=create_combat_embed(user, description=combat_description))
             
                 # Check win
-                if enemy.hp <= 0:
+                if user.hp <= 0:
                     if end:
                         end()
-                    return 
+                    combat_description += f"{user.name} has fainted"
+                    users_data.pop(0)
+                    buttons.pop(0)
+                    if self.button_message:
+                        await self.button_message.delete()
+                    if not users_data:
+                        combat_description += "enemy has won"
+                        await self.message.edit(embed=create_combat_embed(user, description=combat_description))
+                        return
                 
                 self.turn = 0
                 
-                
-                view = View()
-                for ability in buttons[self.turn]:
-                    view.add_item(ability)
+            
                     
-                await self.message.edit(embed=create_combat_embed(users_data[self.turn][1], description=combat_description), view=view)
+                await self.message.edit(embed=create_combat_embed(users_data[self.turn][1], description=combat_description), view=None)
+                await send_turn_message()
             
             
             
@@ -185,6 +196,15 @@ class NewFight():
             return embed
         
         
+        async def send_turn_message():
+            
+            
+            view = View()
+            for ability in buttons[self.turn]:
+                view.add_item(ability)
+            
+            self.button_message = await users_data[self.turn][2].followup.send("Select an ability", ephemeral=True, view=view)
+        
         
         buttons = []
         
@@ -197,14 +217,11 @@ class NewFight():
                 
             buttons.append(temp.copy())
             
-            
+        self.button_message = None
         self.turn = 0
-        
         view = View()
-        for ability in buttons[self.turn]:
-            view.add_item(ability)
         
         await self.inte.response.send_message(embed=create_combat_embed(users_data[0][1]), view=view)
         self.message = await self.inte.original_response()
-        
+        await send_turn_message()
         
