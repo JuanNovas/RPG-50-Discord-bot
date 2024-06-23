@@ -30,12 +30,12 @@ class MultiCombat(commands.Cog):
         if inte.user.id == player_id:
             return 
         
-        users_data = (
+        users_data = [
             (player_id, load_hero(player_id)),
             (inte.user.id, load_hero(inte.user.id))
-        )
+        ]
         
-        await NewFight(inte).multi_fight(users_data, EnemySlime())
+        await NewFight(inte).multi_fight(users_data, EnemySlime(level=20))
         
         
 

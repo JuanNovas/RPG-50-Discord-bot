@@ -95,7 +95,7 @@ class NewFight():
 
 
 
-    async def multi_fight(self, users_data : tuple, enemy : object, end=None):
+    async def multi_fight(self, users_data : list, enemy : object, end=None):
         async def action_callback(interaction, user_action_name, user_id):
             if interaction.user.id != user_id:
                 return
@@ -157,10 +157,16 @@ class NewFight():
                 await self.message.edit(embed=create_combat_embed(user, description=combat_description))
             
                 # Check win
-                if enemy.hp <= 0:
+                if user.hp <= 0:
                     if end:
                         end()
-                    return 
+                    combat_description += f"{user.name} has fainted"
+                    users_data.pop(0)
+                    buttons.pop(0)
+                    if not users_data:
+                        combat_description += "enemy has won"
+                        await self.message.edit(embed=create_combat_embed(user, description=combat_description))
+                        return
                 
                 self.turn = 0
                 
