@@ -18,7 +18,7 @@ class MultiCombat(commands.Cog):
         embed.add_field(name="How to play", value="Click the play button")
         
         play_button = Button(label="Play", style=ButtonStyle.primary)
-        play_button.callback = lambda i, player_name=inte.user.name, player_id=inte.user.id : self.load_players(i, player_name, player_id)
+        play_button.callback = lambda i, player_name=inte.user.name, player_id=inte.user.id, player_inte = inte : self.load_players(i, player_name, player_id, player_inte)
         view.add_item(play_button)  
         
         
@@ -26,16 +26,18 @@ class MultiCombat(commands.Cog):
         self.message = await inte.original_response()
         
     
-    async def load_players(self, inte, player_name, player_id):
+    async def load_players(self, inte, player_name, player_id, player_inte):
         if inte.user.id == player_id:
             return 
         
         users_data = [
-            (player_id, load_hero(player_id)),
-            (inte.user.id, load_hero(inte.user.id))
+            (player_id, load_hero(player_id), player_inte),
+            (inte.user.id, load_hero(inte.user.id), inte)
         ]
         
-        await NewFight(inte).multi_fight(users_data, EnemySlime(level=20))
+        await self.message.delete()
+        
+        await NewFight(inte).multi_fight(users_data, EnemySlime(level=10))
         
         
 
