@@ -45,7 +45,7 @@ class NewFight():
             # Check win
             if await fight_completed():
                 if end:
-                    end()
+                    await end()
                 return 
             
             # Enemy attack
@@ -57,7 +57,7 @@ class NewFight():
             # Check win
             if await fight_completed():
                 if end:
-                    end()
+                    await end()
                 return 
             
         def use_attack(enemy : object, action, action_name : str) -> str:
@@ -89,8 +89,8 @@ class NewFight():
             button.callback = lambda i, name=ability: action_callback(i, name)
             self.view.add_item(button)
             
-        await self.inte.response.send_message(embed=create_combat_embed(), view=self.view)
         self.message = await self.inte.original_response()
+        await self.message.edit(embed=create_combat_embed(), view=self.view)
         
 
 
@@ -127,7 +127,7 @@ class NewFight():
                 # Check win
                 if enemy.hp <= 0:
                     if end:
-                        end()
+                        await end()
                         
                     combat_description = f"`{self.username} wins!`\n"
                     for user_data in users_data:
@@ -159,7 +159,7 @@ class NewFight():
                 # Check win
                 if user.hp <= 0:
                     if end:
-                        end()
+                        await end()
                     combat_description += f"{user.name} has fainted"
                     users_data.pop(0)
                     buttons.pop(0)
@@ -225,3 +225,18 @@ class NewFight():
         self.message = await self.inte.original_response()
         await send_turn_message()
         
+        
+        
+        
+        
+        
+        
+    async def consecutive_fight(self, user, enemys : list, end=None):
+        if not enemys:
+            if end:
+                await end()
+            message = await self.inte.original_response()
+            await message.edit(embed = Embed(title="⚔️ COMBAT! ⚔️", description="Expedition ended succesfully", color=0x3498db))
+            return
+        enemy = enemys.pop()
+        await self.fight(user,enemy,end=lambda user=user, enemys=enemys, end=end : self.consecutive_fight(user, enemys, end=end))
