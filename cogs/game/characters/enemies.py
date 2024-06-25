@@ -1,5 +1,6 @@
 from cogs.game.characters.basehero import BaseHero
 from cogs.game.items.weapons import WeaponKnife
+from cogs.game.items.armors import ArmorScale
 from cogs.game.characters.loot import Loot
 
         
@@ -52,8 +53,35 @@ class EnemySlime(BaseHero):
            level=kwargs.get('level', 1)
         )
         
+class EnemyLavaDragon(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=50,
+            attack=5,
+            magic=7,
+            defense=4,
+            magic_resistance=9,
+            mana=50,
+            **kwargs
+        )
+        self.name = 'LavaDragon'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1255177713472508035/fire_dragon.jpeg?ex=667c2ed6&is=667add56&hm=c0d22dfa4d431f5bf6c93f14d1b6c125e82b7cb964638390605d4b6468135bb4&'
+        self.id = 3
+
+        self.loot = Loot(
+            gold=60,
+            wood=5,
+            iron=0,
+            runes=0,
+            xp=10,
+            equipment=ArmorScale,
+            drop_rate=0.05,
+            level=kwargs.get('level', 1)
+        )
+        
         
 enemy_dict = {
     1 : EnemyDummy,
-    2 : EnemySlime
+    2 : EnemySlime,
+    3 : EnemyLavaDragon
 }

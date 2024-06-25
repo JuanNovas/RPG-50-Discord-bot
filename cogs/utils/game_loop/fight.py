@@ -167,8 +167,6 @@ class NewFight():
                     combat_description += f"{user.name} has fainted"
                     users_data.pop(0)
                     buttons.pop(0)
-                    if self.button_message:
-                        await self.button_message.delete()
                     if not users_data:
                         combat_description += "enemy has won"
                         await self.message.edit(embed=create_combat_embed(user, description=combat_description))
