@@ -13,7 +13,7 @@ class Expedition(commands.Cog):
         
         hero = load_hero(inte.user.id)
         await inte.response.send_message("Loading")
-        await NewFight(inte).consecutive_fight(hero, [EnemySlime(), EnemySlime(level=10)])
+        await NewFight(inte).consecutive_fight(hero, [EnemySlime(level=10), EnemySlime()])
         
         
     
