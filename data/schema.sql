@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS hero;
 DROP TABLE IF EXISTS inventory;
 DROP TABLE IF EXISTS item_types;
+DROP TABLE IF EXISTS advancements;
 
 CREATE TABLE hero (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -33,12 +34,27 @@ CREATE TABLE item_types (
     type TEXT NOT NULL
 );
 
+CREATE TABLE advancements (
+    hero_id INTEGER NOT NULL,
+    kills INTEGER NOT NULL DEFAULT 0,
+    upgrades INTEGER NOT NULL DEFAULT 0,
+    gold_spent INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY (hero_id) REFERENCES hero(id)
+);
+
 
 CREATE UNIQUE INDEX user_id_index ON hero(user_id);
 
--- Types
+-- Types INSERT
 INSERT INTO item_types (type) VALUES ('weapon');
 INSERT INTO item_types (type) VALUES ('armor');
+
+-- Triggers
+CREATE TRIGGER create_advancements_entry AFTER INSERT ON hero
+FOR EACH ROW
+BEGIN
+    INSERT INTO advancements (hero_id) VALUES (NEW.id);
+END;
 
 -- Views
 DROP VIEW IF EXISTS clean_inventory;

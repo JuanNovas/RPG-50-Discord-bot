@@ -10,6 +10,7 @@ class ArmorIron(BaseArmor):
         
         self.id = 1
         self.rarity = 1
+        self.name = "iron"
 
 
 armor_dict =  {

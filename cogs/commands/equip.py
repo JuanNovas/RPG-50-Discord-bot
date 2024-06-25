@@ -1,40 +1,87 @@
-from discord import app_commands
+from discord import app_commands, SelectOption
+from discord.ui import Select, View
 from discord.ext import commands
 from cogs.utils.database import execute_dict, execute
+from cogs.game.items.weapons import weapon_dict
+from cogs.game.items.armors import armor_dict
 
 class Equip(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+    
+    @app_commands.command(name='equip_weapon', description="Equips an equipment")
+    async def equip_weapon(self, inte):
+        class Dropdown(Select):
+            def __init__(self):
 
-    @app_commands.command(name='equip', description="Equips an equipment")
-    @app_commands.describe(type='Type of equipment to equip')
-    @app_commands.choices(type=[
-        app_commands.Choice(name='Weapon', value='weapon'),
-        app_commands.Choice(name='Armor', value='armor')
-    ])
-    async def equip(self, inte, type : str, item_id : int):
-        data = execute('''
-        SELECT * FROM clean_inventory WHERE
-        user_id = (?) AND
-        type = (?) AND
-        item_id = (?)
-        ''', (inte.user.id, type, item_id))
-        if data == []:
-            return await inte.response.send_message("Item not found")
+                data = execute_dict('''
+                SELECT * FROM inventory
+                WHERE hero_id = (SELECT id from hero WHERE user_id = (?))
+                AND type = 1
+                ''', (inte.user.id,))
+
+                options = []
+                
+                for item in data:
+                    item_obj = weapon_dict[item["item_id"]]()
+                    options.append(SelectOption(value=item["item_id"] ,label=item_obj.name, description=f"Id: {item_obj.id}  &  Level: {item['level']}", emoji='🟦'))
+                
+                super().__init__(placeholder='Choose your favourite colour...', min_values=1, max_values=1, options=options)
+
+            async def callback(self, interaction):
+                data = execute(f'''
+                UPDATE hero SET
+                weapon_id = (?)
+                WHERE user_id = (?)
+                ''', (self.values[0], inte.user.id))
+                await interaction.response.send_message("Equiped")
+
+        # Crear la vista que muestra el Select
+        view = View()
+        view.add_item(Dropdown())
+
+        # Enviar el mensaje con el Select
+        await inte.response.send_message('Select an equipment to equip:', view=view)
         
-        match type: # Checking to avoid posible SQL injection
-            case "weapon":
-                item_type = "weapon_id"
-            case "armor":
-                item_type = "armor_id"
         
-        data = execute(f'''
-        UPDATE hero SET
-        {item_type} = (?)
-        WHERE user_id = (?)
-        ''', (item_id, inte.user.id))
         
-        return await inte.response.send_message("Item equiped")
+    @app_commands.command(name='equip_armor', description="Equips an equipment")
+    async def equip_armor(self, inte):
+        class Dropdown(Select):
+            def __init__(self):
+
+                data = execute_dict('''
+                SELECT * FROM inventory
+                WHERE hero_id = (SELECT id from hero WHERE user_id = (?))
+                AND type = 2
+                ''', (inte.user.id,))
+
+                options = []
+                
+                for item in data:
+                    item_obj = armor_dict[item["item_id"]]()
+                    options.append(SelectOption(value=item["item_id"] ,label=item_obj.name, description=f"Id: {item_obj.id}  &  Level: {item['level']}", emoji='🟦'))
+                
+                super().__init__(placeholder='Choose your favourite colour...', min_values=1, max_values=1, options=options)
+
+            async def callback(self, interaction):
+                data = execute(f'''
+                UPDATE hero SET
+                armor_id = (?)
+                WHERE user_id = (?)
+                ''', (self.values[0], inte.user.id))
+                await interaction.response.send_message("Equiped")
+
+        # Crear la vista que muestra el Select
+        view = View()
+        view.add_item(Dropdown())
+
+        # Enviar el mensaje con el Select
+        await inte.response.send_message('Select an equipment to equip:', view=view)
+
+
+
+    
 
 async def setup(bot):
     await bot.add_cog(Equip(bot))

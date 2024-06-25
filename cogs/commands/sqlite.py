@@ -1,5 +1,7 @@
 from discord.ext import commands
 from cogs.utils.database import execute, execute_dict
+from cogs.game.items.armors import armor_dict
+from cogs.game.items.weapons import weapon_dict
 import sqlite3
 import os
         
@@ -74,6 +76,43 @@ class Sqlite(commands.Cog):
         ''', (data["item_id"], data["hero_id"]))
         
         await ctx.send("Item equipped")
+        
+        
+    @commands.command(name="add_all")
+    async def add_all(self, ctx):
+        hero_id = execute('''
+        SELECT id FROM hero WHERE user_id=(?)
+        ''', (ctx.author.id,))[0]
+        
+        for armor in armor_dict.values():
+            armor = armor()
+            execute('''
+            INSERT INTO inventory (hero_id, type, item_id)
+            VALUES (?,?,?)
+            ''', (hero_id[0], armor.type_id, armor.id))
+            
+        for weapon in weapon_dict.values():
+            weapon = weapon()
+            execute('''
+            INSERT INTO inventory (hero_id, type, item_id)
+            VALUES (?,?,?)
+            ''', (hero_id[0], weapon.type_id, weapon.id))
+            
+            
+        await ctx.send("All items added to inventory")
+        
+        
+    @commands.command(name="add_resources")
+    async def add_resources(self, ctx):
+        execute('''
+        UPDATE hero SET 
+        gold = 999999,
+        wood = 999999,
+        iron = 999999,
+        runes = 999999
+        WHERE user_id=(?)
+        ''', (ctx.author.id,))
+        await ctx.send("Resources added")
 
 async def setup(bot):
     await bot.add_cog(Sqlite(bot))

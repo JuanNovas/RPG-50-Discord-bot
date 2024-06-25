@@ -18,6 +18,7 @@ class Combat(commands.Cog):
 
         user = load_hero(inte.user.id)
         enemy = enemy_dict[enemy_id](level=level)
+        await inte.response.send_message("Loading")
         
         await NewFight(inte).fight(user,enemy,end=lambda user_id=inte.user.id : lock_manager.unlock(user_id))
 
