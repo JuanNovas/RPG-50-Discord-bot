@@ -1,7 +1,7 @@
 from discord import Embed
 from discord.ui import Button, View
 from discord import ButtonStyle
-
+from cogs.utils.progress import add_kill
 
 class NewFight():
     def __init__(self, inte):
@@ -77,6 +77,7 @@ class NewFight():
                 
                 combat_description += enemy.loot.drop(self.inte.user.id)
                 
+                add_kill(self.inte.user.id)
                 
                 await self.message.edit(embed=create_combat_embed(description=combat_description), view=None)
                 return True
@@ -132,6 +133,9 @@ class NewFight():
                     combat_description = f"`{self.username} wins!`\n"
                     for user_data in users_data:
                         combat_description += enemy.loot.drop(user_data[0])
+                        add_kill(user_data[0])
+                    
+                        
                     
                     await self.message.edit(embed=create_combat_embed(user, description=combat_description), view=None)
                     return 
