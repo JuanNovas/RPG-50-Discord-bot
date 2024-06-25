@@ -1,3 +1,4 @@
+from random import random
 from cogs.utils.database import execute
 from cogs.utils.hero_actions import add_if_new
 
@@ -55,9 +56,10 @@ class Loot():
             
         # If new equipment load it
         if self.equipment:
-            equipment = self.equipment()
-            if add_if_new(user_id, equipment):
-                message += f"\n User has gained a new item {equipment.name}"
+            if random() <= self.drop_rate:
+                equipment = self.equipment()
+                if add_if_new(user_id, equipment):
+                    message += f"\n User has gained a new item {equipment.name}"
             
             
         return message
