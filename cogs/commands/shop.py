@@ -2,6 +2,7 @@ from discord import app_commands, Embed
 from discord.ui import View
 from discord.ext import commands
 from cogs.utils.database import execute_dict, execute
+from cogs.utils.progress import add_gold_spent
 
 class Shop(commands.Cog):
     def __init__(self, bot):
@@ -57,6 +58,8 @@ class Shop(commands.Cog):
         {item} = {item} + (?)
         WHERE user_id = (?)
         ''', (price, amount, inte.user.id))
+        
+        add_gold_spent(inte.user.id, price)
         
         await inte.response.send_message(f"{amount} of {item} has been bought")
         
