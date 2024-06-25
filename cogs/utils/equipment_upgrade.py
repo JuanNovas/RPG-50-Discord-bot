@@ -1,4 +1,5 @@
 from cogs.utils.database import execute, execute_dict
+from cogs.utils.progress import add_upgrade
 
 def equipment_upgrade_cost(level : int, rarity : int) -> tuple:
     if not (0 <= level <= 49 and level < rarity * 10):
@@ -73,6 +74,8 @@ def make_upgrade(user_id : int, item : object) -> bool:
             SELECT id FROM item_types WHERE type = (?)
         )
         ''', (hero_id, item.id, item.type))
+        
+        add_upgrade(user_id)
         
         return True
     
