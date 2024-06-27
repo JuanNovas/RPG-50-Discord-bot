@@ -42,11 +42,9 @@ class ChangeHero(commands.Cog):
                 await interaction.response.send_message("Hero changed succesfully")
                 
                 
-        # Crear la vista que muestra el Select
         view = View()
         view.add_item(Dropdown())
 
-        # Enviar el mensaje con el Select
         await inte.response.send_message('Select a hero to use:', view=view)
 
 async def setup(bot):

@@ -37,11 +37,9 @@ class Equip(commands.Cog):
                 ''', (self.values[0], inte.user.id))
                 await interaction.response.send_message("Equiped")
 
-        # Crear la vista que muestra el Select
         view = View()
         view.add_item(Dropdown())
 
-        # Enviar el mensaje con el Select
         await inte.response.send_message('Select an equipment to equip:', view=view)
         
         
