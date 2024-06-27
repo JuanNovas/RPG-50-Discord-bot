@@ -42,7 +42,7 @@ class Shop(commands.Cog):
         
             
         data = execute_dict('''
-        SELECT gold FROM hero WHERE user_id = (?)
+        SELECT gold FROM hero WHERE user_id = (?) AND active = 1
         ''', (inte.user.id,))[0]
         
         user_gold = data["gold"]
@@ -57,6 +57,7 @@ class Shop(commands.Cog):
         gold = gold - (?),
         {item} = {item} + (?)
         WHERE user_id = (?)
+        AND active = 1
         ''', (price, amount, inte.user.id))
         
         add_gold_spent(inte.user.id, price)

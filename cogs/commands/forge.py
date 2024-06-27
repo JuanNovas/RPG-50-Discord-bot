@@ -64,7 +64,7 @@ class Forge(commands.Cog):
         make_upgrade(user_id, item)
         data = execute_dict('''
         SELECT type, level, item_id FROM clean_inventory
-        WHERE user_id = (?)
+        WHERE hero_id = (SELECT id from hero WHERE user_id = (?) AND active = 1)
         AND type = (?)
         AND item_id = (?)
         ''', (inte.user.id, item_dict["type"], item_dict["item_id"]))[0]
@@ -76,7 +76,7 @@ class Forge(commands.Cog):
         PER_PAGE = 5
         data = execute_dict('''
         SELECT type, level, item_id FROM clean_inventory
-        WHERE user_id = (?)
+        WHERE hero_id = (SELECT id from hero WHERE user_id = (?) AND active = 1)
         ''', (inte.user.id,))
         self.pages = [data[i:i + PER_PAGE] for i in range(0, len(data), PER_PAGE)]
 
@@ -122,7 +122,7 @@ class Forge(commands.Cog):
         
         user_data = execute_dict('''
         SELECT * FROM hero
-        WHERE user_id = (?)
+        WHERE user_id = (?) AND active = 1
         ''', (inte.user.id,))[0]
         
         if cost := equipment_upgrade_cost(item["level"], item_object.rarity):

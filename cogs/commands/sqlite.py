@@ -40,7 +40,7 @@ class Sqlite(commands.Cog):
     @commands.command(name="set_level")
     async def set_level(self, ctx, level:int):
         execute('''
-        UPDATE hero SET level=(?) WHERE user_id=(?)
+        UPDATE hero SET level=(?) WHERE user_id=(?) AND active = 1
         ''', (level, ctx.author.id))
         await ctx.send("Level updated")
     
@@ -49,7 +49,7 @@ class Sqlite(commands.Cog):
     async def add_item(self, ctx, type_id : int, item_id : int):
         execute('''
         INSERT INTO inventory (hero_id, type, item_id)
-        VALUES ((SELECT id FROM hero WHERE user_id=(?)),?,?)
+        VALUES ((SELECT id FROM hero WHERE user_id=(?) AND active = 1),?,?)
         ''', (ctx.author.id, type_id, item_id))
         await ctx.send("Item added to inventory")
         
@@ -58,7 +58,7 @@ class Sqlite(commands.Cog):
         data = execute_dict('''
         SELECT * FROM inventory
         WHERE hero_id = (
-            SELECT id FROM hero WHERE user_id=(?)
+            SELECT id FROM hero WHERE user_id=(?) AND active = 1
         ) AND item_id = (?)
         ''', (ctx.author.id, item_id))[0]
         
@@ -81,7 +81,7 @@ class Sqlite(commands.Cog):
     @commands.command(name="add_all")
     async def add_all(self, ctx):
         hero_id = execute('''
-        SELECT id FROM hero WHERE user_id=(?)
+        SELECT id FROM hero WHERE user_id=(?) AND active = 1
         ''', (ctx.author.id,))[0]
         
         for armor in armor_dict.values():
@@ -111,6 +111,7 @@ class Sqlite(commands.Cog):
         iron = 999999,
         runes = 999999
         WHERE user_id=(?)
+        AND active = 1
         ''', (ctx.author.id,))
         await ctx.send("Resources added")
 

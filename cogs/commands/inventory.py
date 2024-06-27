@@ -14,7 +14,7 @@ class Inventory(commands.Cog):
     async def inventory(self, inte):
         data = execute_dict('''
         SELECT * FROM inventory
-        WHERE hero_id = (SELECT id from hero WHERE user_id = (?))
+        WHERE hero_id = (SELECT id from hero WHERE user_id = (?) AND active = 1)
         ''', (inte.user.id,))
         if data == []:
             return await inte.response.send_message("No items")

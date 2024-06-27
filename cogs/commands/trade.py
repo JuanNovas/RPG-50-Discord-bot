@@ -40,7 +40,7 @@ class Trade(commands.Cog):
             return await inte.response.send_message("The amount of resources cannot be both 0", ephemeral=True)
 
         data = execute_dict('''
-        SELECT * FROM hero WHERE user_id = (?)
+        SELECT * FROM hero WHERE user_id = (?) AND active = 1
         ''', (inte.user.id,))[0]
 
         if data[self.resource_names[give].lower()] < give_amount:
@@ -64,14 +64,14 @@ class Trade(commands.Cog):
             return await interaction.response.send_message("You cannot acept yout own trade offer", ephemeral=True)
         
         data = execute_dict('''
-        SELECT * FROM hero WHERE user_id = (?)
+        SELECT * FROM hero WHERE user_id = (?) AND active = 1
         ''', (interaction.user.id,))[0]
         
         if data[self.resource_names[receive].lower()] < receive_amount:
             return await interaction.response.send_message("Not enough resources", ephemeral=True)
         
         data = execute_dict('''
-        SELECT * FROM hero WHERE user_id = (?)
+        SELECT * FROM hero WHERE user_id = (?) AND active = 1
         ''', (inte.user.id,))[0]
         
         if data[self.resource_names[give].lower()] < give_amount:
@@ -84,7 +84,7 @@ class Trade(commands.Cog):
         UPDATE hero SET
         {self.resource_names[give].lower()} = {self.resource_names[give].lower()} - (?),
         {self.resource_names[receive].lower()} = {self.resource_names[receive].lower()} + (?)
-        WHERE user_id = (?)
+        WHERE user_id = (?) AND active = 1
         ''', (give_amount, receive_amount, inte.user.id))
         
         
@@ -92,7 +92,7 @@ class Trade(commands.Cog):
         UPDATE hero SET
         {self.resource_names[give].lower()} = {self.resource_names[give].lower()} + (?),
         {self.resource_names[receive].lower()} = {self.resource_names[receive].lower()} - (?)
-        WHERE user_id = (?)
+        WHERE user_id = (?) AND active = 1
         ''', (give_amount, receive_amount, interaction.user.id))
         
         original =  await inte.original_response()

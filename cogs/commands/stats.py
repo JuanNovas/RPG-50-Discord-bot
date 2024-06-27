@@ -11,7 +11,7 @@ class Stats(commands.Cog):
     @app_commands.command(name="stats", description="Shows user stats")
     async def stats(self, inte):
         data = execute('''
-        SELECT * FROM hero WHERE user_id=(?)
+        SELECT * FROM hero WHERE user_id=(?) AND active = 1
         ''', (inte.user.id,))
         
         hero = load_hero(inte.user.id)

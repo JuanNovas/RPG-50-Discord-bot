@@ -16,7 +16,7 @@ class Advancements(commands.Cog):
             return f'`[{bar}]`'
         
         data = execute_dict('''
-        SELECT * FROM advancements WHERE hero_id = (SELECT id FROM hero WHERE user_id = (?))
+        SELECT * FROM advancements WHERE hero_id = (SELECT id FROM hero WHERE user_id = (?) AND active = 1)
         ''', (inte.user.id,))[0]
         
         

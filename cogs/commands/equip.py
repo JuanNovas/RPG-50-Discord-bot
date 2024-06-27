@@ -16,7 +16,7 @@ class Equip(commands.Cog):
 
                 data = execute_dict('''
                 SELECT * FROM inventory
-                WHERE hero_id = (SELECT id from hero WHERE user_id = (?))
+                WHERE hero_id = (SELECT id from hero WHERE user_id = (?) AND active = 1)
                 AND type = 1
                 ''', (inte.user.id,))
 
@@ -33,6 +33,7 @@ class Equip(commands.Cog):
                 UPDATE hero SET
                 weapon_id = (?)
                 WHERE user_id = (?)
+                AND active = 1
                 ''', (self.values[0], inte.user.id))
                 await interaction.response.send_message("Equiped")
 
@@ -52,7 +53,7 @@ class Equip(commands.Cog):
 
                 data = execute_dict('''
                 SELECT * FROM inventory
-                WHERE hero_id = (SELECT id from hero WHERE user_id = (?))
+                WHERE hero_id = (SELECT id from hero WHERE user_id = (?) AND active = 1)
                 AND type = 2
                 ''', (inte.user.id,))
 
@@ -69,6 +70,7 @@ class Equip(commands.Cog):
                 UPDATE hero SET
                 armor_id = (?)
                 WHERE user_id = (?)
+                AND active = 1
                 ''', (self.values[0], inte.user.id))
                 await interaction.response.send_message("Equiped")
 

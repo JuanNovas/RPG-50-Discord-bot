@@ -40,7 +40,7 @@ def equipment_upgrade_cost(level : int, rarity : int) -> tuple:
 def make_upgrade(user_id : int, item : object) -> bool:
     data = execute('''
     SELECT hero_id, level FROM clean_inventory WHERE
-    user_id = (?)
+    hero_id = (SELECT id from hero WHERE user_id = (?) AND active = 1)
     AND item_id = (?)
     AND type = (?)
     ''', (user_id, item.id, item.type))[0]

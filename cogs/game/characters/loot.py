@@ -16,7 +16,7 @@ class Loot():
     def drop(self, user_id):
         # Get xp info
         data = execute('''
-        SELECT level, xp FROM hero WHERE user_id=(?)
+        SELECT level, xp FROM hero WHERE user_id=(?) AND active = 1
         ''', (user_id,))
         
         # Update xp and level
@@ -38,6 +38,7 @@ class Loot():
         iron = iron + (?),
         runes = runes + (?)
         WHERE user_id = (?)
+        AND active = 1
         ''', (level_up, int(final_xp), self.gold, self.wood, self.iron, self.runes, user_id))
         
         # Create message
