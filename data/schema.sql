@@ -44,7 +44,7 @@ CREATE TABLE advancements (
 );
 
 
-CREATE UNIQUE INDEX user_id_index ON hero(user_id);
+CREATE INDEX user_id_index ON hero(user_id);
 
 -- Types INSERT
 INSERT INTO item_types (type) VALUES ('weapon');
