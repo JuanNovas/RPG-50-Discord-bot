@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS advancements;
 
 CREATE TABLE hero (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL UNIQUE,
+    user_id INTEGER NOT NULL,
     class INTEGER NOT NULL,
     level INTEGER NOT NULL DEFAULT 1,
     xp INTEGER NOT NULL DEFAULT 0,
@@ -15,6 +15,7 @@ CREATE TABLE hero (
     runes INTEGER NOT NULL DEFAULT 0,
     weapon_id INTEGER DEFAULT NULL,
     armor_id INTEGER DEFAULT NULL,
+    active INTEGER NOT NULL,
     FOREIGN KEY (weapon_id) REFERENCES inventory(id),
     FOREIGN KEY (armor_id) REFERENCES inventory(id)
 );
