@@ -80,8 +80,35 @@ class EnemyLavaDragon(BaseHero):
         )
         
         
+class EnemySkeleton(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=30,
+            attack=3,
+            magic=1,
+            defense=1,
+            magic_resistance=2,
+            mana=10,
+            **kwargs
+        )
+        self.name = 'Skeleton'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1256033175818473472/skeleton.jpeg?ex=667f4b8d&is=667dfa0d&hm=1f4f3dc7de924fb5ff26856001a5d51aa3a03256fdbe7e7adced7cc961f9f862&'
+        self.id = 4
+
+        self.loot = Loot(
+            gold=1,
+            wood=1,
+            iron=0,
+            runes=0,
+            xp=2,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+        
 enemy_dict = {
     1 : EnemyDummy,
     2 : EnemySlime,
-    3 : EnemyLavaDragon
+    3 : EnemyLavaDragon,
+    4 : EnemySkeleton
 }
