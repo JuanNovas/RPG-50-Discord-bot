@@ -81,6 +81,7 @@ CREATE VIEW clean_hero AS
 SELECT
     hero.id,
     hero.user_id,
+    hero.active,
     hero.class,
     hero.level,
     hero.xp,
