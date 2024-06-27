@@ -15,9 +15,18 @@ class Create(commands.Cog):
             if interaction.user != inte.user:
                 return  # assure that the user is the same that started the command
 
-            execute('''
-            INSERT INTO hero (user_id, class) VALUES (?,?)
-            ''', (interaction.user.id, id))
+
+            data = execute('''
+            SELECT * FROM hero WHERE user_id = (?) AND active = 1
+            ''', (interaction.user.id,))
+            if data == []:
+                execute('''
+                INSERT INTO hero (user_id, class, active) VALUES (?,?,1)
+                ''', (interaction.user.id, id))
+            else:
+                execute('''
+                INSERT INTO hero (user_id, class, active) VALUES (?,?,0)
+                ''', (interaction.user.id, id))
 
             embed = Embed(title=f"{interaction.user}'s class", description="Character created _successfully_!", color=0x1E90FF)
             embed.add_field(name="Class:", value=class_name)
