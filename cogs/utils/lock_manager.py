@@ -10,7 +10,7 @@ class LockManager:
     def lock(self, user_id):
         self.locked_users.add(user_id)
 
-    def unlock(self, user_id):
+    async def unlock(self, user_id):
         self.locked_users.remove(user_id)
         
     def command_lock(self, user_id):
