@@ -1,5 +1,5 @@
 from cogs.game.items.baseweapon import BaseWeapon
-from cogs.utils.decorators import mana_ability, health_ability
+from cogs.utils.decorators import weapon_mana_ability, weapon_health_ability
 
 class WeaponKnife(BaseWeapon):
     def __init__(self, **kwargs):
@@ -32,7 +32,7 @@ class WeaponCrossbow(BaseWeapon):
         self.id = 2
         self.rarity = 2
 
-    @mana_ability(cost=10)
+    @weapon_mana_ability(cost=10)
     def custom_attack(self, user, enemy):
         return user.do_attack(enemy, power=25)
     
@@ -67,7 +67,7 @@ class WeaponMedkit(BaseWeapon):
         self.id = 4
         self.rarity = 4
 
-    @mana_ability(cost=15)
+    @weapon_mana_ability(cost=15)
     def custom_attack(self, user, enemy):
         user.hp += user.max_hp / 10
         if user.hp > user.max_hp:
@@ -88,7 +88,7 @@ class WeaponRelic(BaseWeapon):
         self.id = 5
         self.rarity = 5
 
-    @health_ability(cost=25)
+    @weapon_health_ability(cost=25)
     def custom_attack(self, user, enemy):
         return user.do_magic(enemy, power=30)
     
@@ -104,7 +104,7 @@ class WeaponGloves(BaseWeapon):
         self.id = 6
         self.rarity = 1
 
-    @mana_ability(cost=5)
+    @weapon_mana_ability(cost=5)
     def custom_attack(self, user, enemy):
         message = user.do_attack(enemy, power=5)
         message += "\nand " + user.do_attack(enemy, power=5)
@@ -122,7 +122,7 @@ class WeaponSpear(BaseWeapon):
         self.id = 7
         self.rarity = 4
 
-    @health_ability(cost=15)
+    @weapon_health_ability(cost=15)
     def custom_attack(self, user, enemy):
         return user.do_attack(enemy, power=20)
 

@@ -30,3 +30,20 @@ def health_ability(cost):
         return wrapper
     return decorator
 
+def weapon_mana_ability(cost):
+    def decorator(func):
+        def wrapper(self, user, *args, **kwargs):
+            if not user.use_mana(cost):
+                return False
+            return func(self, user, *args, **kwargs)
+        return wrapper
+    return decorator
+
+def weapon_health_ability(cost):
+    def decorator(func):
+        def wrapper(self, user, *args, **kwargs):
+            if not user.use_health(cost):
+                return False
+            return func(self, user, *args, **kwargs)
+        return wrapper
+    return decorator
