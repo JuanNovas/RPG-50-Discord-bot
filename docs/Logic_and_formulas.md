@@ -6,6 +6,7 @@ Experience needed to level up scale exponentialy after each level.
 
 ### Experience needed scale formula
 $$6.5 \times (1.5 ^ {\text{Hero Level}})$$
+
 ![Exponencial formula graph](images/logic_and_formulas/xp_needed_chart.png)
 
 ### Explanation
@@ -29,6 +30,7 @@ $$Base Stat \times (1.15 ^ {\text{Hero Level}})$$
 - Mana
 
 $$Base Stat \times 1$$
+
 ![Linear formula graph](images/logic_and_formulas/mana_progresion_chart.png)
 
 #### Arguments
@@ -47,6 +49,7 @@ Formula used when realising attacks that used the "Attack" stat (E.g.: "Hit").
 $$
 \left( \frac{Hero \ Attack^{1.5} \times Power}{Hero \ Attack + Enemy \ Defense + 10} \right) \times R \times C
 $$
+
 ![Linear formula graph](images/logic_and_formulas/damage_increase_chart.png)
 
 #### Arguments
