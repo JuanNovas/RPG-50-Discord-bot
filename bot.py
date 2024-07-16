@@ -20,7 +20,13 @@ bot = commands.Bot(command_prefix=prefix, intents=intents)
 
 # Cargar la extensión
 async def load_extensions():
-        await load("cogs/commands")
+        await load("cogs/commands/combat")
+        await load("cogs/commands/database")
+        await load("cogs/commands/equipment")
+        await load("cogs/commands/heros")
+        await load("cogs/commands/resources")
+        await load("cogs/commands/stats")
+        await load("cogs/commands/test")
 
 async def load(folder):
     for filename in os.listdir(folder):
