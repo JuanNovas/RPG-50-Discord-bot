@@ -42,8 +42,8 @@ Exponential stats grow makes that the difference beetween level 45-50 bigger tha
 Mana stays the same because habilities mana cost never increase.
 
 
-## Damage calculation (Normal attack)
-Formula used when realising attacks that used the "Attack" stat (E.g.: "Hit").
+## Damage calculation
+Formula used when realising attacks(E.g.: "Hit").
 
 ### Damage calculation formula
 $$
