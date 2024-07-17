@@ -34,7 +34,7 @@ $$
 - Mana
 
 $$
-\text{Final Stat} =  BaseStat \times 1
+\text{Final Stat} = BaseStat \times 1
 $$
 
 ![Mana scale formula graph](images/logic_and_formulas/mana_progresion_chart.png)
@@ -53,7 +53,7 @@ Formula used when realising attacks(E.g.: "Hit").
 
 ### Damage calculation formula
 $$
-\text{Damage} =  \left( \frac{Hero \ Attack^{1.5} \times Power}{Hero \ Attack + Enemy \ Defense + 10} \right) \times R \times C
+\text{Damage} = \left( \frac{Hero \ Attack^{1.5} \times Power}{Hero \ Attack + Enemy \ Defense + 10} \right) \times R \times C
 $$
 
 ![Damage scale formula graph](images/logic_and_formulas/damage_increase_chart.png)
