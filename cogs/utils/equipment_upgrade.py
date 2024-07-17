@@ -17,7 +17,7 @@ def equipment_upgrade_cost(level : int, rarity : int) -> tuple:
     # Runes
     if rarity >= 4:
         match level:
-            case 34:
+            case 24:
                 rune_cost = 1
             case 29:
                 rune_cost = 4
