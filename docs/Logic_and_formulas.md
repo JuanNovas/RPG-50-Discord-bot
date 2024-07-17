@@ -5,7 +5,9 @@
 Experience needed to level up scale exponentialy after each level. (50 is the max level)
 
 ### Experience needed scale formula
-$$6.5 \times (1.5 ^ {\text{Hero Level}})$$
+$$
+\text{Experience Needed} = 6.5 \times (1.5 ^ {HeroLevel})
+$$
 
 ![Experience needed formula graph](images/logic_and_formulas/xp_needed_chart.png)
 
@@ -23,13 +25,17 @@ All hero stats scale exponencialy except the mana.
 - Magic
 - Magic resistance
 
-$$Base Stat \times (1.15 ^ {\text{Hero Level}})$$
+$$
+\text{Final Stat} = BaseStat \times (1.15 ^ {HeroLevel})
+$$
 
 ![Stats scale formula graph](images/logic_and_formulas/stats_progresion_chart.png)
 
 - Mana
 
-$$Base Stat \times 1$$
+$$
+\text{Final Stat} =  BaseStat \times 1
+$$
 
 ![Mana scale formula graph](images/logic_and_formulas/mana_progresion_chart.png)
 
@@ -47,7 +53,7 @@ Formula used when realising attacks(E.g.: "Hit").
 
 ### Damage calculation formula
 $$
-\left( \frac{Hero \ Attack^{1.5} \times Power}{Hero \ Attack + Enemy \ Defense + 10} \right) \times R \times C
+\text{Damage} =  \left( \frac{Hero \ Attack^{1.5} \times Power}{Hero \ Attack + Enemy \ Defense + 10} \right) \times R \times C
 $$
 
 ![Damage scale formula graph](images/logic_and_formulas/damage_increase_chart.png)
@@ -107,7 +113,7 @@ $$
 The stats are calculated with this exponential formula:
 
 $$
-Boost \times {1.2} ^ {(level - 1)}
+\text{Equipment Stat} = Boost \times {1.2} ^ {(level - 1)}
 $$
 
 ![Equipment stats scale formula graph](images/logic_and_formulas/equipment_scale_chart.png)
@@ -121,7 +127,7 @@ Experience gained from defeating enemies scale.
 
 ### Experience formula
 $$
-BaseXP \times 1.07 ^ {EnemyLevel}
+\text{Experience droped} = BaseXP \times 1.07 ^ {EnemyLevel}
 $$
 
 ![Experience drop scale formula graph](images/logic_and_formulas/enemy_xp_scale_chart.png)
