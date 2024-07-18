@@ -106,6 +106,32 @@ class EnemySkeleton(BaseHero):
         )
         
         
+class EnemyGoblin(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=10,
+            attack=4,
+            magic=1,
+            defense=2,
+            magic_resistance=2,
+            mana=10,
+            **kwargs
+        )
+        self.name = 'Goblin'
+        self.image = ''
+        self.id = 5
+
+        self.loot = Loot(
+            gold=2,
+            wood=0,
+            iron=0,
+            runes=0,
+            xp=3,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+        
 enemy_dict = {
     1 : EnemyDummy,
     2 : EnemySlime,
