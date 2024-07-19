@@ -136,5 +136,6 @@ enemy_dict = {
     1 : EnemyDummy,
     2 : EnemySlime,
     3 : EnemyLavaDragon,
-    4 : EnemySkeleton
+    4 : EnemySkeleton,
+    5 : EnemyGoblin
 }
