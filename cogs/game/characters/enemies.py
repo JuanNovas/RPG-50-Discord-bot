@@ -2,6 +2,7 @@ from cogs.game.characters.basehero import BaseHero
 from cogs.game.items.weapons import WeaponKnife
 from cogs.game.items.armors import ArmorScale
 from cogs.game.characters.loot import Loot
+from cogs.utils.decorators import mana_ability
 
         
 class EnemyDummy(BaseHero):
@@ -19,6 +20,12 @@ class EnemyDummy(BaseHero):
         self.image = "https://cdn.discordapp.com/attachments/474702643625984021/1248370223644672050/tplImg448cf06ed22b4c25bee83fed318624bd.jpg?ex=6665651e&is=6664139e&hm=9c4481d293279c988d33a3aa998d8559d3f02635059da297b03a37b86353155f&"
         self.id = 1
         
+        self.ability = {
+            "name" : "test",
+            "cost" : 10,
+            "func" : self.test_ability
+        }
+        
         self.loot = Loot(
             gold=10,
             wood=2,
@@ -27,6 +34,12 @@ class EnemyDummy(BaseHero):
             level=kwargs.get('level', 1)
         )
         
+        
+    
+    @mana_ability(cost=10)
+    def test_ability(self, enemy):
+        return self.do_magic(enemy, 20)
+    
         
 class EnemySlime(BaseHero):
     def __init__(self, **kwargs):
@@ -43,6 +56,8 @@ class EnemySlime(BaseHero):
         self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1248374929783521280/13712f15-7631-468d-a5cb-4d55d4cddfdc.jpeg?ex=66729880&is=66714700&hm=bb6b4be5d85aae3ed91c6728e488b1f0114acdf310217859fb34e29f3d39888e&'
         self.id = 2
 
+        self.ability = None
+        
         self.loot = Loot(
            gold=1,
            wood=0,
@@ -68,6 +83,8 @@ class EnemyLavaDragon(BaseHero):
         self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1255177713472508035/fire_dragon.jpeg?ex=667c2ed6&is=667add56&hm=c0d22dfa4d431f5bf6c93f14d1b6c125e82b7cb964638390605d4b6468135bb4&'
         self.id = 3
 
+        self.ability = None
+        
         self.loot = Loot(
             gold=60,
             wood=5,
@@ -95,6 +112,8 @@ class EnemySkeleton(BaseHero):
         self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1256033175818473472/skeleton.jpeg?ex=667f4b8d&is=667dfa0d&hm=1f4f3dc7de924fb5ff26856001a5d51aa3a03256fdbe7e7adced7cc961f9f862&'
         self.id = 4
 
+        self.ability = None
+        
         self.loot = Loot(
             gold=1,
             wood=1,
@@ -121,6 +140,8 @@ class EnemyGoblin(BaseHero):
         self.image = ''
         self.id = 5
 
+        self.ability = None
+        
         self.loot = Loot(
             gold=2,
             wood=0,

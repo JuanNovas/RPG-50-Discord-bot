@@ -2,6 +2,7 @@ from discord import Embed
 from discord.ui import Button, View
 from discord import ButtonStyle
 from cogs.utils.progress import add_kill
+import random
 
 class NewFight():
     def __init__(self, inte):
@@ -49,7 +50,7 @@ class NewFight():
                 return 
             
             # Enemy attack
-            combat_description += use_attack(user, enemy.do_attack, "Hit")
+            combat_description += enemy_turn(enemy, user)
             
             # Message update
             await self.message.edit(embed=create_combat_embed(description=combat_description))
@@ -66,6 +67,14 @@ class NewFight():
             else:
                 return f"`{self.username} attempted to perform {action_name} but failed!`\n"
 
+
+        def enemy_turn(enemy, user):
+            if enemy.ability:
+                x = random.randint(1,2)
+                if x == 1:
+                    return use_attack(user, enemy.ability["func"], enemy.ability["name"])
+            return use_attack(user, enemy.do_attack, "Hit")
+            
 
         async def fight_completed():
             if not user.is_alive():
@@ -104,6 +113,13 @@ class NewFight():
                 await self.button_message.delete()
             await interaction.response.defer()
             await simulate_turn(interaction, user_action_name)
+        
+        def enemy_turn(enemy, user):
+            if enemy.ability:
+                x = random.randint(1,2)
+                if x == 1:
+                    return use_attack(user, enemy.ability["func"], enemy.ability["name"])
+            return use_attack(user, enemy.do_attack, "Hit")
         
         def use_attack(enemy : object, action, action_name : str) -> str:
             if message := action(enemy):
@@ -155,7 +171,7 @@ class NewFight():
                 user = users_data[0][1]
             
                 # Enemy attack
-                combat_description = use_attack(user, enemy.do_attack, "Hit")
+                combat_description = enemy_turn(enemy, user)
                 
                 # Message update
                 await self.message.edit(embed=create_combat_embed(user, description=combat_description))
