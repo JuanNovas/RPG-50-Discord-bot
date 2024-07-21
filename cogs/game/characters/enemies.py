@@ -56,7 +56,11 @@ class EnemySlime(BaseHero):
         self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1248374929783521280/13712f15-7631-468d-a5cb-4d55d4cddfdc.jpeg?ex=66729880&is=66714700&hm=bb6b4be5d85aae3ed91c6728e488b1f0114acdf310217859fb34e29f3d39888e&'
         self.id = 2
 
-        self.ability = None
+        self.ability = {
+            "name" : "Sticky shot",
+            "cost" : 10,
+            "func" : self.sticky_shot
+        }
         
         self.loot = Loot(
            gold=1,
@@ -67,6 +71,11 @@ class EnemySlime(BaseHero):
            equipment=None,
            level=kwargs.get('level', 1)
         )
+        
+        
+    @mana_ability(cost=10)
+    def sticky_shot(self, enemy):
+        return self.do_magic(enemy, 30)
         
 class EnemyLavaDragon(BaseHero):
     def __init__(self, **kwargs):
