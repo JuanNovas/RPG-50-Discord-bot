@@ -92,7 +92,11 @@ class EnemyLavaDragon(BaseHero):
         self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1255177713472508035/fire_dragon.jpeg?ex=667c2ed6&is=667add56&hm=c0d22dfa4d431f5bf6c93f14d1b6c125e82b7cb964638390605d4b6468135bb4&'
         self.id = 3
 
-        self.ability = None
+        self.ability = {
+            "name" : "Infernal breath",
+            "cost" : 25,
+            "func" : self.infernal_breath
+        }
         
         self.loot = Loot(
             gold=60,
@@ -105,6 +109,15 @@ class EnemyLavaDragon(BaseHero):
             level=kwargs.get('level', 1)
         )
         
+         
+    @mana_ability(cost=25)
+    def infernal_breath(self, enemy):
+        enemy.mana -= 10
+        if enemy.mana < 0:
+            enemy.mana = 0
+        message = self.do_magic(enemy, 40)
+        message += f"{enemy.name} loosed 10 mana"
+        return message
         
 class EnemySkeleton(BaseHero):
     def __init__(self, **kwargs):
