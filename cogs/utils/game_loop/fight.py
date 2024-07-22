@@ -69,7 +69,7 @@ class NewFight():
 
 
         def enemy_turn(enemy, user):
-            if enemy.ability:
+            if enemy.ability["cost"] <= enemy.mana:
                 x = random.randint(1,2)
                 if x == 1:
                     return use_attack(user, enemy.ability["func"], enemy.ability["name"])
@@ -115,7 +115,7 @@ class NewFight():
             await simulate_turn(interaction, user_action_name)
         
         def enemy_turn(enemy, user):
-            if enemy.ability:
+            if enemy.ability["cost"] <= enemy.mana:
                 x = random.randint(1,2)
                 if x == 1:
                     return use_attack(user, enemy.ability["func"], enemy.ability["name"])
