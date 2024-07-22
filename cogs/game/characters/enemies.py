@@ -134,7 +134,11 @@ class EnemySkeleton(BaseHero):
         self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1256033175818473472/skeleton.jpeg?ex=667f4b8d&is=667dfa0d&hm=1f4f3dc7de924fb5ff26856001a5d51aa3a03256fdbe7e7adced7cc961f9f862&'
         self.id = 4
 
-        self.ability = None
+        self.ability = {
+            "name" : "Bones picking",
+            "cost" : 10,
+            "func" : self.bones_picking
+        }
         
         self.loot = Loot(
             gold=1,
@@ -146,6 +150,16 @@ class EnemySkeleton(BaseHero):
             level=kwargs.get('level', 1)
         )
         
+        
+    @mana_ability(cost=10)
+    def bones_picking(self, enemy):
+        amount = self.magic * 5
+        if self.hp + amount > self.max_hp:
+            amount = self.max_hp - self.hp
+            self.hp = self.max_hp
+        else:
+            self.hp += amount
+        return f"{self.name} restored {amount} HP"
         
 class EnemyGoblin(BaseHero):
     def __init__(self, **kwargs):
