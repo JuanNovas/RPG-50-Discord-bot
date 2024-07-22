@@ -15,6 +15,7 @@ CREATE TABLE hero (
     runes INTEGER NOT NULL DEFAULT 0,
     weapon_id INTEGER DEFAULT NULL,
     armor_id INTEGER DEFAULT NULL,
+    zone_id INTEGER NOT NULL DEFAULT 1,
     active INTEGER NOT NULL,
     FOREIGN KEY (weapon_id) REFERENCES inventory(id),
     FOREIGN KEY (armor_id) REFERENCES inventory(id)
