@@ -1,6 +1,8 @@
 from discord import app_commands, SelectOption, Embed, Color
 from discord.ext import commands
 from discord.ui import View, Select
+from cogs.game.zones.embeds import get_zone_embed
+from cogs.utils.database import execute_dict
 
 class Select_zone(commands.Cog):
     def __init__(self, bot):
@@ -10,13 +12,13 @@ class Select_zone(commands.Cog):
     async def select_zone(self, inte):
         class Dropdown(Select):
             def __init__(self):
-                self.inte = inte
                 
                 options = [
-                    SelectOption(value=1, label=f"Dungeon", emoji='⛓️'),
-                    SelectOption(value=2, label=f"Forest", emoji='🌲'),
-                    SelectOption(value=3, label=f"Desert", emoji='🏜️'),
-                    SelectOption(value=4, label=f"Swamp", emoji='🐸')
+                    SelectOption(value=1, label=f"Train camp", emoji='🏕️'),
+                    SelectOption(value=2, label=f"Dungeon", emoji='⛓️'),
+                    SelectOption(value=3, label=f"Forest", emoji='🌲'),
+                    SelectOption(value=4, label=f"Desert", emoji='🏜️'),
+                    SelectOption(value=5, label=f"Swamp", emoji='🐸')
                 ]
                 
                     
@@ -26,19 +28,26 @@ class Select_zone(commands.Cog):
             async def callback(self, interaction):
                 if interaction.user.id != inte.user.id:
                     return
-                await interaction.response.send_message(f"{self.values[0]}")
+                zone_id = int(self.values[0])
+                message = await inte.original_response()
+                await message.edit(embed=get_zone_embed(zone_id))
+                execute_dict('''
+                UPDATE hero SET zone_id = (?) WHERE active = 1 AND user_id = (?)
+                ''', (zone_id, inte.user.id))
+                await interaction.response.defer()
+              
+        
+        data = execute_dict('''
+        SELECT zone_id FROM hero WHERE active = 1 AND user_id = (?)
+        ''', (inte.user.id,))[0]
                 
                 
         view = View()
         view.add_item(Dropdown())
 
-        embed = Embed(title="Zone selector", color=Color.blue())
-        embed.add_field(name='⛓️ Dungeon', value="Low level zone, full of week enemies", inline=False)
-        embed.add_field(name='🌲 Forest', value="Mid level zone, lots of resources", inline=False)
-        embed.add_field(name='🏜️ Desert', value="Mid level zone, lots of gold", inline=False)
-        embed.add_field(name='🐸 Swamp', value="High level zone, very strong enemies and high rarity loot", inline=False)
+        
 
-        await inte.response.send_message('Select a zone to go:', view=view, embed=embed)
+        await inte.response.send_message('Select a zone to go:', view=view, embed=get_zone_embed(data["zone_id"]))
 
 async def setup(bot):
     await bot.add_cog(Select_zone(bot))
