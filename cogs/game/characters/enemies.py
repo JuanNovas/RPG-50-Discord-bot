@@ -23,7 +23,7 @@ class EnemyDummy(BaseHero):
         self.ability = {
             "name" : "test",
             "cost" : 10,
-            "func" : self.test_ability
+            "func" : self.special_attack
         }
         
         self.loot = Loot(
@@ -37,7 +37,7 @@ class EnemyDummy(BaseHero):
         
     
     @mana_ability(cost=10)
-    def test_ability(self, enemy):
+    def special_attack(self, enemy):
         return self.do_magic(enemy, 20)
     
         
@@ -59,7 +59,7 @@ class EnemySlime(BaseHero):
         self.ability = {
             "name" : "Sticky shot",
             "cost" : 10,
-            "func" : self.sticky_shot
+            "func" : self.special_attack
         }
         
         self.loot = Loot(
@@ -74,7 +74,7 @@ class EnemySlime(BaseHero):
         
         
     @mana_ability(cost=10)
-    def sticky_shot(self, enemy):
+    def special_attack(self, enemy):
         return self.do_magic(enemy, 30)
         
 class EnemyLavaDragon(BaseHero):
@@ -95,7 +95,7 @@ class EnemyLavaDragon(BaseHero):
         self.ability = {
             "name" : "Infernal breath",
             "cost" : 25,
-            "func" : self.infernal_breath
+            "func" : self.special_attack
         }
         
         self.loot = Loot(
@@ -111,7 +111,7 @@ class EnemyLavaDragon(BaseHero):
         
          
     @mana_ability(cost=25)
-    def infernal_breath(self, enemy):
+    def special_attack(self, enemy):
         enemy.mana -= 10
         if enemy.mana < 0:
             enemy.mana = 0
@@ -137,7 +137,7 @@ class EnemySkeleton(BaseHero):
         self.ability = {
             "name" : "Bones picking",
             "cost" : 10,
-            "func" : self.bones_picking
+            "func" : self.special_attack
         }
         
         self.loot = Loot(
@@ -152,7 +152,7 @@ class EnemySkeleton(BaseHero):
         
         
     @mana_ability(cost=10)
-    def bones_picking(self, enemy):
+    def special_attack(self, enemy):
         amount = self.magic * 5
         if self.hp + amount > self.max_hp:
             amount = self.max_hp - self.hp
@@ -176,7 +176,11 @@ class EnemyGoblin(BaseHero):
         self.image = ''
         self.id = 5
 
-        self.ability = None
+        self.ability = {
+            "name" : "Bite",
+            "cost" : 10,
+            "func" : self.special_attack
+        }
         
         self.loot = Loot(
             gold=2,
@@ -187,6 +191,11 @@ class EnemyGoblin(BaseHero):
             equipment=None,
             level=kwargs.get('level', 1)
         )
+        
+        
+    @mana_ability(cost=10)
+    def special_attack(self, enemy):
+        return self.do_attack(enemy, power=20)
         
         
 enemy_dict = {
