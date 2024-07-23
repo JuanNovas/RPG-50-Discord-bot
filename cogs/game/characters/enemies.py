@@ -173,7 +173,7 @@ class EnemyGoblin(BaseHero):
             **kwargs
         )
         self.name = 'Goblin'
-        self.image = ''
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1265311340176736257/DALLE_2024-07-23_11.15.25_-_A_fantasy_RPG_style_image_of_a_goblin_in_a_fighting_stance_standing_in_a_medieval_training_field._The_goblin_has_green_skin_pointy_ears_and_is_wear.webp?ex=66a10c83&is=669fbb03&hm=070ea131dda78975751ae19bcd053eba7956e3963b522bc23578c6d3102ab960&'
         self.id = 5
 
         self.ability = {
