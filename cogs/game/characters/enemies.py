@@ -196,6 +196,43 @@ class EnemyGoblin(BaseHero):
     @mana_ability(cost=10)
     def special_attack(self, enemy):
         return self.do_attack(enemy, power=20)
+    
+    
+class EnemyCrow(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=15,
+            attack=7,
+            magic=1,
+            defense=2,
+            magic_resistance=2,
+            mana=5,
+            **kwargs
+        )
+        self.name = 'Crow'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1265316305914036225/DALLE_2024-07-23_11.35.10_-_A_fantasy_RPG_style_image_of_a_crow_perched_on_a_wooden_post._The_crow_has_glossy_black_feathers_a_sharp_beak_and_piercing_eyes_with_a_semi-realist.webp?ex=66a11123&is=669fbfa3&hm=ee543d69c19e97c5912237c13172f333e19964edbc5ca7d50b09dfa93ac4171f&'
+        self.id = 6
+        
+        self.ability = {
+            "name" : "Scream",
+            "cost" : 5,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=1,
+            wood=0,
+            iron=0,
+            runes=0,
+            xp=2,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+        
+    @mana_ability(cost=5)
+    def special_attack(self, enemy):
+        return self.do_attack(enemy, power=15)
         
         
 enemy_dict = {
@@ -203,5 +240,6 @@ enemy_dict = {
     2 : EnemySlime,
     3 : EnemyLavaDragon,
     4 : EnemySkeleton,
-    5 : EnemyGoblin
+    5 : EnemyGoblin,
+    6 : EnemyCrow
 }
