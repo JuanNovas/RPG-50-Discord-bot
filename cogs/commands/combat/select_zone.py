@@ -1,4 +1,4 @@
-from discord import app_commands, SelectOption, Embed, Color
+from discord import app_commands, SelectOption
 from discord.ext import commands
 from discord.ui import View, Select
 from cogs.game.zones.embeds import get_zone_embed

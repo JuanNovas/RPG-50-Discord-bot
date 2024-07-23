@@ -1,6 +1,4 @@
-from discord import app_commands, SelectOption, Embed, Color
-from discord.ext import commands
-from discord.ui import View, Select
+from discord import Embed, Color
 
 zones_data = [
     {},
@@ -43,5 +41,5 @@ def get_zone_embed(zone_id: int):
     embed.add_field(name="Loot", value=zones_data[zone_id]["loot"], inline=True)
     embed.set_image(url=zones_data[zone_id]["image"])
     
-    return embed  
+    return embed
 
