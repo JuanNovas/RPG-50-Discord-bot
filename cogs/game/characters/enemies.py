@@ -233,6 +233,43 @@ class EnemyCrow(BaseHero):
     @mana_ability(cost=5)
     def special_attack(self, enemy):
         return self.do_attack(enemy, power=15)
+    
+    
+class EnemyWorm(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=5,
+            attack=1,
+            magic=3,
+            defense=1,
+            magic_resistance=1,
+            mana=5,
+            **kwargs
+        )
+        self.name = 'Worm'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1265318463317086342/DALLE_2024-07-23_11.43.45_-_A_fantasy_RPG_style_image_of_a_worm_on_the_ground._The_worm_has_a_slightly_segmented_body_earthy_colors_and_a_subtle_sheen_with_a_semi-realistic_ap.webp?ex=66a11326&is=669fc1a6&hm=46f9be4583f93f9797e8b71306649b90a5d5f6975e48b8ca4f05bad831cb4535&'
+        self.id = 7
+        
+        self.ability = {
+            "name" : "Dirt spit",
+            "cost" : 5,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=0,
+            wood=0,
+            iron=0,
+            runes=0,
+            xp=2,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+        
+    @mana_ability(cost=5)
+    def special_attack(self, enemy):
+        return self.do_attack(enemy, power=15)
         
         
 enemy_dict = {
@@ -241,5 +278,6 @@ enemy_dict = {
     3 : EnemyLavaDragon,
     4 : EnemySkeleton,
     5 : EnemyGoblin,
-    6 : EnemyCrow
+    6 : EnemyCrow,
+    7 : EnemyWorm
 }
