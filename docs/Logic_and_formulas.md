@@ -26,7 +26,7 @@ All hero stats scale exponencialy except the mana.
 - Magic resistance
 
 $$
-\text{Final Stat} = BaseStat \times (1.15 ^ {HeroLevel})
+\text{Final Stat} = BaseStat \times (1.15 ^ {HeroLevel - 1})
 $$
 
 ![Stats scale formula graph](images/logic_and_formulas/stats_progresion_chart.png)
@@ -46,6 +46,7 @@ $$
 ### Explanation
 Exponential stats grow makes that the difference beetween level 45-50 bigger than 20-25, rewarding the increase of xp needed on each level and helping to balance low level difference (making it not really important) and high level difference (making it harder to fight higher level enemies).
 Mana stays the same because habilities mana cost never increase.
+**HeroLevel - 1** makes it that when the equipment is level 1 the boost multiplies itself by 1, so the final stats are the base stats.
 
 
 ## Damage calculation
