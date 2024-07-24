@@ -270,6 +270,43 @@ class EnemyWorm(BaseHero):
     @mana_ability(cost=5)
     def special_attack(self, enemy):
         return self.do_attack(enemy, power=15)
+    
+    
+class EnemyShadow(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=15,
+            attack=0,
+            magic=10,
+            defense=4,
+            magic_resistance=8,
+            mana=40,
+            **kwargs
+        )
+        self.name = 'Shadow'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1265671051803885669/DALLE_2024-07-24_11.04.41_-_A_fantasy_RPG_style_image_of_a_ghost_in_a_medieval_dungeon._The_ghost_has_a_translucent_ethereal_appearance_with_a_faint_blue_glow_and_an_eerie_expr.webp?ex=66a25b85&is=66a10a05&hm=375903be12e4245ce0a32bce5480ede52125c5d36c108d1cc3f43aa14bf0020f&'
+        self.id = 8
+
+        self.ability = {
+            "name" : "Darkness",
+            "cost" : 10,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=1,
+            wood=0,
+            iron=0,
+            runes=0,
+            xp=3,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+        
+    @mana_ability(cost=10)
+    def special_attack(self, enemy):
+        return self.do_magic(enemy, power=20)
         
         
 enemy_dict = {
@@ -279,5 +316,6 @@ enemy_dict = {
     4 : EnemySkeleton,
     5 : EnemyGoblin,
     6 : EnemyCrow,
-    7 : EnemyWorm
+    7 : EnemyWorm,
+    8 : EnemyShadow
 }
