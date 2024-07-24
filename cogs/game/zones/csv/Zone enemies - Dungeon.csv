@@ -1,0 +1,6 @@
+Name,ID,Level,Probability,Boss
+Slime,2,4-8,30,FALSE
+Skeleton,4,5-9,30,FALSE
+Shadow,8,5-9,10,FALSE
+Rat,9,4-9,30,FALSE
+Lava Dragon,3,13,0,TRUE

@@ -1,0 +1,4 @@
+Name,ID,Level,Probability,Boss
+Goblin,5,1-2,30,FALSE
+Crow,6,1-3,40,FALSE
+Worm,7,1-3,30,FALSE
