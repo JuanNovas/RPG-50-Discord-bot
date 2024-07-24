@@ -309,6 +309,43 @@ class EnemyShadow(BaseHero):
         return self.do_magic(enemy, power=20)
         
         
+class EnemyRat(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=25,
+            attack=3,
+            magic=1,
+            defense=5,
+            magic_resistance=6,
+            mana=10,
+            **kwargs
+        )
+        self.name = 'Rat'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1265674069462880326/DALLE_2024-07-24_11.16.47_-_A_fantasy_RPG_style_image_of_a_giant_rat_in_a_medieval_dungeon._The_rat_has_dark_fur_sharp_teeth_and_red_eyes_with_a_semi-realistic_appearance_that.webp?ex=66a25e55&is=66a10cd5&hm=cbf3649a0c2ebefad80495b18dd8409a09fff322c806f934d7b799f80f08d31e&'
+        self.id = 9
+        
+        self.ability = {
+            "name" : "Bite",
+            "cost" : 10,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=2,
+            wood=0,
+            iron=0,
+            runes=0,
+            xp=2,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+    
+    @mana_ability(cost=5)
+    def special_attack(self, enemy):
+        return self.do_attack(enemy, power=15)
+        
+        
 enemy_dict = {
     1 : EnemyDummy,
     2 : EnemySlime,
@@ -317,5 +354,6 @@ enemy_dict = {
     5 : EnemyGoblin,
     6 : EnemyCrow,
     7 : EnemyWorm,
-    8 : EnemyShadow
+    8 : EnemyShadow,
+    9 : EnemyRat
 }
