@@ -425,6 +425,42 @@ class EnemyGiantGoblin(BaseHero):
     def special_attack(self, enemy):
         return self.do_attack(enemy, power=20)
     
+    
+class EnemyBear(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=20,
+            attack=6,
+            magic=1,
+            defense=10,
+            magic_resistance=2,
+            mana=10,
+            **kwargs
+        )
+        self.name = 'Bear'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1266048696005562423/DALLE_2024-07-25_12.05.25_-_A_fantasy_RPG_style_image_of_a_bear_in_a_forest._The_bear_has_a_semi-realistic_appearance_with_fur_details_and_a_strong_powerful_stance_but_not_over.webp?ex=66a3bb3b&is=66a269bb&hm=aaab02c160670ef2f47bc96963bc1e3b98a0c10ccfefb4b0a0c616935d6eed98&'
+        self.id = 12
+        
+        self.ability = {
+            "name" : "Scratch",
+            "cost" : 5,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=2,
+            wood=3,
+            iron=0,
+            runes=0,
+            xp=3,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+        
+    @mana_ability(cost=5)
+    def special_attack(self, enemy):
+        return self.do_attack(enemy, power=15)
         
 enemy_dict = {
     1 : EnemyDummy,
@@ -436,5 +472,7 @@ enemy_dict = {
     7 : EnemyWorm,
     8 : EnemyShadow,
     9 : EnemyRat,
-    10 : EnemyWolf
+    10 : EnemyWolf,
+    11 : EnemyGiantGoblin,
+    12 : EnemyBear
 }
