@@ -389,6 +389,42 @@ class EnemyWolf(BaseHero):
         return f"{enemy.name}'s defense reduced by {reduced}"
         
         
+class EnemyGiantGoblin(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=35,
+            attack=4,
+            magic=4,
+            defense=8,
+            magic_resistance=8,
+            mana=20,
+            **kwargs
+        )
+        self.name = 'Giant goblin'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1266047261993865357/DALLE_2024-07-25_11.59.43_-_A_fantasy_RPG_style_image_of_a_giant_goblin_in_a_forest._The_goblin_has_green_skin_pointy_ears_and_is_wearing_simple_ragged_clothing._It_has_a_semi.webp?ex=66a3b9e5&is=66a26865&hm=312662606ae1d4d45e84141b36da00a6dd02df3310f0333a4983872b7b790959&'
+        self.id = 11
+        
+        self.ability = {
+            "name" : "Smash",
+            "cost" : 10,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=6,
+            wood=1,
+            iron=0,
+            runes=0,
+            xp=5,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+
+    @mana_ability(cost=10)
+    def special_attack(self, enemy):
+        return self.do_attack(enemy, power=20)
+    
         
 enemy_dict = {
     1 : EnemyDummy,
