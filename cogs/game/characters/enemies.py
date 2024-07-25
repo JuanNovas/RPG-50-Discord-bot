@@ -344,6 +344,50 @@ class EnemyRat(BaseHero):
     @mana_ability(cost=5)
     def special_attack(self, enemy):
         return self.do_attack(enemy, power=15)
+       
+
+class EnemyWolf(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=15,
+            attack=7,
+            magic=2,
+            defense=4,
+            magic_resistance=4,
+            mana=10,
+            **kwargs
+        )
+        self.name = 'Wolf'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1266042518877900871/DALLE_2024-07-25_11.40.47_-_A_fantasy_RPG_style_image_of_a_wolf_in_a_forest._The_wolf_has_a_semi-realistic_appearance_with_fur_details_sharp_eyes_and_a_powerful_stance_but_not.webp?ex=66a3b57a&is=66a263fa&hm=998095c407c5a4a28f8dac20571c29655b0a97fb79a490bc99bf9a6e0bc9a049&'
+        self.id = 10
+        
+        self.ability = {
+            "name" : "Roar",
+            "cost" : 10,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=2,
+            wood=1,
+            iron=0,
+            runes=0,
+            xp=3,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+        
+    @mana_ability(cost=10)
+    def special_attack(self, enemy):
+        if self.magic > enemy.defense:
+            reduced = enemy.defense
+        else:
+            reduced = self.magic
+
+        enemy.defense -= reduced
+        return f"{enemy.name}'s defense reduced by {reduced}"
+        
         
         
 enemy_dict = {
@@ -355,5 +399,6 @@ enemy_dict = {
     6 : EnemyCrow,
     7 : EnemyWorm,
     8 : EnemyShadow,
-    9 : EnemyRat
+    9 : EnemyRat,
+    10 : EnemyWolf
 }
