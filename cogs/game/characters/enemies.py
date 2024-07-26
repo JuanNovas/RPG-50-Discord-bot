@@ -461,6 +461,44 @@ class EnemyBear(BaseHero):
     @mana_ability(cost=5)
     def special_attack(self, enemy):
         return self.do_attack(enemy, power=15)
+    
+    
+class EnemySnake(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=20,
+            attack=2,
+            magic=6,
+            defense=2,
+            magic_resistance=2,
+            mana=20,
+            **kwargs
+        )
+        self.name = 'Snake'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1266371103312314369/DALLE_2024-07-26_09.26.30_-_A_fantasy_RPG_style_image_of_a_snake_in_a_forest._The_snake_has_a_semi-realistic_appearance_with_scales_and_a_coiled_ready-to-strike_pose_but_not_ov.webp?ex=66a4e77f&is=66a395ff&hm=681a1bfad37eaa347f7892bbdf41a3c7a5604458b52b7feb9d1f8eb660740477&'
+        self.id = 13
+        
+        self.ability = {
+            "name" : "Poisonous bite",
+            "cost" : 5,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=2,
+            wood=1,
+            iron=0,
+            runes=0,
+            xp=2,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+        
+    @mana_ability(cost=5)
+    def special_attack(self, enemy):
+        return self.do_magic(enemy, power=10)
+
         
 enemy_dict = {
     1 : EnemyDummy,
@@ -474,5 +512,6 @@ enemy_dict = {
     9 : EnemyRat,
     10 : EnemyWolf,
     11 : EnemyGiantGoblin,
-    12 : EnemyBear
+    12 : EnemyBear,
+    13 : EnemySnake
 }
