@@ -4,7 +4,8 @@ from cogs.game.characters.enemies import enemy_dict
 
 routes = [
     "cogs\game\zones\csv\Zone enemies - Training camp.csv",
-    "cogs\game\zones\csv\Zone enemies - Dungeon.csv"
+    "cogs\game\zones\csv\Zone enemies - Dungeon.csv",
+    "cogs\game\zones\csv\Zone enemies - Forest.csv"
 ]
 
 df_list = [[]] # an empty list to skip index 0
