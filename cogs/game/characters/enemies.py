@@ -65,7 +65,7 @@ class EnemySlime(BaseHero):
         self.loot = Loot(
            gold=1,
            wood=0,
-           iron=0,
+           iron=1,
            runes=0,
            xp=4,
            equipment=None,
@@ -142,8 +142,8 @@ class EnemySkeleton(BaseHero):
         
         self.loot = Loot(
             gold=1,
-            wood=1,
-            iron=0,
+            wood=0,
+            iron=1,
             runes=0,
             xp=2,
             equipment=None,
@@ -296,7 +296,7 @@ class EnemyShadow(BaseHero):
         self.loot = Loot(
             gold=1,
             wood=0,
-            iron=0,
+            iron=2,
             runes=0,
             xp=3,
             equipment=None,
