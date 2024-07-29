@@ -615,6 +615,44 @@ class EnemyGolem(BaseHero):
     @mana_ability(cost=5)
     def special_attack(self, enemy):
         return self.do_magic(enemy, power=10)
+    
+    
+class EnemyScavengers(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=20,
+            attack=5,
+            magic=2,
+            defense=4,
+            magic_resistance=8,
+            mana=10,
+            **kwargs
+        )
+        self.name = 'Scavengers'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1267496827708772372/DALLE_2024-07-29_11.59.46_-_A_fantasy_RPG_style_image_of_a_carrion_bird_flying_in_a_desert._The_bird_has_a_semi-realistic_appearance_with_dark_feathers_a_sharp_beak_and_outstre.webp?ex=66a8ffe8&is=66a7ae68&hm=dc879d2e5edeba93a3e59d8437c5864fbccb7589bbf55bdca3598080e5d74c26&'
+        self.id = 17
+        
+        self.ability = {
+            "name" : "Pecks",
+            "cost" : 10,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=3,
+            wood=0,
+            iron=2,
+            runes=0,
+            xp=3,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+        
+    @mana_ability(cost=10)
+    def special_attack(self, enemy):
+        return self.do_attack(enemy, power=30)
+    
         
 enemy_dict = {
     1 : EnemyDummy,
@@ -632,5 +670,6 @@ enemy_dict = {
     13 : EnemySnake,
     14 : EnemyMummy,
     15 : EnemyScorpion,
-    16 : EnemyGolem
+    16 : EnemyGolem,
+    17 : EnemyScavengers
 }
