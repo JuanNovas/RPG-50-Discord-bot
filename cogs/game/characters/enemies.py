@@ -541,6 +541,43 @@ class EnemyMummy(BaseHero):
         else:
             self.hp += amount
         return f"{self.name} restored {amount} HP"
+    
+
+class EnemyScorpion(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=15,
+            attack=9,
+            magic=2,
+            defense=3,
+            magic_resistance=4,
+            mana=5,
+            **kwargs
+        )
+        self.name = 'Scorpion'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1267490719401250816/DALLE_2024-07-29_11.35.23_-_A_fantasy_RPG_style_image_of_a_scorpion_in_a_desert._The_scorpion_has_a_semi-realistic_appearance_with_a_segmented_body_pincers_and_a_curved_tail_wi.webp?ex=66a8fa38&is=66a7a8b8&hm=a1981b0e7d4391763418573b55993e80eb1fed614ddfa7c4bd20c6e1c9f432de&'
+        self.id = 15
+
+        self.ability = {
+            "name" : "Poisonous prick",
+            "cost" : 5,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=4,
+            wood=0,
+            iron=0,
+            runes=0,
+            xp=3,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+        
+    @mana_ability(cost=5)
+    def special_attack(self, enemy):
+        return self.do_attack(enemy, power=30)
 
         
 enemy_dict = {
@@ -557,5 +594,6 @@ enemy_dict = {
     11 : EnemyGiantGoblin,
     12 : EnemyBear,
     13 : EnemySnake,
-    14 : EnemyMummy
+    14 : EnemyMummy,
+    15 : EnemyScorpion
 }
