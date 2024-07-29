@@ -485,7 +485,7 @@ class EnemySnake(BaseHero):
         }
 
         self.loot = Loot(
-            gold=2,
+            gold=3,
             wood=1,
             iron=0,
             runes=0,
