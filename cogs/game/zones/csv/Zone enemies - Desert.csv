@@ -1,0 +1,5 @@
+Name,ID,Min-Level,Max-Level,Probability,Boss
+Mummy,14,9,14,30,FALSE
+Scorpion,15,10,15,10,FALSE
+Golem,16,10,15,30,FALSE
+Scavengers,17,10,16,30,FALSE

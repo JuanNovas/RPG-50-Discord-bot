@@ -5,7 +5,8 @@ from cogs.game.characters.enemies import enemy_dict
 routes = [
     "cogs\game\zones\csv\Zone enemies - Training camp.csv",
     "cogs\game\zones\csv\Zone enemies - Dungeon.csv",
-    "cogs\game\zones\csv\Zone enemies - Forest.csv"
+    "cogs\game\zones\csv\Zone enemies - Forest.csv",
+    "cogs\game\zones\csv\Zone enemies - Desert.csv"
 ]
 
 df_list = [[]] # an empty list to skip index 0
@@ -21,5 +22,3 @@ def get_enemy_from_zone(zone_id: int):
     level = random.randint(enemy_data["Min-Level"], enemy_data["Max-Level"])
     enemy = enemy_dict[enemy_data["ID"]](level=level)
     return enemy
-
-
