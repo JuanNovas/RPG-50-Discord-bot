@@ -578,7 +578,43 @@ class EnemyScorpion(BaseHero):
     @mana_ability(cost=5)
     def special_attack(self, enemy):
         return self.do_attack(enemy, power=30)
+    
+    
+class EnemyGolem(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=50,
+            attack=3,
+            magic=3,
+            defense=5,
+            magic_resistance=5,
+            mana=20,
+            **kwargs
+        )
+        self.name = 'Golem'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1267493041858547813/DALLE_2024-07-29_11.44.09_-_A_fantasy_RPG_style_image_of_a_sand_golem_in_a_desert._The_golem_has_a_semi-realistic_appearance_with_a_body_made_of_sand_and_rock_with_glowing_eyes_.webp?ex=66a8fc62&is=66a7aae2&hm=999eebfe24423072d1829241da65817004736e687d60bb82d8c82549327dd9b7&'
+        self.id = 16
+        
+        self.ability = {
+            "name" : "Smash",
+            "cost" : 5,
+            "func" : self.special_attack
+        }
 
+        self.loot = Loot(
+            gold=3,
+            wood=1,
+            iron=2,
+            runes=0,
+            xp=4,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+
+
+    @mana_ability(cost=5)
+    def special_attack(self, enemy):
+        return self.do_magic(enemy, power=10)
         
 enemy_dict = {
     1 : EnemyDummy,
@@ -595,5 +631,6 @@ enemy_dict = {
     12 : EnemyBear,
     13 : EnemySnake,
     14 : EnemyMummy,
-    15 : EnemyScorpion
+    15 : EnemyScorpion,
+    16 : EnemyGolem
 }
