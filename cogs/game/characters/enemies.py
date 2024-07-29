@@ -498,6 +498,49 @@ class EnemySnake(BaseHero):
     @mana_ability(cost=5)
     def special_attack(self, enemy):
         return self.do_magic(enemy, power=10)
+    
+    
+class EnemyMummy(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=30,
+            attack=3,
+            magic=5,
+            defense=3,
+            magic_resistance=3,
+            mana=10,
+            **kwargs
+        )
+        self.name = 'Mummy'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1267487705395363920/DALLE_2024-07-29_11.23.19_-_A_fantasy_RPG_style_image_of_a_mummy_in_a_desert._The_mummy_has_a_semi-realistic_appearance_with_tattered_bandages_and_a_menacing_stance_but_not_over.webp?ex=66a8f769&is=66a7a5e9&hm=c7fc13a1656992475e9b20f07bea0217ac7f1ad123199125b1a1a608bae5c160&'
+        self.id = 14
+        
+        self.ability = {
+            "name" : "Regen",
+            "cost" : 5,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=2,
+            wood=1,
+            iron=1,
+            runes=0,
+            xp=3,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+        
+    @mana_ability(cost=5)
+    def special_attack(self, enemy):
+        amount = self.magic * 5
+        if self.hp + amount > self.max_hp:
+            amount = self.max_hp - self.hp
+            self.hp = self.max_hp
+        else:
+            self.hp += amount
+        return f"{self.name} restored {amount} HP"
 
         
 enemy_dict = {
@@ -513,5 +556,6 @@ enemy_dict = {
     10 : EnemyWolf,
     11 : EnemyGiantGoblin,
     12 : EnemyBear,
-    13 : EnemySnake
+    13 : EnemySnake,
+    14 : EnemyMummy
 }
