@@ -1,5 +1,5 @@
 from cogs.game.characters.basehero import BaseHero
-from cogs.game.items.weapons import WeaponKnife
+from cogs.game.items.weapons import *
 from cogs.game.items.armors import ArmorScale
 from cogs.game.characters.loot import Loot
 from cogs.utils.decorators import mana_ability
@@ -225,7 +225,7 @@ class EnemyCrow(BaseHero):
             iron=0,
             runes=0,
             xp=2,
-            equipment=None,
+            equipment=WeaponCrossbow,
             level=kwargs.get('level', 1)
         )
         
