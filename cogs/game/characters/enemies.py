@@ -1,6 +1,6 @@
 from cogs.game.characters.basehero import BaseHero
 from cogs.game.items.weapons import *
-from cogs.game.items.armors import ArmorScale
+from cogs.game.items.armors import *
 from cogs.game.characters.loot import Loot
 from cogs.utils.decorators import mana_ability
 
@@ -453,7 +453,7 @@ class EnemyBear(BaseHero):
             iron=0,
             runes=0,
             xp=3,
-            equipment=None,
+            equipment=ArmorBearSkin,
             level=kwargs.get('level', 1)
         )
         
