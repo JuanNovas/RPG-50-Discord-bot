@@ -653,6 +653,42 @@ class EnemyScavengers(BaseHero):
     def special_attack(self, enemy):
         return self.do_attack(enemy, power=30)
     
+    
+class EnemyGiantFrog(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=25,
+            attack=3,
+            magic=6,
+            defense=4,
+            magic_resistance=4,
+            mana=20,
+            **kwargs
+        )
+        self.name = 'Giant frog'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1268562912247808102/DALLE_2024-08-01_10.35.59_-_A_fantasy_RPG_style_image_of_a_giant_frog_in_a_swamp._The_frog_has_a_semi-realistic_appearance_with_warty_skin_large_eyes_and_a_powerful_stance_but_1.webp?ex=66ace0c7&is=66ab8f47&hm=6eb7ba9907e1333db2900117b53dfa49c0c68a2854002fffb282664c0fc8f545&'
+        self.id = 18
+        
+        self.ability = {
+            "name" : "Toxic Lick",
+            "cost" : 10,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=3,
+            wood=3,
+            iron=1,
+            runes=0,
+            xp=4,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+    
+    
+    @mana_ability(cost=10)
+    def special_attack(self, enemy):
+        return self.do_magic(enemy, power=25)
         
 enemy_dict = {
     1 : EnemyDummy,
@@ -671,5 +707,6 @@ enemy_dict = {
     14 : EnemyMummy,
     15 : EnemyScorpion,
     16 : EnemyGolem,
-    17 : EnemyScavengers
+    17 : EnemyScavengers,
+    18 : EnemyGiantFrog
 }
