@@ -37,8 +37,13 @@ class AssasinDummy(BaseHero):
         self.name = "User"
         self.classname = "AssasinDummy"
         self.image = "https://cdn.discordapp.com/attachments/474702643625984021/1249850320217964704/assasindummy2.jpeg?ex=6668cd51&is=66677bd1&hm=bdd64f0f8281af7d9bf29c6dd5c8ec879809a5296a5d122a0ee7d26972ed8e7e&"
+        
+        level = kwargs.get('level', 1)
+        
         self.abilities["Super hit"] = self.super_hit
-        self.abilities["Sacrifice"] = self.sacrifice
+        
+        if level >= 10:
+            self.abilities["Sacrifice"] = self.sacrifice
         
     @mana_ability(cost=5)
     def super_hit(self, enemy):
