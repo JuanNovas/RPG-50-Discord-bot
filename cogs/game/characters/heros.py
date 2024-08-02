@@ -16,11 +16,24 @@ class MagicDummy(BaseHero):
         self.name = "User"
         self.classname = "MagicDummy"
         self.image = "https://cdn.discordapp.com/attachments/474702643625984021/1249850968577933393/magicdummy2.jpeg?ex=6668cdec&is=66677c6c&hm=0d946dc04407fcc92df9ac02dada07f8090ef839b0a29b70958bd065a6b105e8&"
+        
+        level = kwargs.get('level', 1)
+        
         self.abilities["Magic flame"] = self.magic_flame
         
+        if level >= 10:
+            self.abilities["Heal"] = self.heal
     @mana_ability(cost=15)
     def magic_flame(self, enemy):
         return self.do_magic(enemy, 15)
+    
+    @mana_ability(cost=10)
+    def heal(self, enemy):
+        amount = self.magic * 2
+        self.hp += amount
+        if self.hp > self.max_hp:
+            self.hp = self.max_hp
+        return f"{self.name} healed {amount} HP"
     
 # ID 2
 class AssasinDummy(BaseHero):
