@@ -35,10 +35,23 @@ class ArmorBearSkin(BaseArmor):
         self.id = 3
         self.rarity = 3
         self.name = "Bear skin"
+        
+        
+class ArmorStrawHelmet(BaseArmor):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        
+        self.plain["defense"] = 2
+        self.plain["magic_resistance"] = 2
+        
+        self.id = 4
+        self.rarity = 1
+        self.name = "Straw helmet"
 
 
 armor_dict =  {
     1 : ArmorIron,
     2 : ArmorScale,
-    3 : ArmorBearSkin
+    3 : ArmorBearSkin,
+    4 : ArmorStrawHelmet
 }
