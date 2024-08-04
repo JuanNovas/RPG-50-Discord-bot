@@ -1,5 +1,14 @@
 # Logic and Formulas
 
+## Index
+- [Hero experience](#hero-experience-needed)
+- [Hero stats](#hero-stats-scale)
+- [Damage](#damage-calculation)
+- [Equipment stats](#equipment-stats-calculation)
+- [Equipment scale](#equipment-stats-scale)
+- [Experience drop](#enemy-experience-drop-scale)
+- [Equipment drop rate](#equipment-drop-rate)
+- [Equipment upgrade](#equipment-upgrade-costs)
 
 ## Hero experience needed
 Experience needed to level up scale exponentialy after each level. (50 is the max level)
