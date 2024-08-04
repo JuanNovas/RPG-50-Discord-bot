@@ -4,6 +4,7 @@
 - [Stats](#stats)
 
 ## Stats
+Stats related commands.
 
 ### /stats
 Shows the active hero stats, resources and equipment equiped.
