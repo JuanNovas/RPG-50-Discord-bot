@@ -5,10 +5,10 @@
 - [Hero stats](#hero-stats-scale)
 - [Damage](#damage-calculation)
 - [Equipment stats](#equipment-stats-calculation)
+- [Equipment upgrade](#equipment-upgrade-costs)
 - [Equipment scale](#equipment-stats-scale)
 - [Experience drop](#enemy-experience-drop-scale)
 - [Equipment drop rate](#equipment-drop-rate)
-- [Equipment upgrade](#equipment-upgrade-costs)
 
 ## Hero experience needed
 Experience needed to level up scale exponentialy after each level. (50 is the max level)
@@ -107,52 +107,6 @@ $$
 
 ### Explanation
 After the boost from the weapon the stat boosted will be used with the armor, so exponential boosts are more efective in armors. This is to balance the fact that weapons had a custom attack.
-
-
-## Equipment stats scale
-The way equipment stats are calculated, there is no diference in how the plain and multi boosts scale.
-
-### Max level
-Equipments are divided in 5 ranks (1 to 5 stars). Max level is calculated with this formula:
-
-$$
-MaxLevel = Rank \times 10
-$$
-
-### Stats formula
-The stats are calculated with this exponential formula:
-
-$$
-\text{Equipment Stat} = Boost \times {1.2} ^ {(level - 1)}
-$$
-
-![Equipment stats scale formula graph](images/logic_and_formulas/equipment_scale_chart.png)
-
-### Explanation
-**Level - 1** makes it that when the equipment is level 1 the boost multiplies itself by 1, so the final stats are the base stats.
-
-
-## Enemy experience drop scale
-Experience gained from defeating enemies scale.
-
-### Experience formula
-$$
-\text{Experience droped} = BaseXP \times 1.07 ^ {EnemyLevel}
-$$
-
-![Experience drop scale formula graph](images/logic_and_formulas/enemy_xp_scale_chart.png)
-
-#### Arguments
-- **BaseXP**: Base xp given by an enemy, it is different for each one.
-
-### Explanation
-This exponential grow makes it more rewarding to fight higher level enemies, but it grows slower than the xp needed to level up. Making it that, more monsters are needed to be beaten to level up each time.
-
-
-## Equipment drop rate
-Each enemy may have an equipment drop rate, the probability of getting it after defeating the enemy depends on each one, but for the majority the odds are around 5% - 10%.
-Heros have a limit of 1 for each type of equipment. So, when you already have the equipment an enemy drops, it would not drop it again.
-
 
 ## Equipment upgrade costs
 The costs of upgrading equipments scale exponentialy. There is no difference beetween the price of upgrades beetween diferent equipment ranks, except for the runes (Low rank equipment does not need them). This means that upgrading to level 15, cost the same for all equipments.
@@ -266,3 +220,48 @@ Runes are a rare resource and only used in high level equipment and in low cuant
 
 ##### Graph explanation
 0 represents the value to level up to level 2 and 1 the value to level up to level 50. This graphs shows how the amount of a resource increase in comparison with the rest, it is not comparing cuantities.
+
+## Equipment stats scale
+The way equipment stats are calculated, there is no diference in how the plain and multi boosts scale.
+
+### Max level
+Equipments are divided in 5 ranks (1 to 5 stars). Max level is calculated with this formula:
+
+$$
+MaxLevel = Rank \times 10
+$$
+
+### Stats formula
+The stats are calculated with this exponential formula:
+
+$$
+\text{Equipment Stat} = Boost \times {1.2} ^ {(level - 1)}
+$$
+
+![Equipment stats scale formula graph](images/logic_and_formulas/equipment_scale_chart.png)
+
+### Explanation
+**Level - 1** makes it that when the equipment is level 1 the boost multiplies itself by 1, so the final stats are the base stats.
+
+
+## Enemy experience drop scale
+Experience gained from defeating enemies scale.
+
+### Experience formula
+$$
+\text{Experience droped} = BaseXP \times 1.07 ^ {EnemyLevel}
+$$
+
+![Experience drop scale formula graph](images/logic_and_formulas/enemy_xp_scale_chart.png)
+
+#### Arguments
+- **BaseXP**: Base xp given by an enemy, it is different for each one.
+
+### Explanation
+This exponential grow makes it more rewarding to fight higher level enemies, but it grows slower than the xp needed to level up. Making it that, more monsters are needed to be beaten to level up each time.
+
+
+## Equipment drop rate
+Each enemy may have an equipment drop rate, the probability of getting it after defeating the enemy depends on each one, but for the majority the odds are around 5% - 10%.
+Heros have a limit of 1 for each type of equipment. So, when you already have the equipment an enemy drops, it would not drop it again.
+
