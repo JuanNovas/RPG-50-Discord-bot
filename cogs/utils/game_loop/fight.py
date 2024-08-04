@@ -61,18 +61,18 @@ class NewFight():
                     await end()
                 return 
             
-        def use_attack(enemy : object, action, action_name : str) -> str:
+        def use_attack(enemy: object, action, action_name: str, name: str = self.username) -> str:
             if message := action(enemy):
-                return f"`{self.username} {message}`\n"
+                return f"`{name} {message}`\n"
             else:
-                return f"`{self.username} attempted to perform {action_name} but failed!`\n"
+                return f"`{name} attempted to perform {action_name} but failed!`\n"
 
 
         def enemy_turn(enemy, user):
             if enemy.ability["cost"] <= enemy.mana:
                 x = random.randint(1,2)
                 if x == 1:
-                    return use_attack(user, enemy.ability["func"], enemy.ability["name"])
+                    return use_attack(user, enemy.ability["func"], enemy.ability["name"], name=enemy.name)
             return use_attack(user, enemy.do_attack, "Hit")
             
 
