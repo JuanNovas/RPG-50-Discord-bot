@@ -49,3 +49,15 @@ def add_item(user_id : int, item : object) -> None:
     ''', (user_id, item.type, item.id))
     
     
+def see_enemy(user_id: int, enemy_id: int) -> None:
+    execute('''
+    INSERT INTO dex (hero_id, enemy_id)
+    SELECT hero.id, (?)
+    FROM hero
+    WHERE hero.user_id = (?) AND hero.active = 1
+    AND NOT EXISTS (
+        SELECT 1 
+        FROM dex 
+        WHERE dex.hero_id = hero.id AND dex.enemy_id = (?)
+    );
+    ''', (enemy_id, user_id, enemy_id))

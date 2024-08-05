@@ -2,6 +2,7 @@ from discord import Embed
 from discord.ui import Button, View
 from discord import ButtonStyle
 from cogs.utils.progress import add_kill
+from cogs.utils.hero_actions import see_enemy
 import random
 
 class NewFight():
@@ -92,7 +93,7 @@ class NewFight():
                 return True
             return False
         
-        
+        see_enemy(self.inte.user.id, enemy.id)
         
         for ability in user.abilities:
             button = Button(label=ability, style=ButtonStyle.primary)
@@ -228,6 +229,7 @@ class NewFight():
         
         for user in users_data:
             temp = []
+            see_enemy(user[0], enemy.id)
             for ability in user[1].abilities:
                 button = Button(label=ability, style=ButtonStyle.primary)
                 button.callback = lambda i, name=ability, user_id=user[0]: action_callback(i, name, user_id)
