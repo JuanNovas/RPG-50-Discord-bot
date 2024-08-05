@@ -2,6 +2,7 @@
 
 ## Index
 - [Stats](#stats)
+- [Combat](#combat)
 
 ## Stats
 Stats related commands.
@@ -15,3 +16,11 @@ Shows the active hero stats, resources and equipment equiped.
 Shows the hero advancemets.
 
 ![Example advancements](images/commands/advancements.PNG)
+
+## Combat
+Fight related commands.
+
+### /fight
+Starts a fight in the current area.
+
+![To do](images/commands/todo.PNG)
