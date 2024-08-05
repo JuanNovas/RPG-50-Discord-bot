@@ -35,3 +35,8 @@ Dungeons are a series of fights followed by a boss fight and without the oportun
 Waits for another player/players to join and fight against a very strong boss.
 
 ![To do](images/commands/todo.PNG)
+
+### /pvp
+Waits for another player to acept and starts a player vs player fight.
+
+![To do](images/commands/todo.PNG)
