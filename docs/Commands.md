@@ -43,3 +43,9 @@ Waits for another player to acept and starts a player vs player fight.
 ![To do](images/commands/todo.PNG)
 
 ## Zones
+Zones related commands.
+
+### /zone
+Shows data of the actual zone, including the enemies seen.
+
+![To do](images/commands/todo.PNG)
