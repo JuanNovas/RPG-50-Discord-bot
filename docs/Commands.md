@@ -30,3 +30,8 @@ Starts a dungeon in the current area.
 Dungeons are a series of fights followed by a boss fight and without the oportunity to heal.
 
 ![To do](images/commands/todo.PNG)
+
+### /raid
+Waits for another player/players to join and fight against a very strong boss.
+
+![To do](images/commands/todo.PNG)
