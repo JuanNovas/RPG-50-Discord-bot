@@ -6,6 +6,7 @@
 - [Zones](#zones)
 - [Equipment](#equipment)
 - [Heroes](#heroes)
+- [Commerce](#commerce)
 
 ## Stats
 Stats related commands.
@@ -95,5 +96,18 @@ If possible, allows the user to create a new hero.
 
 ### /change_hero
 Allows the user to change the actual hero.
+
+![To do](images/commands/todo.PNG)
+
+## Commerce
+Commerce related commands.
+
+### /shop
+Shows the in game shop.
+
+![To do](images/commands/todo.PNG)
+
+### /buy [item] [amount]
+Buys an item from the shop.
 
 ![To do](images/commands/todo.PNG)
