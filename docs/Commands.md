@@ -18,6 +18,11 @@ Shows the hero advancemets.
 
 ![Example advancements](images/commands/advancements.PNG)
 
+### /dex
+Shows data about enemies seen, such as, name, zone and drop.
+
+![Example advancements](images/commands/advancements.PNG)
+
 ## Combat
 Fight related commands.
 
