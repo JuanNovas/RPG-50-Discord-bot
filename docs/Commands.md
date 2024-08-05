@@ -68,3 +68,8 @@ Equipment related commands.
 Allows the user to equip an adquired weapon.
 
 ![To do](images/commands/todo.PNG)
+
+### /equip_armor
+Allows the user to equip an adquired armor.
+
+![To do](images/commands/todo.PNG)
