@@ -27,6 +27,7 @@ async def load_extensions():
         await load("cogs/commands/resources")
         await load("cogs/commands/stats")
         await load("cogs/commands/test")
+        await load("cogs/commands/zones")
 
 async def load(folder):
     for filename in os.listdir(folder):
