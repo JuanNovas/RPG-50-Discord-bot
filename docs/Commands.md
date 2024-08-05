@@ -3,6 +3,7 @@
 ## Index
 - [Stats](#stats)
 - [Combat](#combat)
+- [Zones](#zones)
 
 ## Stats
 Stats related commands.
@@ -40,3 +41,5 @@ Waits for another player/players to join and fight against a very strong boss.
 Waits for another player to acept and starts a player vs player fight.
 
 ![To do](images/commands/todo.PNG)
+
+## Zones
