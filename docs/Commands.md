@@ -5,6 +5,7 @@
 - [Combat](#combat)
 - [Zones](#zones)
 - [Equipment](#equipment)
+- [Heroes](#heroes)
 
 ## Stats
 Stats related commands.
@@ -81,5 +82,18 @@ Opens the forge, equipment can be upgraded here.
 
 ### /inventory
 Shows all equipment adquired and its stats.
+
+![To do](images/commands/todo.PNG)
+
+## Heroes
+Character related commands.
+
+### /new_hero
+If possible, allows the user to create a new hero.
+
+![To do](images/commands/todo.PNG)
+
+### /change_hero
+Allows the user to change the actual hero.
 
 ![To do](images/commands/todo.PNG)
