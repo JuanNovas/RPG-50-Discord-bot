@@ -78,7 +78,10 @@ class Forge(commands.Cog):
         SELECT type, level, item_id FROM clean_inventory
         WHERE hero_id = (SELECT id from hero WHERE user_id = (?) AND active = 1)
         ''', (inte.user.id,))
-        self.pages = [data[i:i + PER_PAGE] for i in range(0, len(data), PER_PAGE)]
+        if data == []:
+            self.pages = [[]]
+        else:
+            self.pages = [data[i:i + PER_PAGE] for i in range(0, len(data), PER_PAGE)]
 
         await self.create_start_message(self.pages[0], inte)
         if interaction:
