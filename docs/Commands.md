@@ -111,3 +111,8 @@ Shows the in game shop.
 Buys an item from the shop.
 
 ![To do](images/commands/todo.PNG)
+
+### /trade [give_item] [give_amount] [receive_item] [receive_amount]
+Waits for another player to acept the trade.
+
+![To do](images/commands/todo.PNG)
