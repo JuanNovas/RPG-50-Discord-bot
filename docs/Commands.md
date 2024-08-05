@@ -73,3 +73,8 @@ Allows the user to equip an adquired weapon.
 Allows the user to equip an adquired armor.
 
 ![To do](images/commands/todo.PNG)
+
+### /forge
+Opens the forge, equipment can be upgraded here.
+
+![To do](images/commands/forge.PNG)
