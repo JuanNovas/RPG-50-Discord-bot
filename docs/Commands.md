@@ -4,6 +4,7 @@
 - [Stats](#stats)
 - [Combat](#combat)
 - [Zones](#zones)
+- [Equipment](#equipment)
 
 ## Stats
 Stats related commands.
@@ -57,5 +58,13 @@ Shows data of the actual zone, including the enemies seen.
 
 ### /change_zone
 Allows the user to change the actual zone.
+
+![To do](images/commands/todo.PNG)
+
+## Equipment
+Equipment related commands.
+
+### /equip_weapon
+Allows the user to equip an adquired weapon.
 
 ![To do](images/commands/todo.PNG)
