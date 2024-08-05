@@ -49,3 +49,8 @@ Zones related commands.
 Shows data of the actual zone, including the enemies seen.
 
 ![To do](images/commands/todo.PNG)
+
+### /change_zone
+Allows the user to change the actual zone.
+
+![To do](images/commands/todo.PNG)
