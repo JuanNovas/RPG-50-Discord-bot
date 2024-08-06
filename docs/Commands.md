@@ -22,7 +22,7 @@ Shows the hero advancemets.
 ![Example advancements](images/commands/advancements.PNG)
 
 ### /dex
-Shows data about enemies and items.
+Shows data about enemies seen.
 
 ![Example advancements](images/commands/advancements.PNG)
 

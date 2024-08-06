@@ -29,28 +29,28 @@ embed_titles = [[], # Extra list for 0 index
 
 def get_seen_by_zone(zone_id: int, user_id: int) -> list[dict]:
     data_list = execute_dict('''
-    SELECT * FROM dex INNER JOIN enemies ON enemies.id = dex.enemy_id WHERE dex.hero_id = (?) AND enemies.zone = (?)
+    SELECT * FROM dex INNER JOIN enemies ON enemies.id = dex.enemy_id WHERE dex.hero_id = (
+        SELECT id FROM hero WHERE user_id = (?) AND active = 1
+    ) AND enemies.zone = (?)
     ''',(user_id, zone_id))
     return data_list
 
 
-def get_dex_embed(user_id: int, type_id: int):
+def get_dex_embed(user_id: int):
+    embed = Embed(title="Enemy Dex", description="Enemies spotted in each zone", color=Color.blue())
 
-    
-    if type_id == 1:
-        embed = Embed(title="Enemy Dex", description="Enemies spotted in each zone", color=Color.blue())
+    for i in range(AMOUNT_OF_ZONES):
+        zone_id = i + 1
+        data_list = get_seen_by_zone(zone_id, user_id)
+        enemies_list = ""
+        for data in data_list:
+            enemies_list += "🟢 " + data["name"] + "\n"
+        dif = enemies_amount[zone_id]["amount"] - len(data_list)
+        if dif != 0:
+            for i in range(dif):
+                enemies_list += "❔ Undiscovered\n"
+        embed.add_field(name=embed_titles[zone_id]["name"], value=enemies_list, inline=False)
 
-        for i in range(AMOUNT_OF_ZONES):
-            zone_id = i + 1
-            data_list = get_seen_by_zone(zone_id, user_id)
-            enemies_list = ""
-            for data in data_list:
-                enemies_list += "🟢 " + data["name"] + "\n"
-            dif = enemies_amount[zone_id]["amount"] - len(data_list)
-            if dif != 0:
-                for i in range(dif):
-                    enemies_list += "❔ Undiscovered\n"
-            embed.add_field(name=embed_titles[zone_id]["name"], value=enemies_list, inline=False)
     
     
     return embed
