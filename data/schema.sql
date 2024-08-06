@@ -48,7 +48,8 @@ CREATE TABLE advancements (
 
 CREATE TABLE enemies (
     id INTEGER NOT NULL UNIQUE,
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    zone INTEGER NOT NULL
 );
 
 CREATE TABLE dex (
@@ -66,24 +67,24 @@ CREATE INDEX user_id_index ON hero(user_id);
 INSERT INTO item_types (type) VALUES ('weapon');
 INSERT INTO item_types (type) VALUES ('armor');
 -- Enemies INSERT
-INSERT INTO enemies (id, name) VALUES (1, 'Dummy');
-INSERT INTO enemies (id, name) VALUES (2, 'Slime');
-INSERT INTO enemies (id, name) VALUES (3, 'LavaDragon');
-INSERT INTO enemies (id, name) VALUES (4, 'Skeleton');
-INSERT INTO enemies (id, name) VALUES (5, 'Goblin');
-INSERT INTO enemies (id, name) VALUES (6, 'Crow');
-INSERT INTO enemies (id, name) VALUES (7, 'Worm');
-INSERT INTO enemies (id, name) VALUES (8, 'Shadow');
-INSERT INTO enemies (id, name) VALUES (9, 'Rat');
-INSERT INTO enemies (id, name) VALUES (10, 'Wolf');
-INSERT INTO enemies (id, name) VALUES (11, 'GiantGoblin');
-INSERT INTO enemies (id, name) VALUES (12, 'Bear');
-INSERT INTO enemies (id, name) VALUES (13, 'Snake');
-INSERT INTO enemies (id, name) VALUES (14, 'Mummy');
-INSERT INTO enemies (id, name) VALUES (15, 'Scorpion');
-INSERT INTO enemies (id, name) VALUES (16, 'Golem');
-INSERT INTO enemies (id, name) VALUES (17, 'Scavengers');
-INSERT INTO enemies (id, name) VALUES (18, 'GiantFrog');
+INSERT INTO enemies (id, name, zone) VALUES (1, 'Dummy', 0);
+INSERT INTO enemies (id, name, zone) VALUES (2, 'Slime', 2);
+INSERT INTO enemies (id, name, zone) VALUES (3, 'Lava Dragon', 2);
+INSERT INTO enemies (id, name, zone) VALUES (4, 'Skeleton', 2);
+INSERT INTO enemies (id, name, zone) VALUES (5, 'Goblin', 1);
+INSERT INTO enemies (id, name, zone) VALUES (6, 'Crow', 1);
+INSERT INTO enemies (id, name, zone) VALUES (7, 'Worm', 1);
+INSERT INTO enemies (id, name, zone) VALUES (8, 'Shadow', 2);
+INSERT INTO enemies (id, name, zone) VALUES (9, 'Rat', 2);
+INSERT INTO enemies (id, name, zone) VALUES (10, 'Wolf', 3);
+INSERT INTO enemies (id, name, zone) VALUES (11, 'Giant Goblin', 3);
+INSERT INTO enemies (id, name, zone) VALUES (12, 'Bear', 3);
+INSERT INTO enemies (id, name, zone) VALUES (13, 'Snake', 3);
+INSERT INTO enemies (id, name, zone) VALUES (14, 'Mummy', 4);
+INSERT INTO enemies (id, name, zone) VALUES (15, 'Scorpion', 4);
+INSERT INTO enemies (id, name, zone) VALUES (16, 'Golem', 4);
+INSERT INTO enemies (id, name, zone) VALUES (17, 'Scavengers', 4);
+INSERT INTO enemies (id, name, zone) VALUES (18, 'GiantFrog', 5);
 
 
 -- Triggers
