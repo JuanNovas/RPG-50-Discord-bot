@@ -36,19 +36,26 @@ def get_seen_by_zone(zone_id: int, user_id: int) -> list[dict]:
     return data_list
 
 
+def get_seen_line(zone_id: int, seen: list) -> str:
+    enemies_list = ""
+    for data in seen:
+        enemies_list += "🟢 " + data["name"] + "\n"
+    dif = enemies_amount[zone_id]["amount"] - len(seen)
+    if dif != 0:
+        for _ in range(dif):
+            enemies_list += "❔ Undiscovered\n"
+            
+    return enemies_list
+
+
 def get_dex_embed(user_id: int):
     embed = Embed(title="Enemy Dex", description="Enemies spotted in each zone", color=Color.blue())
 
     for i in range(AMOUNT_OF_ZONES):
         zone_id = i + 1
         data_list = get_seen_by_zone(zone_id, user_id)
-        enemies_list = ""
-        for data in data_list:
-            enemies_list += "🟢 " + data["name"] + "\n"
-        dif = enemies_amount[zone_id]["amount"] - len(data_list)
-        if dif != 0:
-            for i in range(dif):
-                enemies_list += "❔ Undiscovered\n"
+        enemies_list = get_seen_line(zone_id, data_list)
+        
         embed.add_field(name=embed_titles[zone_id]["name"], value=enemies_list, inline=False)
 
     
