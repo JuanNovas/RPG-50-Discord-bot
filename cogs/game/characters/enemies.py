@@ -689,6 +689,44 @@ class EnemyGiantFrog(BaseHero):
     @mana_ability(cost=10)
     def special_attack(self, enemy):
         return self.do_magic(enemy, power=25)
+    
+    
+class EnemyKingHawk(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=40,
+            attack=8,
+            magic=4,
+            defense=4,
+            magic_resistance=4,
+            mana=30,
+            **kwargs
+        )
+        self.name = 'King Hawk'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1270861381377196122/DALLE_2024-08-07_18.49.16_-_A_fantasy_RPG_style_image_of_a_majestic_and_aggressive_falcon_wearing_a_crown_in_an_attack_pose_in_a_medieval_training_field._The_falcon_has_a_semi-r.webp?ex=66b53d64&is=66b3ebe4&hm=66d0931e2ae968f944a4c8096103b240b5c1eed8c1a6c25bbd83227686175a42&'
+        self.id = 19
+        
+        self.ability = {
+            "name" : "Fierce Bite",
+            "cost" : 10,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=40,
+            wood=2,
+            iron=0,
+            runes=0,
+            xp=10,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+
+
+    @mana_ability(cost=10)
+    def special_attack(self, enemy):
+        return self.do_attack(enemy, power=25)
+
         
 enemy_dict = {
     1 : EnemyDummy,
@@ -708,5 +746,6 @@ enemy_dict = {
     15 : EnemyScorpion,
     16 : EnemyGolem,
     17 : EnemyScavengers,
-    18 : EnemyGiantFrog
+    18 : EnemyGiantFrog,
+    19 : EnemyKingHawk
 }
