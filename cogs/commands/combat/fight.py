@@ -6,12 +6,12 @@ from cogs.utils.database import execute_dict
 from cogs.game.zones.encounters import get_enemy_from_zone
 from cogs.utils.hero_actions import load_hero
 
-class ZoneCombat(commands.Cog):
+class Fight(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name='zone_combat', description="Command description")
-    async def zone_combat(self, inte):
+    @app_commands.command(name='fight', description="Command description")
+    async def fight(self, inte):
         if not lock_manager.command_lock(inte.user.id):
             await inte.response.send_message("User using a command")
             return
@@ -30,4 +30,4 @@ class ZoneCombat(commands.Cog):
         await NewFight(inte).fight(user,enemy,end=lambda user_id=inte.user.id : lock_manager.unlock(user_id))
 
 async def setup(bot):
-    await bot.add_cog(ZoneCombat(bot))
+    await bot.add_cog(Fight(bot))
