@@ -11,14 +11,33 @@ routes = [
 
 df_list = [[]] # an empty list to skip index 0
 probabilities = [[]]
+bosses = [[]]
 
 for route in routes:
     df = pd.read_csv(route)
     df_list.append(df)
     probabilities.append(df['Probability'].tolist())
+    bosses.append(df[df['Boss'] == True].to_dict(orient='records'))
+    
 
 def get_enemy_from_zone(zone_id: int):
     enemy_data = random.choices(df_list[zone_id].to_dict(orient='records'), weights=probabilities[zone_id], k=1)[0]
     level = random.randint(enemy_data["Min-Level"], enemy_data["Max-Level"])
     enemy = enemy_dict[enemy_data["ID"]](level=level)
     return enemy
+
+
+def get_dungeon_from_zone(zone_id: int) -> list:
+    enemy_amount = 2 + zone_id
+    enemy_list = []
+
+    boss_data = random.choices(bosses[zone_id])[0]
+    boss_level = random.randint(boss_data["Min-Level"], boss_data["Max-Level"])
+    boss = enemy_dict[boss_data["ID"]](level=boss_level)
+    enemy_list.append(boss)
+    
+    for _ in range(enemy_amount):
+        enemy_list.append(get_enemy_from_zone(zone_id))
+        
+    return enemy_list
+    
