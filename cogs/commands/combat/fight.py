@@ -5,6 +5,7 @@ from cogs.utils.game_loop.fight import NewFight
 from cogs.utils.database import execute_dict
 from cogs.game.zones.encounters import get_enemy_from_zone
 from cogs.utils.hero_actions import load_hero
+from cogs.utils.querys import get_zone
 
 class Fight(commands.Cog):
     def __init__(self, bot):
@@ -15,12 +16,8 @@ class Fight(commands.Cog):
         if not lock_manager.command_lock(inte.user.id):
             await inte.response.send_message("User using a command")
             return
-        
-        data = execute_dict('''
-        SELECT * FROM hero WHERE user_id = (?) AND active = 1
-        ''', (inte.user.id,))[0]
 
-        zone_id = data["zone_id"]
+        zone_id = get_zone(inte.user.id)
         
         user = load_hero(inte.user.id)
         enemy = get_enemy_from_zone(zone_id)
