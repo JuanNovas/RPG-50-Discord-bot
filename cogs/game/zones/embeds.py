@@ -1,4 +1,6 @@
 from discord import Embed, Color
+from cogs.utils.querys import get_zone
+from cogs.utils.dex import get_seen_line
 
 zones_data = [
     {},
@@ -43,3 +45,13 @@ def get_zone_embed(zone_id: int):
     
     return embed
 
+
+def get_zone_full_embed(user_id: int):
+    zone_id = get_zone(user_id)
+    embed = Embed(title=zones_data[zone_id]["name"], color=Color.blue())
+    embed.add_field(name="Zone level", value=zones_data[zone_id]["level"], inline=False)
+    embed.add_field(name="Loot", value=zones_data[zone_id]["loot"], inline=True)
+    embed.add_field(name="Enemies", value=get_seen_line(zone_id, user_id), inline=False)
+    embed.set_image(url=zones_data[zone_id]["image"])
+    
+    return embed
