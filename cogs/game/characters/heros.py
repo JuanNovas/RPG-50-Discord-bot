@@ -15,7 +15,7 @@ class MagicDummy(BaseHero):
         )
         self.name = "User"
         self.classname = "Wizard"
-        self.image = "https://cdn.discordapp.com/attachments/474702643625984021/1249850968577933393/magicdummy2.jpeg?ex=6668cdec&is=66677c6c&hm=0d946dc04407fcc92df9ac02dada07f8090ef839b0a29b70958bd065a6b105e8&"
+        self.image = "https://cdn.discordapp.com/attachments/474702643625984021/1271206558742614046/DALLE_2024-08-08_17.40.55_-_A_fantasy_RPG_style_image_of_a_Mage_class_hero_in_a_medieval_training_field._The_hero_has_a_semi-realistic_appearance_with_flowing_robes_a_staff_and.webp?ex=66b67edd&is=66b52d5d&hm=9d9a41fab7361cf89fb1fcab2e3ee09800fc2bad76f61e62c5d564c8c01e9d66&"
         
         level = kwargs.get('level', 1)
         
