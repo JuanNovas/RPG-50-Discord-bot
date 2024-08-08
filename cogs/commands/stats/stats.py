@@ -1,8 +1,10 @@
 import discord
-from discord import app_commands, Embed
+from discord import app_commands, Embed, SelectOption
 from discord.ext import commands
+from discord.ui import View, Select
 from cogs.utils.database import execute
-from cogs.utils.hero_actions import get_class_by_id, load_hero
+from cogs.utils.hero_actions import load_hero
+from cogs.game.characters.ability_info import abilities_embed
 
 class Stats(commands.Cog):
     def __init__(self, bot):
@@ -10,10 +12,46 @@ class Stats(commands.Cog):
         
     @app_commands.command(name="stats", description="Shows user stats")
     async def stats(self, inte):
+        class Dropdown(Select):
+            def __init__(self,stats_obj):
+                
+                self.stats_obj = stats_obj
+                
+                options = [
+                    SelectOption(value=1, label=f"Stats", emoji='🧪'),
+                    SelectOption(value=2, label=f"Abilities", emoji='🌀')
+                ]
+                
+                    
+                super().__init__(placeholder='Select page', min_values=1, max_values=1, options=options)
+        
+        
+            async def callback(self, interaction):
+                if interaction.user.id != inte.user.id:
+                    return
+                if self.values[0] == "1":
+                    embed = self.stats_obj.load_stats(data, inte)
+                elif self.values[0] == "2":
+                    embed = self.stats_obj.load_ability_info(inte)
+                message = await inte.original_response()
+                await message.edit(embed=embed)
+                await interaction.response.defer()
+        
+        
         data = execute('''
         SELECT * FROM hero WHERE user_id=(?) AND active = 1
         ''', (inte.user.id,))
         
+        view = View()
+        view.add_item(Dropdown(self))
+        
+        embed = self.load_stats(data, inte)
+
+        await inte.response.send_message(embed=embed, view=view)
+        
+        
+        
+    def load_stats(self, data, inte):
         hero = load_hero(inte.user.id)
 
         xp_needed = round(6.5 * (1.5 ** hero.level))
@@ -42,9 +80,15 @@ class Stats(commands.Cog):
         embed.set_image(url=hero.image)
         
         embed.set_footer(text="Character Stats")
-
-        await inte.response.send_message(embed=embed)
-            
+        
+        return embed
+    
+    
+    def load_ability_info(self, inte):
+        hero = load_hero(inte.user.id)
+        embed = abilities_embed(hero, inte)
+        
+        return embed
         
 async def setup(bot):
     await bot.add_cog(Stats(bot))

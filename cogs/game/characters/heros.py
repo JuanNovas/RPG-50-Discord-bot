@@ -14,7 +14,7 @@ class MagicDummy(BaseHero):
             **kwargs
         )
         self.name = "User"
-        self.classname = "MagicDummy"
+        self.classname = "Wizard"
         self.image = "https://cdn.discordapp.com/attachments/474702643625984021/1249850968577933393/magicdummy2.jpeg?ex=6668cdec&is=66677c6c&hm=0d946dc04407fcc92df9ac02dada07f8090ef839b0a29b70958bd065a6b105e8&"
         
         level = kwargs.get('level', 1)
@@ -50,7 +50,7 @@ class AssasinDummy(BaseHero):
             **kwargs
         )
         self.name = "User"
-        self.classname = "AssasinDummy"
+        self.classname = "Assasin"
         self.image = "https://cdn.discordapp.com/attachments/474702643625984021/1249850320217964704/assasindummy2.jpeg?ex=6668cd51&is=66677bd1&hm=bdd64f0f8281af7d9bf29c6dd5c8ec879809a5296a5d122a0ee7d26972ed8e7e&"
         
         level = kwargs.get('level', 1)
