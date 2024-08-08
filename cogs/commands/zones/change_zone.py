@@ -4,12 +4,12 @@ from discord.ui import View, Select
 from cogs.game.zones.embeds import get_zone_embed
 from cogs.utils.database import execute_dict
 
-class Select_zone(commands.Cog):
+class ChangeZone(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name='select_zone', description="Selects a zone of the map")
-    async def select_zone(self, inte):
+    @app_commands.command(name='change_zone', description="Selects a zone of the map")
+    async def change_zone(self, inte):
         class Dropdown(Select):
             def __init__(self):
                 
@@ -50,4 +50,4 @@ class Select_zone(commands.Cog):
         await inte.response.send_message('Select a zone to go:', view=view, embed=get_zone_embed(data["zone_id"]))
 
 async def setup(bot):
-    await bot.add_cog(Select_zone(bot))
+    await bot.add_cog(ChangeZone(bot))
