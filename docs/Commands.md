@@ -12,7 +12,7 @@
 Stats related commands.
 
 ### /stats
-Shows the active hero stats, resources and equipment equiped.
+Shows the active hero stats, resources, equipment equiped and abilities information.
 
 ![Example stats](images/commands/stats.PNG)
 
