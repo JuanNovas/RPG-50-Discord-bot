@@ -23,9 +23,9 @@ class MagicDummy(BaseHero):
         
         if level >= 10:
             self.abilities["Heal"] = self.heal
-    @mana_ability(cost=15)
+    @mana_ability(cost=5)
     def magic_flame(self, enemy):
-        return self.do_magic(enemy, 15)
+        return self.do_magic(enemy, 10)
     
     @mana_ability(cost=10)
     def heal(self, enemy):
