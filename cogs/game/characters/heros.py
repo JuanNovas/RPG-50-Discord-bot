@@ -51,7 +51,7 @@ class AssasinDummy(BaseHero):
         )
         self.name = "User"
         self.classname = "Assasin"
-        self.image = "https://cdn.discordapp.com/attachments/474702643625984021/1249850320217964704/assasindummy2.jpeg?ex=6668cd51&is=66677bd1&hm=bdd64f0f8281af7d9bf29c6dd5c8ec879809a5296a5d122a0ee7d26972ed8e7e&"
+        self.image = "https://cdn.discordapp.com/attachments/474702643625984021/1271206188444418088/DALLE_2024-08-08_17.39.23_-_An_animated_fantasy_RPG_style_image_of_an_Assassin_class_hero_in_a_medieval_training_field._The_hero_is_a_melee_fighter_holding_two_small_daggers_one.webp?ex=66b67e85&is=66b52d05&hm=c498c2bdecce29f674c22615f0449dbdabe14a322de33336414cb918b81d60b5&"
         
         level = kwargs.get('level', 1)
         
