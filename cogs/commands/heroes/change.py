@@ -8,8 +8,8 @@ class ChangeHero(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name='changehero', description="Change the hero selected")
-    async def changehero(self, inte):
+    @app_commands.command(name='change_hero', description="Change the hero selected")
+    async def change_hero(self, inte):
         class Dropdown(Select):
             def __init__(self):
                 self.inte = inte
