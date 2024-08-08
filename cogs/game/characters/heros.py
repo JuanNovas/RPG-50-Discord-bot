@@ -69,3 +69,36 @@ class AssasinDummy(BaseHero):
         return self.do_attack(enemy, 35)
     
     
+# ID 3
+class Tank(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=30,
+            attack=3,
+            magic=1,
+            defense=6,
+            magic_resistance=6,
+            mana=10,
+            **kwargs
+        )
+        self.name = "User"
+        self.classname = "Tank"
+        self.image = "https://cdn.discordapp.com/attachments/474702643625984021/1271109367076229170/DALLE_2024-08-08_11.14.42_-_A_fantasy_RPG_style_image_of_a_Tank_class_hero_in_a_medieval_training_field._The_hero_has_a_semi-realistic_appearance_with_heavy_armor_a_large_shield.webp?ex=66b62459&is=66b4d2d9&hm=13c260f3ff409466d40a100757753af705e8f615e330499ba18469eb50373f0c&"
+        
+        level = kwargs.get('level', 1)
+        
+        self.abilities["Smash"] = self.smash
+        
+        if level >= 10:
+            self.abilities["Reforce"] = self.reforce
+            
+            
+    @mana_ability(cost=10)
+    def smash(self, enemy):
+        return self.do_attack(enemy, 20)
+    
+    @mana_ability(cost=10)
+    def reforce(self, enemy):
+        self.defense += self.magic
+        self.magic_resistance += self.magic
+        return f"{self.name} incresed its defense and magic resistance in {self.magic} points"
