@@ -23,6 +23,8 @@ class MagicDummy(BaseHero):
         
         if level >= 10:
             self.abilities["Heal"] = self.heal
+            
+            
     @mana_ability(cost=5)
     def magic_flame(self, enemy):
         return self.do_magic(enemy, 10)
@@ -39,7 +41,7 @@ class MagicDummy(BaseHero):
 class AssasinDummy(BaseHero):
     def __init__(self, **kwargs):
         super().__init__(
-            hp=30,
+            hp=25,
             attack=5,
             magic=2,
             defense=4,
@@ -65,3 +67,5 @@ class AssasinDummy(BaseHero):
     @health_ability(cost=10)
     def sacrifice(self, enemy):
         return self.do_attack(enemy, 35)
+    
+    
