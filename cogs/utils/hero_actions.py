@@ -14,7 +14,8 @@ def get_class_by_id(class_id : int) -> object:
 
 class_dict = {
     1 : MagicDummy,
-    2 : AssasinDummy
+    2 : AssasinDummy,
+    3 : Tank
 }
 
 

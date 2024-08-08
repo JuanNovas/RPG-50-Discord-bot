@@ -37,7 +37,8 @@ class Create(commands.Cog):
         # Each class with their picture 
         class_images = {
             "🧙‍♂️ Magician": "https://cdn.discordapp.com/attachments/474702643625984021/1249850968577933393/magicdummy2.jpeg?ex=6668cdec&is=66677c6c&hm=0d946dc04407fcc92df9ac02dada07f8090ef839b0a29b70958bd065a6b105e8&",
-            "🔪 Assasin": "https://cdn.discordapp.com/attachments/474702643625984021/1249850320217964704/assasindummy2.jpeg?ex=6668cd51&is=66677bd1&hm=bdd64f0f8281af7d9bf29c6dd5c8ec879809a5296a5d122a0ee7d26972ed8e7e&"
+            "🔪 Assasin": "https://cdn.discordapp.com/attachments/474702643625984021/1249850320217964704/assasindummy2.jpeg?ex=6668cd51&is=66677bd1&hm=bdd64f0f8281af7d9bf29c6dd5c8ec879809a5296a5d122a0ee7d26972ed8e7e&",
+            "🛡️ Tank": "https://cdn.discordapp.com/attachments/474702643625984021/1271109367076229170/DALLE_2024-08-08_11.14.42_-_A_fantasy_RPG_style_image_of_a_Tank_class_hero_in_a_medieval_training_field._The_hero_has_a_semi-realistic_appearance_with_heavy_armor_a_large_shield.webp?ex=66b62459&is=66b4d2d9&hm=13c260f3ff409466d40a100757753af705e8f615e330499ba18469eb50373f0c&"
         }
 
         # sends a message and waits for an answer via buttons.
