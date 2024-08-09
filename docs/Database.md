@@ -21,3 +21,9 @@ Stores data about the equipment each hero has. "Type" column differenciate weapo
 - **type**: ID of the Item_types table, represents the item type.
 - **item_id**: Internal ID of the equipment
 - **level**: Actual level of the equipment
+
+### Advancements
+Tracks the progresion across some parameters, such as, kills or upgrades.
+
+### Dex & Enemies
+Tracks the enemies seen by the hero. The "Enemies" table stores data about each enemy and the "Dex" table refers the enemy with its ID. The "Enemies" table is not updated while using the bot.
