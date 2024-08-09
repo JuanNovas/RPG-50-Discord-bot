@@ -21,7 +21,7 @@ async def create_hero(inte):
             INSERT INTO hero (user_id, class, active) VALUES (?,?,0)
             ''', (interaction.user.id, id))
 
-        embed = Embed(title=f"{interaction.user}'s class", description="Character created _successfully_!", color=0x1E90FF)
+        embed = Embed(title=f"{interaction.user}'s class", description="Hero created _successfully_!", color=0x1E90FF)
         embed.add_field(name="Class:", value=class_name)
         embed.set_image(url=class_images[class_name])
         original_message = await inte.original_response() # inte not interaction to get the last message

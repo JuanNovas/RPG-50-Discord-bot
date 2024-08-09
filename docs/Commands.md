@@ -90,7 +90,7 @@ Shows all equipment adquired and its stats.
 Character related commands.
 
 ### /new_hero
-If possible, allows the user to create a new hero.
+If possible, allows the user to create a new hero. A new hero is possible to create when achiving level 20 with the actual one.
 
 ![To do](images/commands/todo.PNG)
 
