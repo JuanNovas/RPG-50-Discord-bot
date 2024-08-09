@@ -1,4 +1,4 @@
-from cogs.utils.database import execute
+from cogs.utils.database import execute, execute_dict
 from discord import Embed, ButtonStyle
 from discord.ui import Button, View
 from cogs.game.characters.heros import *
@@ -33,6 +33,15 @@ async def create_hero(inte):
         "🔪 Assasin": AssasinDummy().image,
         "🛡️ Tank": Tank().image
     }
+    
+    data = execute_dict('''
+    SELECT DISTINCT class FROM hero WHERE user_id = (?) ORDER BY class
+    ''',(inte.user.id,))
+    clases_owned = [clas["class"] for clas in data]
+    
+    if len(clases_owned) == len(class_images):
+        await inte.response.send_message("All hero types already created")
+        return
 
     # sends a message and waits for an answer via buttons.
     embed = Embed(title=f"{inte.user.name}, CHOOSE YOUR CLASS!", color=0xADD8E6, description="Click a button to choose your class")
@@ -42,6 +51,8 @@ async def create_hero(inte):
     view = View()
         
     for index, class_name in enumerate(class_images):
+        if index+1 in clases_owned:
+            continue
         button = Button(label=class_name, style=ButtonStyle.primary)
         
         button.callback = lambda i, class_name=class_name, id=index+1 : callback(i, class_name, id)
