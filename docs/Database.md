@@ -14,3 +14,10 @@ No stats such as, hp, attack, defense are saved because they are actomatically c
 - **weapon_id**/**armor_id**: Represents the equiped wich is equiped in this moment.
 - **zone_id**: Represents the internal id of the zone the hero is in.
 - **active**: Boolean value that represents the hero the user is using.
+
+### Inventory & Item_types
+Stores data about the equipment each hero has. "Type" column differenciate weapons from armors, allowing each type of item to be indexed individually.
+- **hero_id**: ID of the hero owner of the equipment.
+- **type**: ID of the Item_types table, represents the item type.
+- **item_id**: Internal ID of the equipment
+- **level**: Actual level of the equipment
