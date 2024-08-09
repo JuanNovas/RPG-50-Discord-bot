@@ -4,6 +4,7 @@ from discord.ui import View, Button
 from cogs.utils.hero_actions import load_hero
 from cogs.utils.game_loop.fight import NewFight
 from cogs.game.characters.enemies import EnemySlime
+from cogs.utils.hero_check import hero_created
 
 class MultiCombat(commands.Cog):
     def __init__(self, bot):
@@ -11,6 +12,9 @@ class MultiCombat(commands.Cog):
 
     @app_commands.command(name='multicombat', description="2 players combat")
     async def multicombat(self, inte):
+        if not await hero_created(inte):
+            return
+        
         
         view = View()
         

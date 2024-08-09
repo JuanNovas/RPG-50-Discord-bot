@@ -2,6 +2,7 @@ from discord import app_commands, Embed, Color, ButtonStyle
 from discord.ext import commands
 from discord.ui import View, Button
 from cogs.utils.database import execute_dict, execute
+from cogs.utils.hero_check import hero_created
 
 class Trade(commands.Cog):
     def __init__(self, bot):
@@ -32,6 +33,9 @@ class Trade(commands.Cog):
         ]
     )
     async def trade(self, inte, give : int, give_amount : int, receive : int, receive_amount : int):
+        if not await hero_created(inte):
+            return
+        
         if give == receive:
             return await inte.response.send_message("The resources must be diferents", ephemeral=True)
         elif give_amount < 0 or receive_amount < 0:

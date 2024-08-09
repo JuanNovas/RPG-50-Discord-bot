@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord.ui import View, Button
 from cogs.utils.hero_actions import load_hero
 from cogs.utils.game_loop.fight import NewFight
+from cogs.utils.hero_check import hero_created
 
 
 class Pvp(commands.Cog):
@@ -11,6 +12,9 @@ class Pvp(commands.Cog):
 
     @app_commands.command(name='pvp', description="Creates a pvp combat")
     async def pvp(self, inte):
+        if not await hero_created(inte):
+            return
+        
         view = View()
         
         embed = Embed(title="pvp", description=f"{inte.user.name} is challenging for a battle", color=0x3498db)

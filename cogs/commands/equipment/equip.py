@@ -4,6 +4,7 @@ from discord.ext import commands
 from cogs.utils.database import execute_dict, execute
 from cogs.game.items.weapons import weapon_dict
 from cogs.game.items.armors import armor_dict
+from cogs.utils.hero_check import hero_created
 
 class Equip(commands.Cog):
     def __init__(self, bot):
@@ -11,6 +12,9 @@ class Equip(commands.Cog):
     
     @app_commands.command(name='equip_weapon', description="Equips an equipment")
     async def equip_weapon(self, inte):
+        if not await hero_created(inte):
+            return
+        
         class Dropdown(Select):
             def __init__(self):
 
@@ -46,6 +50,9 @@ class Equip(commands.Cog):
         
     @app_commands.command(name='equip_armor', description="Equips an equipment")
     async def equip_armor(self, inte):
+        if not await hero_created(inte):
+            return
+        
         class Dropdown(Select):
             def __init__(self):
 

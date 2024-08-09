@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord.ui import View, Select
 from cogs.game.zones.embeds import get_zone_embed
 from cogs.utils.database import execute_dict
+from cogs.utils.hero_check import hero_created
 
 class ChangeZone(commands.Cog):
     def __init__(self, bot):
@@ -10,6 +11,9 @@ class ChangeZone(commands.Cog):
 
     @app_commands.command(name='change_zone', description="Selects a zone of the map")
     async def change_zone(self, inte):
+        if not await hero_created(inte):
+            return
+        
         class Dropdown(Select):
             def __init__(self):
                 

@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord.ui import View, Select
 from cogs.utils.database import execute_dict, execute
 from cogs.utils.hero_actions import class_dict
+from cogs.utils.hero_check import hero_created
 
 class ChangeHero(commands.Cog):
     def __init__(self, bot):
@@ -10,6 +11,9 @@ class ChangeHero(commands.Cog):
 
     @app_commands.command(name='change_hero', description="Change the hero selected")
     async def change_hero(self, inte):
+        if not await hero_created(inte):
+            return
+        
         class Dropdown(Select):
             def __init__(self):
                 self.inte = inte

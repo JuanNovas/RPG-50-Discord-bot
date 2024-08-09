@@ -5,6 +5,7 @@ from discord.ui import View, Select
 from cogs.utils.database import execute
 from cogs.utils.hero_actions import load_hero
 from cogs.game.characters.ability_info import abilities_embed
+from cogs.utils.hero_check import hero_created
 
 class Stats(commands.Cog):
     def __init__(self, bot):
@@ -12,6 +13,9 @@ class Stats(commands.Cog):
         
     @app_commands.command(name="stats", description="Shows user stats")
     async def stats(self, inte):
+        if not await hero_created(inte):
+            return
+        
         class Dropdown(Select):
             def __init__(self,stats_obj):
                 

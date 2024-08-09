@@ -3,6 +3,7 @@ from discord import Embed, app_commands
 from discord.ui import Button, View
 from discord import ButtonStyle  
 from cogs.utils.database import execute
+from cogs.utils.hero_check import hero_created
 
 class Create(commands.Cog):
     def __init__(self, bot):
@@ -10,6 +11,9 @@ class Create(commands.Cog):
 
     @app_commands.command(name="create", description="Hero creation")
     async def create(self, inte):
+        if not await hero_created(inte):
+            return
+        
         
         async def callback(interaction, class_name, id):
             if interaction.user != inte.user:
@@ -55,6 +59,9 @@ class Create(commands.Cog):
             view.add_item(button)
 
         await inte.response.send_message(embed=embed, view=view, ephemeral=True)
+        
+        
+    
 
 async def setup(bot):
     await bot.add_cog(Create(bot))

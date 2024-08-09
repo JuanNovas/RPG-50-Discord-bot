@@ -3,6 +3,7 @@ from discord.ui import View
 from discord.ext import commands
 from cogs.utils.database import execute_dict, execute
 from cogs.utils.progress import add_gold_spent
+from cogs.utils.hero_check import hero_created
 
 class Shop(commands.Cog):
     def __init__(self, bot):
@@ -10,6 +11,9 @@ class Shop(commands.Cog):
 
     @app_commands.command(name='shop', description="Item Shop")
     async def shop(self, inte):
+        if not await hero_created(inte):
+            return
+        
         embed = Embed(title="Shop", description="Prices: ", color=0x3498db)
 
         embed.add_field(
@@ -30,6 +34,9 @@ class Shop(commands.Cog):
         ]
     )
     async def buy(self, inte, item : str, amount : int):
+        if not await hero_created(inte):
+            return
+        
         if amount <= 0:
             await inte.response.send_message(f"An amount of {amount} is not supported, it has to be at least 1")
             return

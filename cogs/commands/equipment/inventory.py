@@ -5,6 +5,7 @@ from cogs.utils.database import execute_dict
 from cogs.game.items.weapons import weapon_dict
 from cogs.game.items.armors import armor_dict
 from discord import Embed
+from cogs.utils.hero_check import hero_created
 
 class Inventory(commands.Cog):
     def __init__(self, bot):
@@ -12,6 +13,9 @@ class Inventory(commands.Cog):
 
     @app_commands.command(name='inventory', description="Shows the inventory")
     async def inventory(self, inte):
+        if not await hero_created(inte):
+            return
+        
         data = execute_dict('''
         SELECT * FROM inventory
         WHERE hero_id = (SELECT id from hero WHERE user_id = (?) AND active = 1)

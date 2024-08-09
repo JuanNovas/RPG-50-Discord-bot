@@ -5,6 +5,7 @@ from cogs.utils.database import execute_dict
 from cogs.game.items.weapons import weapon_dict
 from cogs.game.items.armors import armor_dict
 from cogs.utils.equipment_upgrade import equipment_upgrade_cost, make_upgrade
+from cogs.utils.hero_check import hero_created
 
 
 class Forge(commands.Cog):
@@ -16,6 +17,9 @@ class Forge(commands.Cog):
 
     @app_commands.command(name='forge', description="Equipment Upgrades")
     async def forge(self, inte):
+        if not await hero_created(inte):
+            return
+        
         await self.create_clean_start_message(inte)
         
     def create_start_embed(self, page):

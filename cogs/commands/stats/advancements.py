@@ -1,6 +1,7 @@
 from discord import app_commands, Embed, Color
 from discord.ext import commands
 from cogs.utils.database import execute_dict
+from cogs.utils.hero_check import hero_created
 
 class Advancements(commands.Cog):
     def __init__(self, bot):
@@ -8,6 +9,9 @@ class Advancements(commands.Cog):
 
     @app_commands.command(name='advancements', description="Users advancements")
     async def advancements(self, inte):
+        if not await hero_created(inte):
+            return
+        
         def create_bar(progress: int, total: int) -> str:
             percent = progress / total
             filled_length = int(40 * percent)

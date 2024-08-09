@@ -4,6 +4,7 @@ from discord.ui import View, Button
 from cogs.utils.hero_actions import load_hero
 from cogs.utils.game_loop.fight import NewFight
 from cogs.game.characters.enemies import EnemyLavaDragon
+from cogs.utils.hero_check import hero_created
 
 class Raid(commands.Cog):
     def __init__(self, bot):
@@ -11,6 +12,9 @@ class Raid(commands.Cog):
 
     @app_commands.command(name='raid', description="A boss raid")
     async def raid(self, inte):
+        if not await hero_created(inte):
+            return
+        
         view = View()
         
         embed = Embed(title="Raid", description="Raid battle", color=0x3498db)
