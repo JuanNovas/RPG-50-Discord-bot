@@ -66,6 +66,9 @@ class AssasinDummy(BaseHero):
         
         if level >= 10:
             self.abilities["Sacrifice"] = self.sacrifice
+            
+        if level >= 25:
+            self.abilities["Shield broker"] = self.shield_broker
         
     @mana_ability(cost=5)
     def super_hit(self, enemy):
@@ -74,6 +77,13 @@ class AssasinDummy(BaseHero):
     @health_ability(cost=10)
     def sacrifice(self, enemy):
         return self.do_attack(enemy, 35)
+    
+    @mana_ability(cost=10)
+    def shield_broker(self, enemy):
+        enemy.defense -= self.magic
+        if enemy.defense <= 0:
+            enemy.defense = 1
+        return f"reduced {enemy.defense} by {self.magic} points"
     
     
 # ID 3
