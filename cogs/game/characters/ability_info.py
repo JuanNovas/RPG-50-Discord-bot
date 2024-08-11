@@ -12,6 +12,8 @@ def abilities_embed(hero: object, inte):
             embed.add_field(name="Magic flame", value="**Deals fire attack**\nPOWER: 10\nCOST: 5", inline=False)
             if hero.level >= 10:
                 embed.add_field(name="Heal", value="**Heals hp based in user Magic**\nCOST: 10", inline=False)
+            if hero.level >= 25:
+                embed.add_field(name="Ancestral spell", value="**Deals massive damage**\nPOWER: 10\nCOST: 20", inline=False)
         case "Assasin":
             embed.add_field(name="Super hit", value="**Knifes the enemy**\nPOWER: 20\nCOST: 5", inline=False)
             if hero.level >= 10:

@@ -24,6 +24,9 @@ class MagicDummy(BaseHero):
         if level >= 10:
             self.abilities["Heal"] = self.heal
             
+        if level >= 25:
+            self.abilities["Ancestral spell"] = self.ancestral_spell
+            
             
     @mana_ability(cost=5)
     def magic_flame(self, enemy):
@@ -36,6 +39,10 @@ class MagicDummy(BaseHero):
         if self.hp > self.max_hp:
             self.hp = self.max_hp
         return f"{self.name} healed {amount} HP"
+    
+    @mana_ability(cost=20)
+    def ancestral_spell(self, enemy):
+        return self.do_magic(enemy, 30)
     
 # ID 2
 class AssasinDummy(BaseHero):
