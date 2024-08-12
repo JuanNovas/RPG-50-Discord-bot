@@ -72,7 +72,7 @@ class AssasinDummy(BaseHero):
     def super_hit(self, enemy):
         return self.do_attack(enemy, 20)
     
-    @health_ability(cost=10)
+    @health_ability(cost=33)
     def sacrifice(self, enemy):
         return self.do_attack(enemy, 35)
     
