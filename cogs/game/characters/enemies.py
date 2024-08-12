@@ -116,7 +116,7 @@ class EnemyLavaDragon(BaseHero):
         if enemy.mana < 0:
             enemy.mana = 0
         message = self.do_magic(enemy, 40)
-        message += f"{enemy.name} loosed 10 mana"
+        message += f"\n{enemy.name} loosed 10 mana"
         return message
         
 class EnemySkeleton(BaseHero):
