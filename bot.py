@@ -16,7 +16,7 @@ intents.guilds = True
 
 # Configuración del bot
 prefix = "!"  # Puedes cambiar el prefijo del bot aquí si lo deseas
-bot = commands.Bot(command_prefix=prefix, intents=intents)
+bot = commands.Bot(command_prefix=prefix, intents=intents, help_command=None)
 
 # Cargar la extensión
 async def load_extensions():
