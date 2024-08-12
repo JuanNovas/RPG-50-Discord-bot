@@ -17,6 +17,8 @@ class Dungeon(commands.Cog):
         
         
         hero = load_hero(inte.user.id, name=inte.user.name)
+        if hero.level < 5:
+            return await inte.response.send_message("Level 5 required to enter a dungeon")
         await inte.response.send_message("Loading")
         enemies = get_dungeon_from_zone(get_zone(inte.user.id))
         await NewFight(inte).consecutive_fight(hero, enemies)

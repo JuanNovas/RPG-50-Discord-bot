@@ -37,6 +37,7 @@ Starts a fight in the current area.
 ### /dungeon
 Starts a dungeon in the current area.
 Dungeons are a series of fights followed by a boss fight and without the oportunity to heal.
+Level 5 required.
 
 ![To do](images/commands/todo.PNG)
 
