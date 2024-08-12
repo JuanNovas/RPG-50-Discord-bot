@@ -16,7 +16,7 @@ class Dungeon(commands.Cog):
             return
         
         
-        hero = load_hero(inte.user.id)
+        hero = load_hero(inte.user.id, name=inte.user.name)
         await inte.response.send_message("Loading")
         enemies = get_dungeon_from_zone(get_zone(inte.user.id))
         await NewFight(inte).consecutive_fight(hero, enemies)

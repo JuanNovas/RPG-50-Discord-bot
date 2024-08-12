@@ -38,8 +38,8 @@ class MultiCombat(commands.Cog):
             return
         
         users_data = [
-            (player_id, load_hero(player_id), player_inte),
-            (inte.user.id, load_hero(inte.user.id), inte)
+            (player_id, load_hero(player_id, name=player_name), player_inte),
+            (inte.user.id, load_hero(inte.user.id, name=inte.user.name), inte)
         ]
         
         await self.message.delete()

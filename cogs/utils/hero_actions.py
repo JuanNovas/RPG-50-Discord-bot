@@ -1,12 +1,12 @@
 from cogs.game.characters.heros import *
 from cogs.utils.database import execute_dict, execute
 
-def load_hero(user_id : int) -> object:
+def load_hero(user_id : int, name: str="user") -> object:
     data = execute_dict('''
     SELECT * FROM clean_hero WHERE user_id=(?) AND active = 1
     ''', (user_id,))[0]
     hero_class = get_class_by_id(data["class"])
-    hero = hero_class(level=data["level"], weapon_id=data["weapon_id"], weapon_level=data["weapon_level"], armor_id=data["armor_id"], armor_level=data["armor_level"])
+    hero = hero_class(level=data["level"], weapon_id=data["weapon_id"], weapon_level=data["weapon_level"], armor_id=data["armor_id"], armor_level=data["armor_level"], name=name)
     return hero
 
 def get_class_by_id(class_id : int) -> object:

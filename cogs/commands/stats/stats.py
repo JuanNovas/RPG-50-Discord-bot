@@ -56,7 +56,7 @@ class Stats(commands.Cog):
         
         
     def load_stats(self, data, inte):
-        hero = load_hero(inte.user.id)
+        hero = load_hero(inte.user.id, name=inte.user.name)
 
         xp_needed = round(6.5 * (1.5 ** hero.level))
         progress = data[0][4] / xp_needed
@@ -89,7 +89,7 @@ class Stats(commands.Cog):
     
     
     def load_ability_info(self, inte):
-        hero = load_hero(inte.user.id)
+        hero = load_hero(inte.user.id, name=inte.user.name)
         embed = abilities_embed(hero, inte)
         
         return embed

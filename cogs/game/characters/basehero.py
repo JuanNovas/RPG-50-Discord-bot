@@ -17,6 +17,8 @@ class BaseHero():
         self.max_mana = mana
         self.mana = self.max_mana
         
+        self.name = kwargs.get('name', "User")
+        
         self.abilities = {"Hit" : self.do_attack}
         
         # Equip last, needs before definitions to work

@@ -20,7 +20,7 @@ class Combat(commands.Cog):
             await inte.response.send_message("User using a command")
             return
 
-        user = load_hero(inte.user.id)
+        user = load_hero(inte.user.id, name=inte.user.name)
         enemy = enemy_dict[enemy_id](level=level)
         await inte.response.send_message("Loading")
         

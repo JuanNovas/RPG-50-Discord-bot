@@ -22,7 +22,7 @@ class Fight(commands.Cog):
 
         zone_id = get_zone(inte.user.id)
         
-        user = load_hero(inte.user.id)
+        user = load_hero(inte.user.id, name=inte.user.name)
         enemy = get_enemy_from_zone(zone_id)
         
         await inte.response.send_message("Loading")
