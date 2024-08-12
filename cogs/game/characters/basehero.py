@@ -66,7 +66,7 @@ class BaseHero():
             return False
             
     def use_health(self, percent):
-        amount = self.max_hp * (percent / 100)
+        amount = round(self.max_hp * (percent / 100))
         if self.hp > amount:
             self.hp -= amount
             return True
