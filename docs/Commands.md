@@ -1,5 +1,10 @@
 # Commands
 
+## /help
+Help command with important information.
+
+![To do](images/commands/todo.PNG)
+
 ## Index
 - [Stats](#stats)
 - [Combat](#combat)
