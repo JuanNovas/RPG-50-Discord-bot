@@ -4,6 +4,7 @@ from discord.ui import View, Select
 from cogs.game.zones.embeds import get_zone_embed
 from cogs.utils.database import execute_dict
 from cogs.utils.hero_check import hero_created
+from cogs.utils.hero_actions import load_hero
 
 class ChangeZone(commands.Cog):
     def __init__(self, bot):
@@ -14,17 +15,31 @@ class ChangeZone(commands.Cog):
         if not await hero_created(inte):
             return
         
+        hero = load_hero(inte.user.id)
+        
         class Dropdown(Select):
             def __init__(self):
                 
                 options = [
-                    SelectOption(value=1, label=f"Train camp", emoji='🏕️'),
-                    SelectOption(value=2, label=f"Dungeon", emoji='⛓️'),
-                    SelectOption(value=3, label=f"Forest", emoji='🌲'),
-                    SelectOption(value=4, label=f"Desert", emoji='🏜️'),
-                    SelectOption(value=5, label=f"Swamp", emoji='🐸')
+                    SelectOption(value=1, label=f"Train camp", emoji='🏕️')
                 ]
                 
+                if hero.level >= 10:
+                    options.append(SelectOption(value=2, label=f"Dungeon", emoji='⛓️'))
+                    if hero.level >= 20:
+                        options.append(SelectOption(value=3, label=f"Forest", emoji='🌲'))
+                        if hero.level >= 25:
+                            options.append(SelectOption(value=4, label=f"Desert", emoji='🏜️'))
+                            if hero.level >= 35:
+                                options.append(SelectOption(value=4, label=f"Desert", emoji='🏜️'))
+                            else:
+                                options.append(SelectOption(value=0, label=f"A new zone will be unlocked at level 35", emoji='🔒'))
+                        else:
+                            options.append(SelectOption(value=0, label=f"A new zone will be unlocked at level 25", emoji='🔒'))
+                    else:
+                        options.append(SelectOption(value=0, label=f"A new zone will be unlocked at level 20", emoji='🔒'))
+                else:
+                    options.append(SelectOption(value=0, label=f"A new zone will be unlocked at level 10", emoji='🔒'))
                     
                 super().__init__(placeholder='Select a zone', min_values=1, max_values=1, options=options)
         
@@ -33,6 +48,8 @@ class ChangeZone(commands.Cog):
                 if interaction.user.id != inte.user.id:
                     return
                 zone_id = int(self.values[0])
+                if zone_id == 0:
+                    return await interaction.response.defer()
                 message = await inte.original_response()
                 await message.edit(embed=get_zone_embed(zone_id))
                 execute_dict('''

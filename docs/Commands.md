@@ -61,7 +61,7 @@ Shows data of the actual zone, including the enemies seen.
 ![To do](images/commands/todo.PNG)
 
 ### /change_zone
-Allows the user to change the actual zone.
+Allows the user to change the actual zone depending on the user level.
 
 ![To do](images/commands/todo.PNG)
 
