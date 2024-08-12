@@ -13,7 +13,7 @@ class Loot():
         self.equipment = equipment
         self.drop_rate = drop_rate
     
-    def drop(self, user_id):
+    def drop(self, user_id, name:str = "User"):
         # Get xp info
         data = execute('''
         SELECT level, xp FROM hero WHERE user_id=(?) AND active = 1
@@ -51,16 +51,16 @@ class Loot():
             message = message + f" {self.iron} iron"
         if self.runes > 0:
             message = message + f" {self.runes} runes"
-        message = message + f"\nAnd User gained {self.xp} XP"
+        message = message + f"\nand {name} gained {self.xp} XP"
         if level_up:
-            message += "\n User level up"
+            message += f"\n {name} level up"
             
         # If new equipment load it
         if self.equipment:
             if random() <= self.drop_rate:
                 equipment = self.equipment()
                 if add_if_new(user_id, equipment):
-                    message += f"\n User has gained a new item {equipment.name}"
+                    message += f"\n {name} has gained a new item {equipment.name}"
             
             
         return message
