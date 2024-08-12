@@ -23,13 +23,13 @@ class NewFight():
             embed = Embed(title="⚔️ COMBAT! ⚔️", description=description, color=0x3498db)
             embed.set_image(url=enemy.image)
 
-            # Agregar estadísticas del primer personaje
+            # User stats
             embed.add_field(name=f"{self.username}",
                             value=f"**LEVEL:** 📈 {user.level}\n**HP:** ❤️ {user.hp}\n**Mana:** 🔮 {user.mana}",
                             inline=True)
             embed.set_thumbnail(url=user.image)
 
-            # Agregar estadísticas del segundo personaje
+            # Enmy stats
             embed.add_field(name=f"{enemy.name}",
                             value=f"**LEVEL:** 📈 {enemy.level}\n**HP:** ❤️ {enemy.hp}\n**Mana:** 🔮 {enemy.mana}",
                             inline=True)
@@ -89,7 +89,7 @@ class NewFight():
             if not enemy.is_alive():
                 combat_description = f"`{self.username} wins!`\n"
                 
-                combat_description += enemy.loot.drop(self.inte.user.id)
+                combat_description += f"`{enemy.loot.drop(self.inte.user.id)}`\n"
                 
                 add_kill(self.inte.user.id)
                 
