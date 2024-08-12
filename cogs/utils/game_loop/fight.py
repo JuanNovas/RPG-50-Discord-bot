@@ -123,14 +123,14 @@ class NewFight():
             if enemy.ability["cost"] <= enemy.mana:
                 x = random.randint(1,2)
                 if x == 1:
-                    return use_attack(user, enemy.ability["func"], enemy.ability["name"])
-            return use_attack(user, enemy.do_attack, "Hit")
+                    return use_attack(user, enemy.ability["func"], enemy.ability["name"], enemy.name)
+            return use_attack(user, enemy.do_attack, "Hit", enemy.name)
         
-        def use_attack(enemy : object, action, action_name : str) -> str:
+        def use_attack(enemy : object, action, action_name : str, name: str) -> str:
             if message := action(enemy):
-                return f"`{self.username} {message}`\n"
+                return f"`{name} {message}`\n"
             else:
-                return f"`{self.username} attempted to perform {action_name} but failed!`\n"
+                return f"`{name} attempted to perform {action_name} but failed!`\n"
         
         async def simulate_turn(interaction, user_action_name):
             
@@ -141,7 +141,7 @@ class NewFight():
                 combat_description =  f"`{interaction.user.name} used {user_action_name}!`\n"
                 
                 # Users attack
-                combat_description += use_attack(enemy, action_function, user_action_name)
+                combat_description += use_attack(enemy, action_function, user_action_name, user.name)
 
                 # Message update
                 await self.message.edit(embed=create_combat_embed(user, description=combat_description))
@@ -185,11 +185,11 @@ class NewFight():
                 if user.hp <= 0:
                     if end:
                         await end()
-                    combat_description += f"{user.name} has fainted"
+                    combat_description += f"`{user.name} has fainted`\n"
                     users_data.pop(0)
                     buttons.pop(0)
                     if not users_data:
-                        combat_description += "enemy has won"
+                        combat_description += "`enemy has won`"
                         await self.message.edit(embed=create_combat_embed(user, description=combat_description))
                         return
                 
