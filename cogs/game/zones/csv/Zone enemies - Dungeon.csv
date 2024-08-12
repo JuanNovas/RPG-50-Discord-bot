@@ -1,6 +1,6 @@
 Name,ID,Min-Level,Max-Level,Probability,Boss
-Slime,2,4,8,30,FALSE
-Skeleton,4,5,9,30,FALSE
-Shadow,8,5,9,10,FALSE
-Rat,9,4,9,30,FALSE
-Lava Dragon,3,13,13,0,TRUE
+Slime,2,13,19,30,FALSE
+Skeleton,4,15,21,30,FALSE
+Shadow,8,15,21,10,FALSE
+Rat,9,13,21,30,FALSE
+Lava Dragon,3,23,23,0,TRUE

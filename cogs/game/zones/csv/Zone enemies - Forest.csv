@@ -1,5 +1,5 @@
 Name,ID,Min-Level,Max-Level,Probability,Boss
-Wolf,10,6,10,30,FALSE
-Giant goblin,11,7,10,10,FALSE
-Bear,12,6,10,30,FALSE
-Snake,13,6,10,30,FALSE
+Wolf,10,22,27,30,FALSE
+Giant goblin,11,27,33,10,FALSE
+Bear,12,20,30,30,FALSE
+Snake,13,21,28,30,FALSE
