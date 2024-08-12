@@ -34,6 +34,9 @@ class MultiCombat(commands.Cog):
         if inte.user.id == player_id:
             return 
         
+        if not await hero_created(inte):
+            return
+        
         users_data = [
             (player_id, load_hero(player_id), player_inte),
             (inte.user.id, load_hero(inte.user.id), inte)
