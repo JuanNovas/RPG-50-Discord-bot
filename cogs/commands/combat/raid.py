@@ -15,6 +15,10 @@ class Raid(commands.Cog):
         if not await hero_created(inte):
             return
         
+        hero = load_hero(inte.user.id)
+        if hero.level < 10:
+            return await inte.response.send_message("Level 10 required to enter a raid")
+        
         view = View()
         
         embed = Embed(title="Raid", description="Raid battle", color=0x3498db)
@@ -33,9 +37,13 @@ class Raid(commands.Cog):
         if inte.user.id == player_id:
             return 
         
+        hero = load_hero(inte.user.id, name=inte.user.name)
+        if hero.level < 10:
+            return await inte.response.send_message("Level 10 required to enter a raid", ephemeral=True)
+        
         users_data = [
             (player_id, load_hero(player_id, name=player_name), player_inte),
-            (inte.user.id, load_hero(inte.user.id, name=inte.user.name), inte)
+            (inte.user.id, hero, inte)
         ]
         
         await self.message.delete()
