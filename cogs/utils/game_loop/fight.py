@@ -19,18 +19,22 @@ class NewFight():
             await simulate_turn(user_action_name)
         
         def create_combat_embed(description="Choose your action:"):
-            embed = Embed(title="⚔️ COMBAT! ⚔️", description=description, color=0x3498db)  # Blue color
-            embed.set_image(url=enemy.image)  # Example background
 
-            # First line: user's HP and Mana
-            embed.add_field(name=f"{self.username} HP", value=f"❤️ {user.hp}", inline=True)
-            embed.add_field(name=f"{self.username} Mana", value=f"🔮 {user.mana}", inline=True)
-            embed.add_field(name="\u200b", value="\u200b", inline=True)  # empty field to align correctly
+            embed = Embed(title="⚔️ COMBAT! ⚔️", description=description, color=0x3498db)
+            embed.set_image(url=enemy.image)
 
-            # Second line: enemy's HP and Mana
-            embed.add_field(name=f"👹 {enemy.name} HP", value=f"❤️ {enemy.hp}", inline=True)
-            embed.add_field(name=f"👹 {enemy.name} Mana", value=f"🔮 {enemy.mana}", inline=True)
-            embed.add_field(name="\u200b", value="\u200b", inline=True)  # empty field to align correctly
+            # Agregar estadísticas del primer personaje
+            embed.add_field(name=f"{self.username}",
+                            value=f"**LEVEL:** 📈 {user.level}\n**HP:** ❤️ {user.hp}\n**Mana:** 🔮 {user.mana}",
+                            inline=True)
+            embed.set_thumbnail(url=user.image)
+
+            # Agregar estadísticas del segundo personaje
+            embed.add_field(name=f"{enemy.name}",
+                            value=f"**LEVEL:** 📈 {enemy.level}\n**HP:** ❤️ {enemy.hp}\n**Mana:** 🔮 {enemy.mana}",
+                            inline=True)
+
+
 
             return embed
         
