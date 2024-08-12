@@ -89,7 +89,7 @@ class NewFight():
             if not enemy.is_alive():
                 combat_description = f"`{self.username} wins!`\n"
                 
-                combat_description += f"`{enemy.loot.drop(self.inte.user.id)}`\n"
+                combat_description += f"`{enemy.loot.drop(self.inte.user.id, name=self.inte.user.name)}`\n"
                 
                 add_kill(self.inte.user.id)
                 
@@ -153,7 +153,7 @@ class NewFight():
                         
                     combat_description = f"`{self.username} wins!`\n"
                     for user_data in users_data:
-                        combat_description += enemy.loot.drop(user_data[0])
+                        combat_description += f"`{enemy.loot.drop(user_data[0], name=user_data[1].name)}`\n"
                         add_kill(user_data[0])
                     
                         
@@ -202,20 +202,29 @@ class NewFight():
             
             
             
-        def create_combat_embed(user, description="Choose your action:"):
-            embed = Embed(title="⚔️ COMBAT! ⚔️", description=description, color=0x3498db)  # Blue color
+        def create_combat_embed(userx, description="Choose your action:"):
+            embed = Embed(title="⚔️ COMBAT! ⚔️", description=description, color=0x3498db)
             embed.set_image(url=enemy.image)
 
-            # First line: user's HP and Mana
-            embed.add_field(name=f"{self.username} HP", value=f"❤️ {user.hp}", inline=True)
-            embed.add_field(name=f"{self.username} Mana", value=f"🔮 {user.mana}", inline=True)
-            embed.add_field(name="\u200b", value="\u200b", inline=True)  # empty field to align correctly
+            for i, user in enumerate(users_data):
+                if i == self.turn:
+                    turn = "➡️ "
+                else:
+                    turn = ""
+                # User stats
+                user = user[1]
+                embed.add_field(name=f"{turn}{user.name}",
+                                value=f"**LEVEL:** 📈 {user.level}\n**HP:** ❤️ {user.hp}\n**Mana:** 🔮 {user.mana}",
+                                inline=True)
 
-            # Second line: enemy's HP and Mana
-            embed.add_field(name=f"👹 {enemy.name} HP", value=f"❤️ {enemy.hp}", inline=True)
-            embed.add_field(name=f"👹 {enemy.name} Mana", value=f"🔮 {enemy.mana}", inline=True)
-            embed.add_field(name="\u200b", value="\u200b", inline=True)  # empty field to align correctly
+            embed.set_thumbnail(url=userx.image)
+            embed.add_field(name="\u200b", value="\u200b", inline=False)
 
+            # Enmy stats
+            embed.add_field(name=f"{enemy.name}",
+                            value=f"**LEVEL:** 📈 {enemy.level}\n**HP:** ❤️ {enemy.hp}\n**Mana:** 🔮 {enemy.mana}",
+                            inline=True)
+            
             return embed
         
         
