@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord.ui import View, Button
 from cogs.utils.hero_actions import load_hero
 from cogs.utils.game_loop.fight import NewFight
-from cogs.game.zones.encounters import get_boos_from_zone
+from cogs.game.zones.encounters import get_enemy_from_zone
 from cogs.utils.querys import get_zone
 from cogs.utils.hero_check import hero_created
 
@@ -11,7 +11,7 @@ class Raid(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name='raid', description="A boss raid")
+    @app_commands.command(name='raid', description="A strong enemy raid")
     async def raid(self, inte):
         if not await hero_created(inte):
             return
@@ -52,7 +52,7 @@ class Raid(commands.Cog):
         
         await self.message.delete()
         
-        await NewFight(inte).multi_fight(users_data, get_boos_from_zone(get_zone(player_id)))
+        await NewFight(inte).multi_fight(users_data, get_enemy_from_zone(get_zone(player_id), bonus=1.75))
 
 async def setup(bot):
     await bot.add_cog(Raid(bot))

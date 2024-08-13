@@ -47,7 +47,7 @@ Level 5 required.
 ![To do](images/commands/todo.PNG)
 
 ### /raid
-Waits for another player/players to join and fight against a very strong boss.
+Waits for another player/players to join and fight against a very strong enemy.
 Level 10 required.
 
 ![To do](images/commands/todo.PNG)
