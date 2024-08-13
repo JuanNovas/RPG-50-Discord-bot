@@ -31,7 +31,6 @@ class Raid(commands.Cog):
         
         
         await inte.response.send_message(embed=embed, view=view)
-        self.message = await inte.original_response()
         
     
     async def load_players(self, inte, player_name, player_id, player_inte):
@@ -55,7 +54,8 @@ class Raid(commands.Cog):
             (inte.user.id, hero, inte)
         ]
         
-        await self.message.delete()
+        original_message = await player_inte.original_response()
+        await original_message.delete()
         
         await NewFight(inte).multi_fight(users_data, get_enemy_from_zone(zone, bonus=bonus))
 
