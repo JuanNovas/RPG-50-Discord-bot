@@ -21,7 +21,7 @@ class ArmorScale(BaseArmor):
         self.plain["magic_resistance"] = 5
         
         self.id = 2
-        self.rarity = 5
+        self.rarity = 4
         self.name = "scale"
         
         
@@ -33,7 +33,7 @@ class ArmorBearSkin(BaseArmor):
         self.plain["attack"] = 1
         
         self.id = 3
-        self.rarity = 3
+        self.rarity = 4
         self.name = "Bear skin"
         
         

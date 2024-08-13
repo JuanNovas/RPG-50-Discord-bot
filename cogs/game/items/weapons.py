@@ -30,7 +30,7 @@ class WeaponCrossbow(BaseWeapon):
         self.name = "crossbow"
 
         self.id = 2
-        self.rarity = 2
+        self.rarity = 3
 
     @weapon_mana_ability(cost=10)
     def custom_attack(self, user, enemy):
