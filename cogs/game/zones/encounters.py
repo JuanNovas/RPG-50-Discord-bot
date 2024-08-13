@@ -27,13 +27,18 @@ def get_enemy_from_zone(zone_id: int):
     return enemy
 
 
+def get_boos_from_zone(zone_id: int):
+    boss_data = random.choices(bosses[zone_id])[0]
+    boss_level = random.randint(boss_data["Min-Level"], boss_data["Max-Level"])
+    boss = enemy_dict[boss_data["ID"]](level=boss_level)
+    return boss
+
+
 def get_dungeon_from_zone(zone_id: int) -> list:
     enemy_amount = 2 + zone_id
     enemy_list = []
 
-    boss_data = random.choices(bosses[zone_id])[0]
-    boss_level = random.randint(boss_data["Min-Level"], boss_data["Max-Level"])
-    boss = enemy_dict[boss_data["ID"]](level=boss_level)
+    boss = get_boos_from_zone(zone_id)
     enemy_list.append(boss)
     
     for _ in range(enemy_amount):
