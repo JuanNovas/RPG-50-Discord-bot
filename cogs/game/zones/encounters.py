@@ -1,6 +1,9 @@
 import pandas as pd
 import random
 from cogs.game.characters.enemies import enemy_dict
+from cogs.game.characters.loot import Loot
+from cogs.game.items.armors import *
+from cogs.game.items.weapons import *
 
 routes = [
     "cogs\game\zones\csv\Zone enemies - Training camp.csv",
@@ -49,4 +52,10 @@ def get_dungeon_from_zone(zone_id: int) -> list:
         enemy_list.append(get_enemy_from_zone(zone_id))
         
     return enemy_list
+
+
+def get_dungeon_loot_from_zone(zone_id: int) -> Loot:
+    equipments = [None, WeaponCrossbow, ArmorScale, ArmorBearSkin, WeaponSpear, WeaponRelic]
+    loot = Loot(gold=20**zone_id,wood=3**zone_id,iron=3**zone_id,xp=100**zone_id,equipment=equipments[zone_id],drop_rate=1)
+    return loot
     
