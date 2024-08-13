@@ -272,6 +272,7 @@ class NewFight():
             await message.edit(embed = Embed(title="⚔️ COMBAT! ⚔️", description="Expedition ended succesfully", color=0x3498db))
             return
         enemy = enemys.pop()
+        self.view = View()
         await self.fight(user,enemy,end=lambda user=user, enemys=enemys, end=end : self.consecutive_fight(user, enemys, end=end))
         
         
