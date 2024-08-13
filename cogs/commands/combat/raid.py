@@ -3,7 +3,8 @@ from discord.ext import commands
 from discord.ui import View, Button
 from cogs.utils.hero_actions import load_hero
 from cogs.utils.game_loop.fight import NewFight
-from cogs.game.characters.enemies import EnemyLavaDragon
+from cogs.game.zones.encounters import get_boos_from_zone
+from cogs.utils.querys import get_zone
 from cogs.utils.hero_check import hero_created
 
 class Raid(commands.Cog):
@@ -37,6 +38,9 @@ class Raid(commands.Cog):
         if inte.user.id == player_id:
             return 
         
+        if not await hero_created(inte):
+            return
+        
         hero = load_hero(inte.user.id, name=inte.user.name)
         if hero.level < 10:
             return await inte.response.send_message("Level 10 required to enter a raid", ephemeral=True)
@@ -48,7 +52,7 @@ class Raid(commands.Cog):
         
         await self.message.delete()
         
-        await NewFight(inte).multi_fight(users_data, EnemyLavaDragon(level=10))
+        await NewFight(inte).multi_fight(users_data, get_boos_from_zone(get_zone(player_id)))
 
 async def setup(bot):
     await bot.add_cog(Raid(bot))
