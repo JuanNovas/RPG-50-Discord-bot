@@ -3,7 +3,7 @@ from discord.ext import commands
 from cogs.utils.hero_actions import load_hero
 from cogs.utils.game_loop.fight import NewFight
 from cogs.utils.hero_check import hero_created
-from cogs.game.zones.encounters import get_dungeon_from_zone
+from cogs.game.zones.encounters import get_dungeon_from_zone, get_dungeon_loot_from_zone
 from cogs.utils.querys import get_zone
 
 class Dungeon(commands.Cog):
@@ -11,7 +11,13 @@ class Dungeon(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name='dungeon', description="Creates an dungeon")
-    async def dungeon(self, inte):
+    @app_commands.choices(
+        cooperative=[
+            app_commands.Choice(name="No", value=2),
+            app_commands.Choice(name="Yes", value=1)
+        ]
+    )
+    async def dungeon(self, inte, cooperative: int):
         if not await hero_created(inte):
             return
         
@@ -20,8 +26,10 @@ class Dungeon(commands.Cog):
         if hero.level < 5:
             return await inte.response.send_message("Level 5 required to enter a dungeon")
         await inte.response.send_message("Loading")
-        enemies = get_dungeon_from_zone(get_zone(inte.user.id))
-        await NewFight(inte).consecutive_fight(hero, enemies)
+        zone_id = get_zone(inte.user.id)
+        enemies = get_dungeon_from_zone(zone_id)
+        loot = get_dungeon_loot_from_zone(zone_id)
+        await NewFight(inte).consecutive_fight(hero, enemies, bonus=loot)
         
         
     
