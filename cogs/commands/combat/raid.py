@@ -45,6 +45,11 @@ class Raid(commands.Cog):
         if hero.level < 10:
             return await inte.response.send_message("Level 10 required to enter a raid", ephemeral=True)
         
+        zone = get_zone(player_id)
+        bonus = 1.75
+        if zone == 1:
+            bonus = 3
+        
         users_data = [
             (player_id, load_hero(player_id, name=player_name), player_inte),
             (inte.user.id, hero, inte)
@@ -52,7 +57,7 @@ class Raid(commands.Cog):
         
         await self.message.delete()
         
-        await NewFight(inte).multi_fight(users_data, get_enemy_from_zone(get_zone(player_id), bonus=1.75))
+        await NewFight(inte).multi_fight(users_data, get_enemy_from_zone(zone, bonus=bonus))
 
 async def setup(bot):
     await bot.add_cog(Raid(bot))
