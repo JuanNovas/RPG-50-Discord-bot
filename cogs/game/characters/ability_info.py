@@ -17,7 +17,7 @@ def abilities_embed(hero: object, inte):
         case "Assasin":
             embed.add_field(name="Super hit", value="**Knifes the enemy**\nPOWER: 20\nCOST: 5", inline=False)
             if hero.level >= 10:
-                embed.add_field(name="Sacrifice", value="**Sacrifices health for massive damage**\nPOWER: 35\nCOST: 10 HP", inline=False)
+                embed.add_field(name="Sacrifice", value="**Sacrifices health for massive damage**\nPOWER: 35\nCOST: 33% HP", inline=False)
             if hero.level >= 25:
                 embed.add_field(name="Shield broker", value="**Reduces enemy defense based in user magic**\nCOST: 10", inline=False)
         case "Tank":
