@@ -104,7 +104,7 @@ class EnemyLavaDragon(BaseHero):
             iron=0,
             runes=0,
             xp=10,
-            equipment=ArmorScale,
+            equipment=None,
             drop_rate=0.05,
             level=kwargs.get('level', 1)
         )
