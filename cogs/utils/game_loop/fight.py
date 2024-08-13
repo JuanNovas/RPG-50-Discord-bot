@@ -84,11 +84,12 @@ class NewFight():
         async def fight_completed():
             if not user.is_alive():
                 combat_description = f"`{enemy.name} wins!`\n"
+                self.winner = False
                 await self.message.edit(embed=create_combat_embed(description=combat_description), view=None)
                 return True
             if not enemy.is_alive():
                 combat_description = f"`{self.username} wins!`\n"
-                
+                self.winner = True
                 combat_description += f"`{enemy.loot.drop(self.inte.user.id, name=self.inte.user.name)}`\n"
                 
                 add_kill(self.inte.user.id)
@@ -264,16 +265,22 @@ class NewFight():
         
         
         
-    async def consecutive_fight(self, user, enemys : list, end=None):
+    async def consecutive_fight(self, user, enemys : list, bonus=None, end=None):
         if not enemys:
             if end:
                 await end()
             message = await self.inte.original_response()
-            await message.edit(embed = Embed(title="⚔️ COMBAT! ⚔️", description="Expedition ended succesfully", color=0x3498db))
+            if self.winner:
+                description = "Dungeon ended succesfully!\n"
+                if bonus:
+                    description += bonus.drop(self.inte.user.id, name=self.username)
+            elif not self.winner:
+                description = "Dungeon failed."
+            await message.edit(embed = Embed(title="⚔️ COMBAT! ⚔️", description=description, color=0x3498db))
             return
         enemy = enemys.pop()
         self.view = View()
-        await self.fight(user,enemy,end=lambda user=user, enemys=enemys, end=end : self.consecutive_fight(user, enemys, end=end))
+        await self.fight(user,enemy,end=lambda user=user, enemys=enemys,bonus=bonus, end=end : self.consecutive_fight(user, enemys, bonus=bonus, end=end))
         
         
         
