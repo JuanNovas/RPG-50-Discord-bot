@@ -56,6 +56,7 @@ class Raid(commands.Cog):
         
         original_message = await player_inte.original_response()
         await original_message.delete()
+        await inte.response.send_message("Loading")
         
         await NewFight(inte).multi_fight(users_data, get_enemy_from_zone(zone, bonus=bonus))
 

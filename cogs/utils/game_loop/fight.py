@@ -148,11 +148,9 @@ class NewFight():
                 await self.message.edit(embed=create_combat_embed(user, description=combat_description))
             
                 # Check win
-                if enemy.hp <= 0:
-                    if end:
-                        await end()
-                        
+                if enemy.hp <= 0:   
                     combat_description = f"`{self.username} wins!`\n"
+                    self.winner = True
                     for user_data in users_data:
                         combat_description += f"`{enemy.loot.drop(user_data[0], name=user_data[1].name)}`\n"
                         add_kill(user_data[0])
@@ -160,6 +158,10 @@ class NewFight():
                         
                     
                     await self.message.edit(embed=create_combat_embed(user, description=combat_description), view=None)
+                    
+                    if end:
+                        await end()
+                        
                     return 
                 
                 self.turn += 1
@@ -184,14 +186,15 @@ class NewFight():
             
                 # Check win
                 if user.hp <= 0:
-                    if end:
-                        await end()
                     combat_description += f"`{user.name} has fainted`\n"
                     users_data.pop(0)
                     buttons.pop(0)
                     if not users_data:
                         combat_description += "`enemy has won`"
+                        self.winner = False
                         await self.message.edit(embed=create_combat_embed(user, description=combat_description))
+                        if end:
+                            await end()
                         return
                 
                 self.turn = 0
@@ -255,8 +258,8 @@ class NewFight():
         self.turn = 0
         view = View()
         
-        await self.inte.response.send_message(embed=create_combat_embed(users_data[0][1]), view=view)
         self.message = await self.inte.original_response()
+        await self.message.edit(embed=create_combat_embed(users_data[0][1]), view=view)
         await send_turn_message()
         
         
@@ -284,8 +287,25 @@ class NewFight():
         
         
         
+    async def consecutive_multi_fight(self, users_data : list, enemys : list, bonus=None, end=None):
+        if not enemys:
+            if end:
+                await end()
+            message = await self.inte.original_response()
+            if self.winner:
+                description = "Dungeon ended succesfully!\n"
+                if bonus:
+                    for user in users_data:
+                        description +="\n"+ bonus.drop(user[0], name=user[1].name)
+            elif not self.winner:
+                description = "Dungeon failed."
+            await message.edit(embed = Embed(title="⚔️ COMBAT! ⚔️", description=description, color=0x3498db))
+            return
         
-        
+        enemy = enemys.pop()
+        self.view = View()
+        users_data[0],users_data[1] = users_data[1],users_data[0]
+        await self.multi_fight(users_data,enemy , end=lambda users_data=users_data, enemys=enemys, bonus=bonus, end=end : self.consecutive_multi_fight(users_data,enemys,bonus=bonus,end=end))
         
         
         
