@@ -2,4 +2,4 @@ Name,ID,Min-Level,Max-Level,Probability,Boss
 Goblin,5,1,2,30,FALSE
 Crow,6,1,3,40,FALSE
 Worm,7,1,3,30,FALSE
-King Hawk,19,12,12,0,TRUE
+King Hawk,19,4,4,0,TRUE
