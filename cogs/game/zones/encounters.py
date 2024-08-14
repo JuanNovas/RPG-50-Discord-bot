@@ -41,15 +41,15 @@ def get_boos_from_zone(zone_id: int, bonus: float=None):
     return boss
 
 
-def get_dungeon_from_zone(zone_id: int) -> list:
+def get_dungeon_from_zone(zone_id: int, bonus: float=None) -> list:
     enemy_amount = 2 + zone_id
     enemy_list = []
 
-    boss = get_boos_from_zone(zone_id)
+    boss = get_boos_from_zone(zone_id, bonus=bonus)
     enemy_list.append(boss)
     
     for _ in range(enemy_amount):
-        enemy_list.append(get_enemy_from_zone(zone_id))
+        enemy_list.append(get_enemy_from_zone(zone_id, bonus=bonus))
         
     return enemy_list
 
