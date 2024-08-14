@@ -11,7 +11,7 @@ def get_help_embed(command_id: int):
     elif command_id == 1: # Combat
         embed = Embed(title="⚔️ Combat Commands", color=Color.blue())
         embed.add_field(name="/fight", value="Start a battle in the current area. 🗡️", inline=False)
-        embed.add_field(name="/dungeon (level 5 required)", value="Enter a dungeon with multiple fights and a final boss. No healing allowed. 🏰", inline=True)
+        embed.add_field(name="/dungeon (level 5 required)", value="Enter a dungeon with multiple fights and a final boss. No healing allowed.\nCan be played with a mate. 🏰", inline=True)
         embed.add_field(name="/raid (level 10 required)", value="Team up with others to take on a tough enemy. 🛡️", inline=False)
         embed.add_field(name="/pvp", value="Challenge another player to a duel. 🤺", inline=False)
         embed.set_image(url="https://cdn.discordapp.com/attachments/474702643625984021/1272678835913232457/DALLE_2024-08-12_19.11.14_-_A_fantasy_RPG_style_image_of_a_bow_and_arrow._The_bow_has_a_semi-realistic_appearance_with_a_slightly_curved_wooden_body_and_a_taut_string._The_arrow_.webp?ex=66bbda07&is=66ba8887&hm=d78688518fa8994708e9fcd44dc01a59432539df2147be40dd0bf3d7c0c06721&")
