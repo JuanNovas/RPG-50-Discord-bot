@@ -16,13 +16,7 @@ class Equip(commands.Cog):
             return
         
         class Dropdown(Select):
-            def __init__(self):
-
-                data = execute_dict('''
-                SELECT * FROM inventory
-                WHERE hero_id = (SELECT id from hero WHERE user_id = (?) AND active = 1)
-                AND type = 1
-                ''', (inte.user.id,))
+            def __init__(self, data):
 
                 options = []
                 
@@ -41,8 +35,17 @@ class Equip(commands.Cog):
                 ''', (self.values[0], inte.user.id))
                 await interaction.response.send_message("Equiped")
 
+        data = execute_dict('''
+        SELECT * FROM inventory
+        WHERE hero_id = (SELECT id from hero WHERE user_id = (?) AND active = 1)
+        AND type = 1
+        ''', (inte.user.id,))
+
+        if data == []:
+            return await inte.response.send_message("No armors")
+
         view = View()
-        view.add_item(Dropdown())
+        view.add_item(Dropdown(data))
 
         await inte.response.send_message('Select an equipment to equip:', view=view)
         
@@ -54,15 +57,11 @@ class Equip(commands.Cog):
             return
         
         class Dropdown(Select):
-            def __init__(self):
-
-                data = execute_dict('''
-                SELECT * FROM inventory
-                WHERE hero_id = (SELECT id from hero WHERE user_id = (?) AND active = 1)
-                AND type = 2
-                ''', (inte.user.id,))
+            def __init__(self, data):
 
                 options = []
+                
+                
                 
                 for item in data:
                     item_obj = armor_dict[item["item_id"]]()
@@ -79,9 +78,18 @@ class Equip(commands.Cog):
                 ''', (self.values[0], inte.user.id))
                 await interaction.response.send_message("Equiped")
 
+        data = execute_dict('''
+        SELECT * FROM inventory
+        WHERE hero_id = (SELECT id from hero WHERE user_id = (?) AND active = 1)
+        AND type = 2
+        ''', (inte.user.id,))
+
+        if data == []:
+            return await inte.response.send_message("No armors")
+
         # Crear la vista que muestra el Select
         view = View()
-        view.add_item(Dropdown())
+        view.add_item(Dropdown(data))
 
         # Enviar el mensaje con el Select
         await inte.response.send_message('Select an equipment to equip:', view=view)
