@@ -18,7 +18,7 @@ class Inventory(commands.Cog):
         
         data = execute_dict('''
         SELECT * FROM inventory
-        WHERE hero_id = (SELECT id from hero WHERE user_id = (?) AND active = 1)
+        WHERE hero_id = (SELECT id from hero WHERE user_id = (?) AND active = 1) ORDER BY level DESC
         ''', (inte.user.id,))
         if data == []:
             return await inte.response.send_message("No items")
@@ -33,7 +33,7 @@ class Inventory(commands.Cog):
                     item_dict = armor_dict
                     
             item_obj = item_dict[item["item_id"]]()
-            embed.add_field(name=item_obj.name, value=f"Id: {item_obj.id} Type: {item_obj.type}  &  Level: {item['level']}")
+            embed.add_field(name=item_obj.name, value=f"Type: {item_obj.type}  &  Level: {item['level']}")
         
         return await inte.response.send_message(embed=embed)
 
