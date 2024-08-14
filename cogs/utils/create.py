@@ -1,5 +1,5 @@
 from cogs.utils.database import execute, execute_dict
-from discord import Embed, ButtonStyle
+from discord import Embed, ButtonStyle, Color
 from discord.ui import Button, View
 from cogs.game.characters.heros import *
 
@@ -44,8 +44,8 @@ async def create_hero(inte):
         return
 
     # sends a message and waits for an answer via buttons.
-    embed = Embed(title=f"{inte.user.name}, CHOOSE YOUR CLASS!", color=0xADD8E6, description="Click a button to choose your class")
-    embed.set_image(url="https://cdn.discordapp.com/attachments/474702643625984021/1247263771811119224/72fcadcd-905e-4db7-9065-ea523ca7638d.jpg?ex=665f6468&is=665e12e8&hm=5fc58203fe3fcffae54347b6726480f49e84e1ff4828bc0b16c22b7be4328013&")
+    embed = Embed(title=f"{inte.user.name}, CHOOSE YOUR CLASS!", color=Color.blue(), description="Click a button to choose your class")
+    embed.set_image(url="https://cdn.discordapp.com/attachments/474702643625984021/1272664340142489600/DALLE_2024-08-12_18.13.40_-_A_fantasy_RPG_style_image_of_a_hero_standing_on_a_mountain_seen_from_the_back_holding_a_sword_and_looking_out_towards_a_distant_castle._The_hero_has.webp?ex=66bbcc87&is=66ba7b07&hm=aa8882e4b47cb20fbadfbad4164037a80bb696bb77776d0e7fba77daaea715a7&")
     
     #creates buttons
     view = View()
