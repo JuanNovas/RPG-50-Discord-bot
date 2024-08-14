@@ -30,7 +30,7 @@ class Forge(commands.Cog):
                 dict = armor_dict
             elif item["type"] == "weapon":
                 dict = weapon_dict
-            embed.add_field(name=f"{i+1} {dict[item['item_id']].__name__}", value=f"Level: {item['level']}")
+            embed.add_field(name=f"{i+1} {dict[item['item_id']]().name}", value=f"Level: {item['level']}")
         return embed
     
     def create_upgrade_embed(self, inte, cost, user_data, item, name):
