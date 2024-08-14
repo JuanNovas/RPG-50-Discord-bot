@@ -4,6 +4,7 @@ from discord import ButtonStyle
 from cogs.utils.progress import add_kill
 from cogs.utils.hero_actions import see_enemy
 import random
+import asyncio
 
 class NewFight():
     def __init__(self, inte):
@@ -269,6 +270,7 @@ class NewFight():
         
         
     async def consecutive_fight(self, user, enemys : list, bonus=None, end=None):
+        await asyncio.sleep(2)
         if not enemys:
             if end:
                 await end()
@@ -288,6 +290,7 @@ class NewFight():
         
         
     async def consecutive_multi_fight(self, users_data : list, enemys : list, bonus=None, end=None):
+        await asyncio.sleep(2)
         if not enemys:
             if end:
                 await end()
