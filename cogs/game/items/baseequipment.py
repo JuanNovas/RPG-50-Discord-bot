@@ -17,6 +17,8 @@ class BaseEquipment:
         }
         self.level = kwargs.get("level", 1)
         self.name = "Base name"
+        self.boosts = ""
+        self.attack_description = "None"
         self.id = None
         
         self.update_level()

@@ -7,10 +7,12 @@ class WeaponKnife(BaseWeapon):
         
         self.plain["attack"] = 4
         self.update_level()
-        self.name = "Knife"
         
         self.id = 1
         self.rarity = 1
+        self.name = "Knife"
+        self.boosts = f'attack +{self.plain["attack"]}'
+        self.attack_description = "**Stabs with a knife dealing 10 damage**\nCOST: 0"
         
     def custom_attack(self, user, enemy):
         damage = 10
@@ -27,10 +29,12 @@ class WeaponCrossbow(BaseWeapon):
         self.plain["attack"] = 2
         self.plain["max_mana"] = 10
         self.update_level()
-        self.name = "crossbow"
 
         self.id = 2
         self.rarity = 3
+        self.name = "Crossbow"
+        self.boosts = f'attack + {self.plain["attack"]} | max mana + {self.plain["max_mana"]}'
+        self.attack_description = "**Shoots an arrow**\nPOWER: 25\nCOST: 10"
 
     @weapon_mana_ability(cost=10)
     def custom_attack(self, user, enemy):
@@ -44,10 +48,12 @@ class WeaponPan(BaseWeapon):
         self.plain["defense"] = 3
         self.plain["magic_resistance"] = 2
         self.update_level()
-        self.name = "pan"
 
         self.id = 3
         self.rarity = 2
+        self.name = "Pan"
+        self.boosts = f'defense + {self.plain["defense"]} | magic resistance + {self.plain["magic_resistance"]}'
+        self.attack_description = "**Reduces enemy mana by 10**\nCOST: 10"
 
     def custom_attack(self, user, enemy):
         enemy.mana -= 10
@@ -62,10 +68,12 @@ class WeaponMedkit(BaseWeapon):
 
         self.multi["magic_resistance"] = 0.01
         self.update_level()
-        self.name = "medkit"
 
         self.id = 4
         self.rarity = 4
+        self.name = "Medkit"
+        self.boosts = f'magic resistance + {self.multi["magic_resistance"]}%'
+        self.attack_description = "**Heals 10% of HP**\nCOST: 15"
 
     @weapon_mana_ability(cost=15)
     def custom_attack(self, user, enemy):
@@ -83,10 +91,12 @@ class WeaponRelic(BaseWeapon):
         self.plain["magic"] = 4
         self.plain["magic_resistance"] = 2
         self.update_level()
-        self.name = "relic"
 
         self.id = 5
         self.rarity = 5
+        self.name = "Relic"
+        self.boosts = f'attack + {self.plain["attack"]} | magic + {self.plain["magic"]} | magic resistance + {self.plain["magic_resistance"]}'
+        self.attack_description =  "**Deals damage with magic**\nPOWER: 30\nCOST: 25% HP"
 
     @weapon_health_ability(cost=25)
     def custom_attack(self, user, enemy):
@@ -99,10 +109,12 @@ class WeaponGloves(BaseWeapon):
 
         self.plain["defense"] = 1
         self.update_level()
-        self.name = "gloves"
 
         self.id = 6
         self.rarity = 1
+        self.name = "Gloves"
+        self.boosts = f'defense + {self.plain["defense"]}'
+        self.attack_description =  "**Punches the enemy 2 times**\nPOWER: 5*2\nCOST: 5"
 
     @weapon_mana_ability(cost=5)
     def custom_attack(self, user, enemy):
@@ -117,10 +129,12 @@ class WeaponSpear(BaseWeapon):
         self.plain["attack"] = 2
         self.multi["attack"] = 0.01
         self.update_level()
-        self.name = "spear"
 
         self.id = 7
         self.rarity = 4
+        self.name = "Spear"
+        self.boosts = f'attack + {self.plain["attack"]} | attack + {self.multi["attack"]}%'
+        self.attack_description =  "**Throwes a spear**\nPOWER: 20\nCOST: 15% HP"
 
     @weapon_health_ability(cost=15)
     def custom_attack(self, user, enemy):
