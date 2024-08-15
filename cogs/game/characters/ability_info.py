@@ -25,6 +25,9 @@ def abilities_embed(hero: object, inte):
             if hero.level >= 10:
                 embed.add_field(name="Reforce", value="**Increase the deffenses**\nCOST: 10", inline=False)
                 
+    if hero.weapon:
+        embed.add_field(name=hero.weapon.name + " (Weapon attack)", value=hero.weapon.attack_description, inline=False)
+                
     
                 
     return embed
