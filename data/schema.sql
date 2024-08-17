@@ -86,6 +86,9 @@ INSERT INTO enemies (id, name, zone) VALUES (16, 'Golem', 4);
 INSERT INTO enemies (id, name, zone) VALUES (17, 'Scavengers', 4);
 INSERT INTO enemies (id, name, zone) VALUES (18, 'Giant Frog', 5);
 INSERT INTO enemies (id, name, zone) VALUES (19, 'King Hawk', 1);
+INSERT INTO enemies (id, name, zone) VALUES (20, 'Mutant', 5);
+INSERT INTO enemies (id, name, zone) VALUES (21, 'Forest Guardian', 3);
+INSERT INTO enemies (id, name, zone) VALUES (22, 'God of Sand', 4);
 
 
 -- Triggers
