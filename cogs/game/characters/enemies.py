@@ -801,6 +801,42 @@ class EnemyForestGuardian(BaseHero):
     def special_attack(self, enemy):
         return self.do_magic(enemy, power=15)
 
+
+class EnemyGodOfSand(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=30,
+            attack=6,
+            magic=15,
+            defense=8,
+            magic_resistance=8,
+            mana=20,
+            **kwargs
+        )
+        self.name = 'God of Sand'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1274508615423885363/DALLE_2024-08-17_20.22.09_-_A_fantasy_RPG_style_image_of_the_Lord_of_the_Sands_a_colossal_being_made_of_living_sand_capable_of_controlling_sandstorms_and_changing_shape_at_will.webp?ex=66c28225&is=66c130a5&hm=9c6188a8aa88f180d98f5f1bd076c46f6004ef2baa036fb6c70a0104eb55c6c5&'
+        self.id = 22
+        
+        self.ability = {
+            "name" : "Sand Drowning",
+            "cost" : 20,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=45,
+            wood=4,
+            iron=4,
+            runes=1,
+            xp=40,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+
+
+    @mana_ability(cost=20)
+    def special_attack(self, enemy):
+        return self.do_magic(enemy, power=20)
         
 enemy_dict = {
     1 : EnemyDummy,
@@ -823,5 +859,6 @@ enemy_dict = {
     18 : EnemyGiantFrog,
     19 : EnemyKingHawk,
     20 : EnemyMutant,
-    21 : EnemyForestGuardian
+    21 : EnemyForestGuardian,
+    22 : EnemyGodOfSand
 }
