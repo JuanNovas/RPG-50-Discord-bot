@@ -837,6 +837,44 @@ class EnemyGodOfSand(BaseHero):
     @mana_ability(cost=20)
     def special_attack(self, enemy):
         return self.do_magic(enemy, power=20)
+    
+    
+class EnemyMudSoldiers(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=25,
+            attack=8,
+            magic=6,
+            defense=9,
+            magic_resistance=9,
+            mana=10,
+            **kwargs
+        )
+        self.name = 'MudSoldiers'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1274510561773748345/DALLE_2024-08-17_20.29.51_-_A_fantasy_RPG_style_image_of_Mudmen_humanoid_creatures_made_of_mud_and_swamp_vegetation._The_Mudmen_have_semi-realistic_appearances_with_bodies_compo.webp?ex=66c283f5&is=66c13275&hm=c9fda5950afee518b56976b2875e4eb996e0cdc4f7c32b2b7f962ed2db3c1be9&'
+        self.id = 23
+        
+        self.ability = {
+            "name" : "Mud throwing",
+            "cost" : 10,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=5,
+            wood=2,
+            iron=1,
+            runes=0,
+            xp=8,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+        
+    @mana_ability(cost=10)
+    def special_attack(self, enemy):
+        return self.do_magic(enemy, power=15)
+    
         
 enemy_dict = {
     1 : EnemyDummy,
@@ -860,5 +898,6 @@ enemy_dict = {
     19 : EnemyKingHawk,
     20 : EnemyMutant,
     21 : EnemyForestGuardian,
-    22 : EnemyGodOfSand
+    22 : EnemyGodOfSand,
+    23 : EnemyMudSoldiers
 }
