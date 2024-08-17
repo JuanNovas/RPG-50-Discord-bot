@@ -727,6 +727,32 @@ class EnemyKingHawk(BaseHero):
     def special_attack(self, enemy):
         return self.do_attack(enemy, power=25)
 
+
+class EnemyMutant(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=20,
+            attack=8,
+            magic=8,
+            defense=8,
+            magic_resistance=8,
+            mana=20,
+            **kwargs
+        )
+        self.name = 'Mutant'
+        self.image = ''
+        self.id = 20
+
+        self.loot = Loot(
+            gold=2,
+            wood=2,
+            iron=0,
+            runes=0,
+            xp=7,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+
         
 enemy_dict = {
     1 : EnemyDummy,
@@ -747,5 +773,6 @@ enemy_dict = {
     16 : EnemyGolem,
     17 : EnemyScavengers,
     18 : EnemyGiantFrog,
-    19 : EnemyKingHawk
+    19 : EnemyKingHawk,
+    20 : EnemyMutant
 }
