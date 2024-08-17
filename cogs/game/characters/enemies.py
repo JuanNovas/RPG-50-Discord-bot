@@ -752,6 +752,43 @@ class EnemyMutant(BaseHero):
             equipment=None,
             level=kwargs.get('level', 1)
         )
+        
+        
+class EnemyForestGuardian(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=40,
+            attack=7,
+            magic=12,
+            defense=8,
+            magic_resistance=8,
+            mana=20,
+            **kwargs
+        )
+        self.name = 'ForestGuardian'
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1274496898652307456/DALLE_2024-08-17_19.35.31_-_A_fantasy_RPG_style_image_of_the_Forest_Guardian_a_colossal_ancient_spirit_that_protects_the_heart_of_the_forest._The_Guardian_appears_as_a_giant_tre.webp?ex=66c2773b&is=66c125bb&hm=55b134ff10042c0206f142c3ad37bd6797bdd052e31bed78e969c17e44c9a67c&'
+        self.id = 21
+        
+        self.ability = {
+            "name" : "Root Slam",
+            "cost" : 5,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=47,
+            wood=4,
+            iron=3,
+            runes=1,
+            xp=30,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+        
+    @mana_ability(cost=5)
+    def special_attack(self, enemy):
+        return self.do_magic(enemy, power=15)
 
         
 enemy_dict = {
@@ -774,5 +811,6 @@ enemy_dict = {
     17 : EnemyScavengers,
     18 : EnemyGiantFrog,
     19 : EnemyKingHawk,
-    20 : EnemyMutant
+    20 : EnemyMutant,
+    21 : EnemyForestGuardian
 }
