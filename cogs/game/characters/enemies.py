@@ -740,8 +740,14 @@ class EnemyMutant(BaseHero):
             **kwargs
         )
         self.name = 'Mutant'
-        self.image = ''
+        self.image = 'https://cdn.discordapp.com/attachments/474702643625984021/1274507494021926922/DALLE_2024-08-17_20.17.35_-_A_fantasy_RPG_style_image_of_a_mutant_creature_in_a_swamp._The_mutant_has_a_semi-realistic_appearance_with_twisted_limbs_deformed_features_and_a_men.webp?ex=66c28119&is=66c12f99&hm=586a77227c104e6f4259343fe7bd5be92c3d1c0827f5a9fa0e5654d26d298467&'
         self.id = 20
+        
+        self.ability = {
+            "name" : "Acid Bite",
+            "cost" : 10,
+            "func" : self.special_attack
+        }
 
         self.loot = Loot(
             gold=2,
@@ -753,6 +759,11 @@ class EnemyMutant(BaseHero):
             level=kwargs.get('level', 1)
         )
         
+        
+    @mana_ability(cost=10)
+    def special_attack(self, enemy):
+        return self.do_magic(enemy, power=15)
+            
         
 class EnemyForestGuardian(BaseHero):
     def __init__(self, **kwargs):
