@@ -875,6 +875,43 @@ class EnemyMudSoldiers(BaseHero):
     def special_attack(self, enemy):
         return self.do_magic(enemy, power=15)
     
+    
+class EnemyWitch(BaseHero):
+    def __init__(self, **kwargs):
+        super().__init__(
+            hp=40,
+            attack=7,
+            magic=15,
+            defense=8,
+            magic_resistance=8,
+            mana=30,
+            **kwargs
+        )
+        self.name = 'Witch'
+        self.image = ''
+        self.id = 24
+        
+        self.ability = {
+            "name" : "Curse",
+            "cost" : 10,
+            "func" : self.special_attack
+        }
+
+        self.loot = Loot(
+            gold=60,
+            wood=8,
+            iron=3,
+            runes=2,
+            xp=70,
+            equipment=None,
+            level=kwargs.get('level', 1)
+        )
+        
+        
+    @mana_ability(cost=10)
+    def special_attack(self, enemy):
+        return self.do_magic(enemy, power=20)
+    
         
 enemy_dict = {
     1 : EnemyDummy,
@@ -899,5 +936,6 @@ enemy_dict = {
     20 : EnemyMutant,
     21 : EnemyForestGuardian,
     22 : EnemyGodOfSand,
-    23 : EnemyMudSoldiers
+    23 : EnemyMudSoldiers,
+    24 : EnemyWitch
 }
