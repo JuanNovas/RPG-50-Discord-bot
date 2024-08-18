@@ -271,7 +271,7 @@ class NewFight():
         
     async def consecutive_fight(self, user, enemys : list, bonus=None, end=None):
         await asyncio.sleep(2)
-        if not enemys:
+        if not enemys or user.hp <= 0:
             if end:
                 await end()
             message = await self.inte.original_response()
@@ -291,7 +291,7 @@ class NewFight():
         
     async def consecutive_multi_fight(self, users_data : list, enemys : list, bonus=None, end=None):
         await asyncio.sleep(2)
-        if not enemys:
+        if not enemys or users_data == []:
             if end:
                 await end()
             message = await self.inte.original_response()
