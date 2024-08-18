@@ -19,13 +19,17 @@ class Loot():
         SELECT level, xp FROM hero WHERE user_id=(?) AND active = 1
         ''', (user_id,))
         
-        # Update xp and level
-        xp_needed = round(6.5 * (1.5 ** data[0][0]))
-        if xp_needed <= data[0][1] + self.xp:
-            final_xp = data[0][1] + self.xp - xp_needed
-            level_up = 1
+        # Update xp and level if level < 50
+        if data[0][0] < 50:
+            xp_needed = round(6.5 * (1.5 ** data[0][0]))
+            if xp_needed <= data[0][1] + self.xp:
+                final_xp = data[0][1] + self.xp - xp_needed
+                level_up = 1
+            else:
+                final_xp = data[0][1] + self.xp
+                level_up = 0
         else:
-            final_xp = data[0][1] + self.xp
+            final_xp = 0
             level_up = 0
         
         # Load resources data
