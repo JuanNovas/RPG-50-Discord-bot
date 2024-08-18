@@ -1,0 +1,5 @@
+Name,ID,Min-Level,Max-Level,Probability,Boss
+Giant Frog,18,40,45,30,FALSE
+Mutant,20,39,46,30,FALSE
+Mud soldiers,23,40,45,40,FALSE
+Witch,24,50,50,0,TRUE

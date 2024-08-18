@@ -31,7 +31,7 @@ class ChangeZone(commands.Cog):
                         if hero.level >= 25:
                             options.append(SelectOption(value=4, label=f"Desert", emoji='🏜️'))
                             if hero.level >= 35:
-                                options.append(SelectOption(value=4, label=f"Desert", emoji='🏜️'))
+                                options.append(SelectOption(value=5, label=f"Swamp", emoji='🐸'))
                             else:
                                 options.append(SelectOption(value=0, label=f"A new zone will be unlocked at level 35", emoji='🔒'))
                         else:

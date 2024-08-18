@@ -9,7 +9,8 @@ routes = [
     "cogs\game\zones\csv\Zone enemies - Training camp.csv",
     "cogs\game\zones\csv\Zone enemies - Dungeon.csv",
     "cogs\game\zones\csv\Zone enemies - Forest.csv",
-    "cogs\game\zones\csv\Zone enemies - Desert.csv"
+    "cogs\game\zones\csv\Zone enemies - Desert.csv",
+    "cogs\game\zones\csv\Zone enemies - Swamp.csv"
 ]
 
 df_list = [[]] # an empty list to skip index 0
