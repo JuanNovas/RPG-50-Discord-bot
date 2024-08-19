@@ -53,18 +53,24 @@ class Forge(commands.Cog):
         return embed
 
     async def back(self, interaction, inte):
+        if interaction.user.id != inte.user.id:
+            return
         if self.page >= 1:
             self.page -= 1
             await self.create_start_message(self.pages[self.page], inte)
         await interaction.response.defer()
 
     async def forward(self, interaction, inte):
+        if interaction.user.id != inte.user.id:
+            return
         if len(self.pages) > self.page + 1:
             self.page += 1
             await self.create_start_message(self.pages[self.page], inte)
         await interaction.response.defer()
         
     async def upgrade_item(self, interaction, item, user_id, item_dict, inte):
+        if interaction.user.id != inte.user.id:
+            return
         make_upgrade(user_id, item)
         data = execute_dict('''
         SELECT type, level, item_id FROM clean_inventory
@@ -72,10 +78,13 @@ class Forge(commands.Cog):
         AND type = (?)
         AND item_id = (?)
         ''', (inte.user.id, item_dict["type"], item_dict["item_id"]))[0]
-        await self.create_upgrade_message(inte, data)
+        await self.create_upgrade_message(interaction, inte, data)
         await interaction.response.defer()
 
     async def create_clean_start_message(self, inte, interaction=None):
+        if interaction:
+            if interaction.user.id != inte.user.id:
+                return
         self.page = 0
         PER_PAGE = 5
         data = execute_dict('''
@@ -103,7 +112,7 @@ class Forge(commands.Cog):
         # Create item buttons
         for i, item in enumerate(page):
             button = Button(label=f"{i+1}", style=ButtonStyle.primary)
-            button.callback = lambda i, inte=inte, item=item: self.create_upgrade_message(inte, item)
+            button.callback = lambda interaction=i, inte=inte, item=item: self.create_upgrade_message(interaction,inte, item)
             view.add_item(button)
             
         button_forward = Button(label=">>", style=ButtonStyle.primary)
@@ -117,7 +126,9 @@ class Forge(commands.Cog):
             self.message = await inte.original_response()
             
             
-    async def create_upgrade_message(self, inte, item):
+    async def create_upgrade_message(self, interaction, inte, item):
+        if interaction.user.id != inte.user.id:
+            return
         view = View()
         
         # Checks valid level
