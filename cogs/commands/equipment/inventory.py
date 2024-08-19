@@ -33,7 +33,7 @@ class Inventory(commands.Cog):
                     item_dict = armor_dict
                     
             item_obj = item_dict[item["item_id"]]()
-            embed.add_field(name=item_obj.name, value=f"Type: {item_obj.type}  &  Level: {item['level']}\nBoosts: {item_obj.boosts}\nSpecial attack: {item_obj.attack_description}", inline=False)
+            embed.add_field(name=item_obj.name, value=f"Type: {item_obj.type} \n rarity: {item_obj.rarity} &  Level: {item['level']}\nBoosts: {item_obj.boosts}\nSpecial attack: {item_obj.attack_description}", inline=False)
         
         return await inte.response.send_message(embed=embed)
 
