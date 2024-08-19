@@ -68,7 +68,7 @@ class EnemySlime(BaseHero):
            iron=1,
            runes=0,
            xp=4,
-           equipment=None,
+           equipment=ArmorStrawHelmet,
            level=kwargs.get('level', 1)
         )
         
@@ -146,7 +146,7 @@ class EnemySkeleton(BaseHero):
             iron=1,
             runes=0,
             xp=2,
-            equipment=None,
+            equipment=WeaponKnife,
             level=kwargs.get('level', 1)
         )
         
@@ -188,7 +188,7 @@ class EnemyGoblin(BaseHero):
             iron=0,
             runes=0,
             xp=3,
-            equipment=None,
+            equipment=WeaponGloves,
             level=kwargs.get('level', 1)
         )
         
@@ -225,7 +225,7 @@ class EnemyCrow(BaseHero):
             iron=0,
             runes=0,
             xp=2,
-            equipment=WeaponCrossbow,
+            equipment=ArmorIron,
             level=kwargs.get('level', 1)
         )
         
@@ -416,7 +416,7 @@ class EnemyGiantGoblin(BaseHero):
             iron=0,
             runes=0,
             xp=5,
-            equipment=None,
+            equipment=WeaponPan,
             level=kwargs.get('level', 1)
         )
         
@@ -490,7 +490,7 @@ class EnemySnake(BaseHero):
             iron=0,
             runes=0,
             xp=2,
-            equipment=None,
+            equipment=WeaponMedkit,
             level=kwargs.get('level', 1)
         )
         
@@ -527,7 +527,7 @@ class EnemyMummy(BaseHero):
             iron=1,
             runes=0,
             xp=3,
-            equipment=None,
+            equipment=ArmorMagicCloak,
             level=kwargs.get('level', 1)
         )
         
