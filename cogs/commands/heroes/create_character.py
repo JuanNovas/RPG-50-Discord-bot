@@ -11,7 +11,7 @@ class Create(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="create", description="Hero creation")
+    @app_commands.command(name="new_hero", description="Hero creation")
     async def create(self, inte):
         
         async def choose_no(inte):
