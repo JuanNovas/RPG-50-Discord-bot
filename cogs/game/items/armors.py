@@ -55,11 +55,27 @@ class ArmorStrawHelmet(BaseArmor):
         self.rarity = 1
         self.name = "Straw helmet"
         self.boosts = f'defense + {self.plain["defense"]} | magic resistance + {self.plain["magic_resistance"]}'
+        
+        
+class ArmorMagicCloak(BaseArmor):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        
+        self.plain["magic_resistance"] = 4
+        self.plain["max_mana"] = 10
+        self.multi["magic"] = 0.2
+        self.update_level()
+        
+        self.id = 5
+        self.rarity = 5
+        self.name = "Magic Cloak"
+        self.boosts = f'magic resistance + {self.plain["magic_resistance"]} | max mana + {self.plain["max_mana"]} | magic + {self.multi["magic"]}%'
 
 
 armor_dict =  {
     1 : ArmorIron,
     2 : ArmorScale,
     3 : ArmorBearSkin,
-    4 : ArmorStrawHelmet
+    4 : ArmorStrawHelmet,
+    5 : ArmorMagicCloak
 }
