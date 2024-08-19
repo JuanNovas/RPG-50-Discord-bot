@@ -27,6 +27,8 @@ class Equip(commands.Cog):
                 super().__init__(placeholder='Choose your favourite colour...', min_values=1, max_values=1, options=options)
 
             async def callback(self, interaction):
+                if interaction.user.id != inte.user.id:
+                    return
                 data = execute(f'''
                 UPDATE hero SET
                 weapon_id = (?)
@@ -47,7 +49,7 @@ class Equip(commands.Cog):
         view = View()
         view.add_item(Dropdown(data))
 
-        await inte.response.send_message('Select an equipment to equip:', view=view)
+        await inte.response.send_message('Select an equipment to equip:', view=view, ephemeral=True)
         
         
         
@@ -70,6 +72,8 @@ class Equip(commands.Cog):
                 super().__init__(placeholder='Choose your favourite colour...', min_values=1, max_values=1, options=options)
 
             async def callback(self, interaction):
+                if interaction.user.id != inte.user.id:
+                    return
                 data = execute(f'''
                 UPDATE hero SET
                 armor_id = (?)
@@ -92,7 +96,7 @@ class Equip(commands.Cog):
         view.add_item(Dropdown(data))
 
         # Enviar el mensaje con el Select
-        await inte.response.send_message('Select an equipment to equip:', view=view)
+        await inte.response.send_message('Select an equipment to equip:', view=view, ephemeral=True)
 
 
 
