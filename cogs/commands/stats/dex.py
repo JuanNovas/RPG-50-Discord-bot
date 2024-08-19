@@ -12,7 +12,7 @@ class Dex(commands.Cog):
         if not await hero_created(inte):
             return
         
-        await inte.response.send_message('Select a zone to go:', embed=get_dex_embed(inte.user.id))
+        await inte.response.send_message(embed=get_dex_embed(inte.user.id))
 
 async def setup(bot):
     await bot.add_cog(Dex(bot))
