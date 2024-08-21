@@ -24,7 +24,7 @@ class ChangeHero(commands.Cog):
                 options = []
                 
                 for hero in data:
-                    options.append(SelectOption(value=hero["id"], label=f"{class_dict[hero['class']].__name__} level {hero['level']}", description=f"gold: {hero['gold']} & xp:{hero['xp']}", emoji='🟦'))
+                    options.append(SelectOption(value=hero["id"], label=f"{class_dict[hero['class']]().classname} level {hero['level']}", description=f"gold: {hero['gold']} & xp:{hero['xp']}", emoji='🟦'))
                     
                 super().__init__(placeholder='Select a Hero', min_values=1, max_values=1, options=options)
         
