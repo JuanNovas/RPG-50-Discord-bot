@@ -1,6 +1,5 @@
 from discord import app_commands
 from discord.ext import commands
-from cogs.utils.lock_manager import lock_manager
 from typing import Any
 
 def same_user(original_func):

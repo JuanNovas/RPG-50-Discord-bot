@@ -1,6 +1,5 @@
 from discord import app_commands
 from discord.ext import commands
-from cogs.utils.lock_manager import lock_manager
 from cogs.utils.game_loop.fight import NewFight
 from cogs.utils.hero_check import hero_created
 from cogs.game.zones.encounters import get_enemy_from_zone
@@ -15,10 +14,7 @@ class Fight(commands.Cog):
     async def fight(self, inte):
         if not await hero_created(inte):
             return
-        
-        if not lock_manager.command_lock(inte.user.id):
-            await inte.response.send_message("User using a command")
-            return
+
 
         zone_id = get_zone(inte.user.id)
         
@@ -27,7 +23,7 @@ class Fight(commands.Cog):
         
         await inte.response.send_message("Loading")
         
-        await NewFight(inte).fight(user,enemy,end=lambda user_id=inte.user.id : lock_manager.unlock(user_id))
+        await NewFight(inte).fight(user,enemy)
 
 async def setup(bot):
     await bot.add_cog(Fight(bot))
