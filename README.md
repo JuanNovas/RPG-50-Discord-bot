@@ -14,6 +14,11 @@ An interactive role-playing game for Discord where players can battle enemies, t
 - **Dex Tracker:** Track your progress and the enemies you’ve encountered with the Dex tracker.
 - **Five Unique Zones:** Explore five different zones, each with distinct enemies and loot.
 
+## Documentation
+- [Commands](docs/Commands.md)
+- [Logic and Formulas](docs/Logic_and_formulas.md)
+- [Database](docs/Database.md)
+
 ## Installation
 
 1. Clone the repository:
@@ -74,8 +79,3 @@ An interactive role-playing game for Discord where players can battle enemies, t
    python bot.py
     ```
 
-
-## Documentation
-- [Commands](docs/Commands.md)
-- [Logic and Formulas](docs/Logic_and_formulas.md)
-- [Database](docs/Database.md)
