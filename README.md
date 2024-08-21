@@ -76,6 +76,6 @@ An interactive role-playing game for Discord where players can battle enemies, t
 
 
 ## Documentation
-- **Commands**: [docs]
-- **Logic and formulas**: [docs]
-- **Database**: [docs]
+- [Commands](docs/Commands.md)
+- [Logic and Formulas](docs/Logic_and_formulas.md)
+- [Database](docs/Database.md)
