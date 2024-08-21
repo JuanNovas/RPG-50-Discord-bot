@@ -24,7 +24,7 @@ class Equip(commands.Cog):
                     item_obj = weapon_dict[item["item_id"]]()
                     options.append(SelectOption(value=item["item_id"] ,label=item_obj.name, description=f"Id: {item_obj.id}  &  Level: {item['level']}", emoji='🟦'))
                 
-                super().__init__(placeholder='Choose your favourite colour...', min_values=1, max_values=1, options=options)
+                super().__init__(placeholder='Choose an item to equip', min_values=1, max_values=1, options=options)
 
             async def callback(self, interaction):
                 if interaction.user.id != inte.user.id:
@@ -69,7 +69,7 @@ class Equip(commands.Cog):
                     item_obj = armor_dict[item["item_id"]]()
                     options.append(SelectOption(value=item["item_id"] ,label=item_obj.name, description=f"Id: {item_obj.id}  &  Level: {item['level']}", emoji='🟦'))
                 
-                super().__init__(placeholder='Choose your favourite colour...', min_values=1, max_values=1, options=options)
+                super().__init__(placeholder='Choose an item to equip', min_values=1, max_values=1, options=options)
 
             async def callback(self, interaction):
                 if interaction.user.id != inte.user.id:
