@@ -2,23 +2,27 @@ import discord
 from discord.ext import commands
 import os
 from dotenv import load_dotenv
-
-# Cargar variables de entorno desde el archivo .env
 load_dotenv()
 
-# Obtener el token del bot desde la variable de entorno
-TOKEN = os.getenv('DISCORD_TOKEN')
 
+def get_token():   
+    TOKEN = os.getenv('DISCORD_TOKEN')
+    if TOKEN == None:
+        raise RuntimeError("The 'DISCORD_TOKEN' environment variable was not found. Please make sure it is set in your .env file.")
+    return TOKEN
+    
+    
+TOKEN = get_token()
 # Intents
 intents = discord.Intents.default()
 intents.message_content = True
 intents.guilds = True
 
-# Configuración del bot
-prefix = "!"  # Puedes cambiar el prefijo del bot aquí si lo deseas
+
+prefix = "!"  
 bot = commands.Bot(command_prefix=prefix, intents=intents, help_command=None)
 
-# Cargar la extensión
+
 async def load_extensions():
         await load("cogs/commands/combat")
         await load("cogs/commands/database")
@@ -35,7 +39,7 @@ async def load(folder):
             cog_name = folder.replace("/", ".").replace("\\",".") + "." + filename[:-3]
             await bot.load_extension(cog_name)
 
-# Evento de inicio del bot
+
 @bot.event
 async def on_ready():
     print("Loading")
