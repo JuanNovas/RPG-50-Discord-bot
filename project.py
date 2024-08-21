@@ -12,7 +12,6 @@ def get_token():
     return TOKEN
     
     
-TOKEN = get_token()
 # Intents
 intents = discord.Intents.default()
 intents.message_content = True
@@ -30,14 +29,17 @@ async def load_extensions():
         await load("cogs/commands/heroes")
         await load("cogs/commands/resources")
         await load("cogs/commands/stats")
-        await load("cogs/commands/test")
+        await load("cogs/commands/help")
         await load("cogs/commands/zones")
+        return True
 
 async def load(folder):
     for filename in os.listdir(folder):
         if filename.endswith(".py") and filename != "__init__.py":
             cog_name = folder.replace("/", ".").replace("\\",".") + "." + filename[:-3]
             await bot.load_extension(cog_name)
+            
+    return True
 
 
 @bot.event
@@ -51,5 +53,7 @@ async def on_ready():
         print(e)
     print(f'{bot.user.name} has connected to Discord!')
     
-bot.run(TOKEN)
-
+    
+if __name__ == "__main__":
+    TOKEN = get_token()
+    bot.run(TOKEN)
