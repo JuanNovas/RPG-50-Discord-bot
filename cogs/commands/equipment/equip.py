@@ -44,7 +44,7 @@ class Equip(commands.Cog):
         ''', (inte.user.id,))
 
         if data == []:
-            return await inte.response.send_message("No armors")
+            return await inte.response.send_message("No weapon")
 
         view = View()
         view.add_item(Dropdown(data))
