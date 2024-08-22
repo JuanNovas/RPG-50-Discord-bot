@@ -53,7 +53,9 @@ async def on_ready():
         print(e)
     print(f'{bot.user.name} has connected to Discord!')
     
-    
-if __name__ == "__main__":
+def main():
     TOKEN = get_token()
     bot.run(TOKEN)
+    
+if __name__ == "__main__":
+    main()
