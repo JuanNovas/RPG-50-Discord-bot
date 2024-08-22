@@ -45,3 +45,6 @@ Contains documentation of the project.
 One of the biggest Challenges was learning how to use the discord library. And in functionalities, the combat system and coop modes where the hardest to implement and the ones with the most challenges. This is because discord bots are not intend to be use in this way at first, so there are not a lot of built-in functionalyties to manage this type od events.
 
 The enmies disign was another tedious work, creating more than 20 enemies with its unique stats and habilities is easier said than done, after then tenth is harder and harder to came up with a good and unique idea.
+
+## Acknowledgements
+This project was made by Juan Novas [(Linkedin profile)](https://www.linkedin.com/in/juan-novas/) and Juan Marcos [(Linkedin profile)](https://www.linkedin.com/in/juan-ignacio-marcos-b20789276/)
