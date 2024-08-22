@@ -47,4 +47,4 @@ One of the biggest Challenges was learning how to use the discord library. And i
 The enmies disign was another tedious work, creating more than 20 enemies with its unique stats and habilities is easier said than done, after then tenth is harder and harder to came up with a good and unique idea.
 
 ## Acknowledgements
-This project was made by Juan Novas [(Linkedin profile)](https://www.linkedin.com/in/juan-novas/) and Juan Marcos [(Linkedin profile)](https://www.linkedin.com/in/juan-ignacio-marcos-b20789276/)
+This project was made by Juan Novas [(Linkedin profile)](https://www.linkedin.com/in/juan-novas/) and Juan Marcos [(Linkedin profile)](https://www.linkedin.com/in/juan-ignacio-marcos-b20789276/) as our final project for CS50 Python.
