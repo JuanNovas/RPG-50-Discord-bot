@@ -1,5 +1,4 @@
 # RPG 50 🎮🛡️
-
 An interactive role-playing game for Discord where players can battle enemies ⚔️, trade resources 💰, upgrade equipment 🛠️, and much more. Experience a turn-based, single-player or cooperative adventure through interactive commands. This bot was developed as the final project for Harvard's CS50 Python course. 🎓
 
 
@@ -21,6 +20,7 @@ An interactive role-playing game for Discord where players can battle enemies �
 - [Commands](docs/Commands.md)
 - [Logic and Formulas](docs/Logic_and_formulas.md)
 - [Database](docs/Database.md)
+- [In deep](docs/In_deep.md)
 
 ## Installation
 
