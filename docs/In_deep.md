@@ -1,5 +1,5 @@
 # YOUR PROJECT TITLE
-#### Video Demo:  [Video](https://youtu.be/uzqa5VndlJQ)
+#### Video Demo:  [Video](https://youtu.be/6s4parF6f0I)
 #### Description:
 RPG 50 is an interactive, text-based role-playing game (RPG) bot designed for Discord. It allows players to become immersed in a comprehensive fantasy world, wherein they can engage in battles, trade resources, upgrade equipment, and experience exhilarating adventures, either independently or with companions.
 

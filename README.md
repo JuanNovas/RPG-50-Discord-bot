@@ -3,7 +3,7 @@ An interactive role-playing game for Discord where players can battle enemies âš
 
 ## Video showcase
 
-[Video link](https://youtu.be/uzqa5VndlJQ)
+[Video link](https://youtu.be/6s4parF6f0I)
 
 ## Features âœ¨
 
