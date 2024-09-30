@@ -24,7 +24,6 @@ bot = commands.Bot(command_prefix=prefix, intents=intents, help_command=None)
 
 async def load_extensions():
         await load("cogs/commands/combat")
-        await load("cogs/commands/database")
         await load("cogs/commands/equipment")
         await load("cogs/commands/heroes")
         await load("cogs/commands/resources")
