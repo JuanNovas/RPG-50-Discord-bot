@@ -1,6 +1,6 @@
 import asyncio
 import pytest
-from project import *
+from bot import *
 
 def test_get_token():
     try:
